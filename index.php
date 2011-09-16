@@ -48,36 +48,37 @@ else if ($_POST['register'])
 
 <body>
 	<div id="Container_Normal">
-		<h1 align="center">CyCal</h1>
-		<h1 align="center">Coming Soon</h1>
+		<div id="NoContainer">
+			<p align="center"><img src="img/Logo1.png" alt="" /></p>
+			<p align="center"><strong>Coming Soon!</strong></p>
+		</div>
+	</div>
+	<div id="spacer">
 	</div>
 	<div id="Container_Normal">
 		<div id="MainContainer">
+			<h2 align="center">Login</h2>
 			<form method='POST'>
-				<table align="center">
-					<tr>
-						<td>
-							<strong>Username:</strong>
-						</td> 
-						<td>
-							<input type='text' name='user'>
-						</td>
-						<td>
-							<input type='submit' name='submit' value='Log In'>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<strong>Password:</strong>
-						</td> 
-						<td>
-							<input type='password' name='pass'>
-						</td>
-						<td>
-							<input type='submit' name='register' value='Register'>
-						</td>
-					</tr>
-				</table>
+				<fieldset>
+					<table cellspacing="10px" cellpadding="10px">
+						<tr>
+							<td>
+								<input type='text' id="textbox" name='user' value="Username">
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<input type='password' id="textbox" name='pass' value="Password">
+							</td>
+						</tr>
+						<tr>
+							<td align="center">
+								<input type='submit' id="registerOnlyButton" name='register' value='Register'>
+								<input type='submit' id="submitOnlyButton" name='submit' value='Login'>
+							</td>
+						</tr>
+					</table>
+				</fieldset>
 			</form>
 		</div>
 	</div>

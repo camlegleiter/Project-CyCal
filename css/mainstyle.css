@@ -5,9 +5,13 @@
 	margin: 0px;
 	padding: 15px;
 	background-repeat: no-repeat;
-	background-color: #333333;
+	background-color: #CCCCCC;
 	background-position: right bottom;
 	background-attachment: fixed;
+}
+#NoContainer
+{
+	color: #333333;
 }
 h1 {
 	font-size: xx-large;
@@ -60,6 +64,17 @@ a:visited {
 	border-radius: 15px;
 	background-image: url('../img/WindowBack.png');
 }
+form {
+	background-image: url('../img/WindowBack.png');
+	padding: 15px;
+	-moz-border-radius: 15px;
+	border-radius: 15px;
+	width: 250px;
+	margin: 10px auto 10px auto;
+	text-align: center;
+}
+
+
 #Footer {
 	margin: 10px auto 50px auto;
 	padding: 15px;
@@ -70,4 +85,115 @@ a:visited {
 	right: auto;
 	left: auto;
 	text-align:center;
+}
+
+
+#formtextbox{
+	background:url('../img/submit_form.png') no-repeat left top;
+	border:none;
+	color:#888888;
+	height:31px;
+	left:10px;
+	line-height:31px;
+	padding-left:8px;
+
+	text-shadow:1px 1px 0 #FFFFFF;
+	top:10px;
+	width:223px;
+	outline:none;
+}
+#textbox{
+	background:url('../img/submit_form.png') no-repeat left bottom;
+	border:none;
+	color:#888888;
+	height:31px;
+	left:10px;
+	line-height:31px;
+	padding-left:8px;
+
+	text-shadow:1px 1px 0 #FFFFFF;
+	top:10px;
+	width:223px;
+	outline:none;
+}
+
+
+#submitButton{
+	background:url('../img/submit_form.png') no-repeat right top;
+	border:none;
+	cursor:pointer;
+	height:31px;
+	left:236px;
+	line-height:31px;
+	
+	text-indent:-99999px;
+	text-transform:uppercase;
+	top:10px;
+	width:96px;
+}
+
+#submitButton:hover{
+	background-position:right bottom;
+}
+
+
+#registerButton{
+	background:url('../img/register_form.png') no-repeat right top;
+	border:none;
+	cursor:pointer;
+	height:31px;
+	left:236px;
+	line-height:31px;
+	
+	text-indent:-99999px;
+	text-transform:uppercase;
+	top:10px;
+	width:96px;
+}
+
+#registerButton:hover{
+	background-position:right bottom;
+}
+#registerOnlyButton{
+	background:url('../img/register_button.png') no-repeat right top;
+	border:none;
+	cursor:pointer;
+	height:31px;
+	line-height:31px;
+	text-indent:-99999px;
+	text-transform:uppercase;
+	top:10px;
+	width:96px;
+}
+
+#registerOnlyButton:hover{
+	background-position:right bottom;
+}
+#submitOnlyButton{
+	background:url('../img/submit_button.png') no-repeat right top;
+	border:none;
+	cursor:pointer;
+	height:31px;
+	line-height:31px;
+	text-indent:-99999px;
+	text-transform:uppercase;
+	top:10px;
+	width:96px;
+}
+
+#submitOnlyButton:hover{
+	background-position:right bottom;
+}
+
+#spacer{
+    height:50px;
+}
+
+
+table {
+	margin-left: auto;
+	margin-right: auto;
+}
+input {
+	margin: 10px;
 }
