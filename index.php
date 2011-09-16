@@ -15,7 +15,7 @@ background-color:#b0c4de;
 }
 </style>
 
-<body style="background-image: url('Images/cool-background_017.jpg')">
+<body style="background-image: url('img/cool-background_017.jpg')">
 <?php
 require("includes/connect.php");
 ?>

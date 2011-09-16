@@ -1,25 +1,9 @@
 <html>
 <head>
-<style type="text/css">
-table,th,td
-{
-
-}
-body
-{
-background-color:#b0c4de;
-)
-}
-.auto-style1 {
-	color: #FFFFFF;
-}
-</style>
-</head>
 
 <body style="background-image: url('img/cool-background_017.jpg')">
 <?php
 require("includes/connect.php");
-
 ?>
 
 
@@ -27,46 +11,46 @@ require("includes/connect.php");
 <div style="margin-bottom: 3px; padding: 3px;"></div>
 <div style="clear:both; height:200px; margin:0px; padding:0px;"></div>
     <meta http-equiv="content-type" content="text/html; charset=utf-8" /> 
+</head>
 
-
+<?php
+?>
 <table align="center">
 <form method='POST'>
 <tr><td><strong><span class="auto-style1">Username:</span></strong></td> 
-<td><input type='text' name='user'></td></tr>
+<td><input type='text' name='user'></td>
+<td><input type='submit' name='submit' value='Log In'></td></tr>
 <tr><td class="auto-style1"><strong>Password:</strong></td> 
 <td><input type='password' name='pass'></td>
-</tr>
-<tr><td class="auto-style1"><strong>Beta Key:</strong></td>
-<td><input type='password' name='beta'></td>
-</tr>
-<tr>
-<td></td><td><input type='submit' name='register' value='Register'></td>
+<td><input type='submit' name='register' value='Register'></td>
 </tr>
 </form>
 </table>
 
 <?php
-if($_POST['register']){
+if($_POST['submit']){
 $user = mysql_real_escape_string($_POST['user']);
 $pass = mysql_real_escape_string($_POST['pass']);
-$beta = mysql_real_escape_string($_POST['beta']);
-$extract = mysql_query("SELECT * FROM users WHERE username='".$user."'");
+$extract = mysql_query("SELECT * FROM users WHERE username='".$user."' AND password='".md5($pass)."'");
 $numrows = mysql_num_rows($extract);
 if($user != ''){
-	if($numrows != 0){
-	echo "User Name Already Registered!!";
-	}
-	if($beta !="feedme"){
-	echo"Wrong beta key!";
+	if($numrows == 0){
+	echo "Access Denied! ".mysql_error();
+	echo "  |  SELECT * FROM users WHERE username='".$user."' AND password='".md5($pass)."'";
 	}
 	else{
-	$write = mysql_query("INSERT INTO users(username,password,salt) VALUES('".$user."','".md5($pass)."','no')");
-
-	if (!$write)
-	{
-		die(mysql_error());
-	}
 	echo"You are In!";
+//	session_start();
+//	$row = mysql_fetch_assoc($extract);
+//	$id = $row['id'];
+//	$write = $row['writeable'];
+//	$_SESSION['id']= $id;
+//		if($write){
+//		header("Location: add_delete.php");
+//		}
+//		else{
+//		header("Location: server_info.php");
+//		}
 	}
 }
 }
