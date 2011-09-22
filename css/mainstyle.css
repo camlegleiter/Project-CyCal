@@ -1,6 +1,5 @@
 ﻿body {
 	background-image: url('../img/BackgroundBottom.png');
-	color: #FFFFFF;
 	font-family: Verdana, Geneva, Tahoma, sans-serif;
 	margin: 0px;
 	padding: 15px;
@@ -15,33 +14,29 @@
 }
 h1 {
 	font-size: xx-large;
-	color: #CCCCCC;
 	padding-top: 10px;
 	padding-bottom: 10px;
 }
 h2 {
 	font-size: x-large;
-	color: #CCCCCC;
 	padding-top: 5px;
 	padding-bottom: 5px;
 }
 h3 {
 	font-size: large;
-	color: #CCCCCC;
 }
 h4,h5,h6 {
-	color: #CCCCCC;
 }
 a {
-	color: #800000;
+	color: #FFFFFF;
 	text-decoration: none;
 }
 a:active, a:hover {
-	color: #800000;
+	color: #FFFFFF;
 	text-decoration: underline;
 }
 a:visited {
-	color: #990000;
+	color: #FFFFFF;
 	text-decoration: none;
 }
 #Container_Skinny{
@@ -102,6 +97,11 @@ form {
 	width:223px;
 	outline:none;
 }
+
+#headers{
+	color:#CCCCCC;
+}
+
 #textbox{
 	background:url('../img/submit_form.png') no-repeat left bottom;
 	border:none;
