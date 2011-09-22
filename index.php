@@ -28,7 +28,7 @@ if($_POST['submit']){
 		}
 	}
 }
-else if($_POST['register']){
+else if ($_POST['register']){
 	$user = mysql_real_escape_string($_POST['user']);
 	$pass = mysql_real_escape_string($_POST['pass']);
 	$beta = mysql_real_escape_string($_POST['beta']);
@@ -50,6 +50,10 @@ else if($_POST['register']){
 		}
 			echo"You are In!";
 		}
+	}
+	else
+	{
+		echo "Blah!";
 	}
 }
 ?>
@@ -113,7 +117,7 @@ else if($_POST['register']){
 							<tr>
 								<td align="center">
 									<input type='submit' id="submitOnlyButton" name='submit' value='Login'>
-									<input type='button' id="registerOnlyButton" name='register' value='RegisterToggle'>
+									<input type='button' id="registerOnlyButton" name='register' value='RegisterToggle'>	
 								</td>
 							</tr>
 					</table>
@@ -149,14 +153,17 @@ else if($_POST['register']){
 					$('#RegisterDivPass').hide();
 					$('#RegisterDivBeta').hide();
 					regShow = false;
-					$('#submitOnlyButton').attr('value','Login');
+					$('#submitOnlyButton').attr('name','submit');
+					$('#cancelOnlyButton').attr('id', 'registerOnlyButton');
 				}
 				else
 				{
 					$('#RegisterDivPass').show();
 					$('#RegisterDivBeta').show();
 					regShow = true;
-					$('#submitOnlyButton').attr('value','Register');
+					$('#submitOnlyButton').attr('name','register');
+					$('#registerOnlyButton').attr('id', 'cancelOnlyButton');
+
 				}
 				//location.href='register.php';
 			});			
