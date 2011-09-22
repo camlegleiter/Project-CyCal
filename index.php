@@ -6,9 +6,11 @@ function adderror($error){
 	$errorarray[] = $error;
 }
 
-global $successmsg = "";
+global $successmsg;
+global $registerPage;
 
 if($_POST['submit']){
+	$registerPage = false;
 	$user = mysql_real_escape_string($_POST['user']);
 	$pass = mysql_real_escape_string($_POST['pass']);
 	$extract = mysql_query("SELECT * FROM users WHERE username='".$user."' AND password='".md5($pass)."'");
@@ -18,7 +20,7 @@ if($_POST['submit']){
 			adderror("Invalid username and/or password.");
 		}
 		else{
-			$successmsg = "$user has been logged in!";
+			$successmsg = "<strong>$user</strong> has been logged in!";
 		//	session_start();
 		//	$row = mysql_fetch_assoc($extract);
 		//	$id = $row['id'];
@@ -39,6 +41,7 @@ if($_POST['submit']){
 	}
 }
 else if ($_POST['register']){
+	$registerPage = true;
 	$user = mysql_real_escape_string($_POST['user']);
 	$pass = mysql_real_escape_string($_POST['pass']);
 	$pass2 = mysql_real_escape_string($_POST['pass2']);
@@ -79,7 +82,7 @@ else if ($_POST['register']){
 			}
 			else
 			{
-				$successmsg = "$user has been successfully register!";
+				$successmsg = "<strong>$user</strong> has been successfully register!";
 			}
 		}
 	}
@@ -88,40 +91,26 @@ else if ($_POST['register']){
 		adderror("Please enter a username.");
 	}
 }
+else
+{
+	$registerPage = false;
+}
+
+$title = "CyCal";
+include 'includes/header.php';
 ?>
-<html>
-<head>
-
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>Canvas - CyCal</title>
-	
-	<link href="css/reset.css" rel="stylesheet" type="text/css">
-	<link href="css/mainstyle.css" rel="stylesheet" type="text/css">
-	
-	<link href="js/css/jquery-ui.css" rel="stylesheet" type="text/css">
-	<script type="text/javascript" src="js/jquery-1.6.2.min.js"></script>
-	<script type="text/javascript" src="js/jquery-ui.min.js"></script>	
-
-</head>
-
-<body>
-	<div id="Container_Normal">
-		<div id="NoContainer">
-			<p align="center"><img src="img/Logo2.png" alt="" /></p>
-		</div>
-	</div>
-	<div id="Container_Normal">
+	<div id="Container_Skinny">
 		<div id="MainContainer">
-			<?php
-				foreach($errorarray as $value)
-					echo "<p>$value</p>";
-				if ($successmsg != "")
-					echo "<p>$successmsg</p>";
-				unset($errorarray);
-				unset($successmsg);
-			?>
-			<h2 align="center">Login</h2>
+			<h2 align="center" id="LoginRegisterTxt">Login</h2>
 			<form method='POST'>
+				<?php
+					foreach($errorarray as $value)
+						echo "<p class='error' align='center'>$value</p>";
+					if ($successmsg != "")
+						echo "<p class='success' align='center'>$successmsg</p>";
+					unset($errorarray);
+					unset($successmsg);
+				?>
 				<fieldset>
 					<table cellspacing="10px" cellpadding="10px">
 						<tr>
@@ -164,35 +153,43 @@ else if ($_POST['register']){
 			</form>
 		</div>
 	</div>
-	<div id="Container_Normal">
-		<div id="MainContainer">
-			<h2>News / Updates</h2>
-			<p>None now!</p>
-			<?php
-				//Fetch news!
-			?>
-		</div>
-	</div>
 	
-	<div id="Footer">
-		<div id="MainContainer">
-			<p><a href="#">Home</a> | <a href="#">About</a> | <a href="#">Help</a></p>
-		</div>
-	</div>
-
+	<?php 
+		include 'news.php';
+	?>
+	
 	<script type="text/javascript">
 		$(document).ready(function(){
 			var regShow = false;
-			$('#RegisterDivPass').hide();
-			$('#RegisterDivBeta').hide();
-
-			$('#registerOnlyButton').click(function(){
+			
+			<?php
+				if (!$registerPage)
+				{
+					echo "
+						$('#RegisterDivPass').hide();
+						$('#RegisterDivBeta').hide();
+					";
+				}
+				else
+				{
+					echo "
+						regShow = true;
+						$('#submitOnlyButton').attr('name','register');
+						$('#registerOnlyButton').attr('id', 'cancelOnlyButton');
+						$('#LoginRegisterTxt').html('Register');
+					";
+				}
+			?>
+			
+			<?php if (!$registerPage) echo "$('#registerOnlyButton')"; else echo "$('#cancelOnlyButton')"; ?>
+			.click(function(){
 				if (regShow)
 				{
 					$('#RegisterDivBeta').hide('fade',{},500,function(){$('#RegisterDivPass').hide('fade',{},500);});
 					regShow = false;
 					$('#submitOnlyButton').attr('name','submit');
 					$('#cancelOnlyButton').attr('id', 'registerOnlyButton');
+					$('#LoginRegisterTxt').html('Login');
 				}
 				else
 				{
@@ -200,6 +197,7 @@ else if ($_POST['register']){
 					regShow = true;
 					$('#submitOnlyButton').attr('name','register');
 					$('#registerOnlyButton').attr('id', 'cancelOnlyButton');
+					$('#LoginRegisterTxt').html('Register');
 
 				}
 				//location.href='register.php';
@@ -207,5 +205,6 @@ else if ($_POST['register']){
 			
 		});
 	</script>
-</body>
-</html>
+<?php
+include 'includes/footer.php';
+?>
