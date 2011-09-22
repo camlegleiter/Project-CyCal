@@ -153,9 +153,8 @@ document.getElementById("usernametxtbox").innerHTML="";
 
 							<td align="center">
 
-								<input type='submit' id="registerOnlyButton" name='register' value='Register'>
-
 								<input type='submit' id="submitOnlyButton" name='submit' value='Login'>
+								<input type='button' onclick="location.href='register.php'" id="registerOnlyButton" name='register' value='Register'>
 
 							</td>
 
