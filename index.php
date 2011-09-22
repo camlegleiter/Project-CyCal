@@ -105,7 +105,7 @@ document.getElementById("usernametxtbox").innerHTML="";
 
 		<div id="NoContainer">
 
-			<p align="center"><img src="img/Logo1.png" alt="" /></p>
+			<p align="center"><img src="img/Logo2.png" alt="" /></p>
 
 			<p align="center"><strong>Coming Soon!</strong></p>
 
