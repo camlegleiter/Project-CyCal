@@ -8,9 +8,8 @@ if($_POST['submit']){
 	$numrows = mysql_num_rows($extract);
 	if($user != ''){
 		if($numrows == 0){
-			echo "Access Denied! ".mysql_error();
-			echo "  |  SELECT * FROM users WHERE username='".$user."' AND password='".md5($pass)."'";
-		}
+			echo "Wrong Username or Password!";		
+			}
 		else{
 			echo"You are In!";
 		//	session_start();
@@ -27,10 +26,6 @@ if($_POST['submit']){
 	//		}
 		}
 	}
-}
-else if ($_POST['register'])
-{
-	//Send header redirect
 }
 ?>
 
@@ -73,8 +68,8 @@ else if ($_POST['register'])
 						</tr>
 						<tr>
 							<td align="center">
-								<input type='submit' id="registerOnlyButton" name='register' value='Register'>
 								<input type='submit' id="submitOnlyButton" name='submit' value='Login'>
+								<input type='button' onclick="location.href='register.php'" id="registerOnlyButton" name='register' value='Register'>
 							</td>
 						</tr>
 					</table>
