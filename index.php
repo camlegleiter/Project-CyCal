@@ -1,18 +1,26 @@
 <?php
 require("includes/connect.php");
 
+function adderror($error){
+	global $errorarray;
+	$errorarray[] = $error;
+}
+
+global $successmsg;
+global $registerPage;
+
 if($_POST['submit']){
+	$registerPage = false;
 	$user = mysql_real_escape_string($_POST['user']);
 	$pass = mysql_real_escape_string($_POST['pass']);
 	$extract = mysql_query("SELECT * FROM users WHERE username='".$user."' AND password='".md5($pass)."'");
 	$numrows = mysql_num_rows($extract);
 	if($user != ''){
 		if($numrows == 0){
-			echo "Access Denied! ".mysql_error();
-			echo "  |  SELECT * FROM users WHERE username='".$user."' AND password='".md5($pass)."'";
+			adderror("Invalid username and/or password.");
 		}
 		else{
-			echo"You are In!";
+			$successmsg = "<strong>$user</strong> has been logged in!";
 		//	session_start();
 		//	$row = mysql_fetch_assoc($extract);
 		//	$id = $row['id'];
@@ -27,62 +35,82 @@ if($_POST['submit']){
 	//		}
 		}
 	}
+	else
+	{
+		adderror("Invalid username and/or password.");
+	}
 }
 else if ($_POST['register']){
+	$registerPage = true;
 	$user = mysql_real_escape_string($_POST['user']);
 	$pass = mysql_real_escape_string($_POST['pass']);
+	$pass2 = mysql_real_escape_string($_POST['pass2']);
 	$beta = mysql_real_escape_string($_POST['beta']);
 	$extract = mysql_query("SELECT * FROM users WHERE username='".$user."'");
 	$numrows = mysql_num_rows($extract);
 	if($user != ''){
+		if(strlen($user)<4 || strlen($user)>32)
+		{
+			adderror("Your username must be between 3 and 32 characters!");
+		}
+		if(preg_match('/[^a-z0-9\-\_\.]+/i',$user))
+		{
+			adderror("Your username contains invalid characters!");
+		}
+		if(strlen($pass) < 8)
+		{
+			adderror("Your password needs to be 8 characters or more!");
+		}
+		if ($pass != $pass2)
+		{
+			adderror("Password fields do not match.");
+		}
 		if($numrows != 0){
-			echo "User Name Already Registered!!";
+			adderror("Username already exists.  Try another.");
 		}
-		if($beta !="feedme"){
-			echo"Wrong beta key!";
+		
+		if($beta != "feedme"){
+			adderror("Invalid Beta Key!");
 		}
-		else{
+		
+		if (sizeof($errorarray) == 0){
 			$write = mysql_query("INSERT INTO users(username,password,salt) VALUES('".$user."','".md5($pass)."','no')");
 	
-		if (!$write)
-		{
-			die(mysql_error());
-		}
-			echo"You are In!";
+			if (!$write)
+			{
+				adderror("We dun goofed! Try again!");
+			}
+			else
+			{
+				$successmsg = "<strong>$user</strong> has been successfully register!";
+			}
 		}
 	}
 	else
 	{
-		echo "Blah!";
+		adderror("Please enter a username.");
 	}
 }
+else
+{
+	$registerPage = false;
+}
+
+$title = "CyCal";
+include 'includes/header.php';
 ?>
-<html>
-<head>
-
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>Canvas - CyCal</title>
-	
-	<link href="css/reset.css" rel="stylesheet" type="text/css">
-	<link href="css/mainstyle.css" rel="stylesheet" type="text/css">
-	
-	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
-
-</head>
-
-<body>
-	<div id="Container_Normal">
-		<div id="NoContainer">
-			<p align="center"><img src="img/Logo2.png" alt="" /></p>
-			<p align="center"><strong>Coming Soon!</strong></p>
-		</div>
-	</div>
-	<div id="spacer">
-	</div>
-	<div id="Container_Normal">
+	<div id="Container_Skinny">
 		<div id="MainContainer">
-			<h2 align="center">Login</h2>
+			<h2 align="center" id="LoginRegisterTxt">Login</h2>
 			<form method='POST'>
+				<?php
+					foreach($errorarray as $value)
+						echo "<p class='error' align='center'>$value</p>";
+					if ($successmsg != "")
+						echo "<p class='success' align='center'>$successmsg</p>";
+					unset($errorarray);
+					unset($successmsg);
+				?>
 				<fieldset>
 					<table cellspacing="10px" cellpadding="10px">
 						<tr>
@@ -125,44 +153,51 @@ else if ($_POST['register']){
 			</form>
 		</div>
 	</div>
-	<div id="Container_Normal">
-		<div id="MainContainer">
-			<h2>News / Updates</h2>
-			<p>None now!</p>
-			<?php
-				//Fetch news!
-			?>
-		</div>
-	</div>
 	
-	<div id="Footer">
-		<div id="MainContainer">
-			<p><a href="#">Home</a> | <a href="#">About</a> | <a href="#">Help</a></p>
-		</div>
-	</div>
-
+	<?php 
+		include 'news.php';
+	?>
+	
 	<script type="text/javascript">
 		$(document).ready(function(){
 			var regShow = false;
-			$('#RegisterDivPass').hide();
-			$('#RegisterDivBeta').hide();
-
-			$('#registerOnlyButton').click(function(){
-				if (regShow)
+			
+			<?php
+				if (!$registerPage)
 				{
-					$('#RegisterDivPass').hide();
-					$('#RegisterDivBeta').hide();
-					regShow = false;
-					$('#submitOnlyButton').attr('name','submit');
-					$('#cancelOnlyButton').attr('id', 'registerOnlyButton');
+					echo "
+						$('#RegisterDivPass').hide();
+						$('#RegisterDivBeta').hide();
+					";
 				}
 				else
 				{
-					$('#RegisterDivPass').show();
-					$('#RegisterDivBeta').show();
+					echo "
+						regShow = true;
+						$('#submitOnlyButton').attr('name','register');
+						$('#registerOnlyButton').attr('id', 'cancelOnlyButton');
+						$('#LoginRegisterTxt').html('Register');
+					";
+				}
+			?>
+			
+			<?php if (!$registerPage) echo "$('#registerOnlyButton')"; else echo "$('#cancelOnlyButton')"; ?>
+			.click(function(){
+				if (regShow)
+				{
+					$('#RegisterDivBeta').hide('fade',{},500,function(){$('#RegisterDivPass').hide('fade',{},500);});
+					regShow = false;
+					$('#submitOnlyButton').attr('name','submit');
+					$('#cancelOnlyButton').attr('id', 'registerOnlyButton');
+					$('#LoginRegisterTxt').html('Login');
+				}
+				else
+				{
+					$('#RegisterDivPass').show('fade',{},500,function(){$('#RegisterDivBeta').show('fade',{},500);});
 					regShow = true;
 					$('#submitOnlyButton').attr('name','register');
 					$('#registerOnlyButton').attr('id', 'cancelOnlyButton');
+					$('#LoginRegisterTxt').html('Register');
 
 				}
 				//location.href='register.php';
@@ -170,5 +205,6 @@ else if ($_POST['register']){
 			
 		});
 	</script>
-</body>
-</html>
+<?php
+include 'includes/footer.php';
+?>
