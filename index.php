@@ -6,6 +6,8 @@ function adderror($error){
 	$errorarray[] = $error;
 }
 
+global $successmsg = "";
+
 if($_POST['submit']){
 	$user = mysql_real_escape_string($_POST['user']);
 	$pass = mysql_real_escape_string($_POST['pass']);
@@ -16,7 +18,7 @@ if($_POST['submit']){
 			adderror("Invalid username and/or password.");
 		}
 		else{
-			adderror("You are in!");
+			$successmsg = "$user has been logged in!";
 		//	session_start();
 		//	$row = mysql_fetch_assoc($extract);
 		//	$id = $row['id'];
@@ -39,6 +41,7 @@ if($_POST['submit']){
 else if ($_POST['register']){
 	$user = mysql_real_escape_string($_POST['user']);
 	$pass = mysql_real_escape_string($_POST['pass']);
+	$pass2 = mysql_real_escape_string($_POST['pass2']);
 	$beta = mysql_real_escape_string($_POST['beta']);
 	$extract = mysql_query("SELECT * FROM users WHERE username='".$user."'");
 	$numrows = mysql_num_rows($extract);
@@ -55,7 +58,10 @@ else if ($_POST['register']){
 		{
 			adderror("Your password needs to be 8 characters or more!");
 		}
-
+		if ($pass != $pass2)
+		{
+			adderror("Password fields do not match.");
+		}
 		if($numrows != 0){
 			adderror("Username already exists.  Try another.");
 		}
@@ -63,14 +69,18 @@ else if ($_POST['register']){
 		if($beta != "feedme"){
 			adderror("Invalid Beta Key!");
 		}
-		else{
+		
+		if (sizeof($errorarray) == 0){
 			$write = mysql_query("INSERT INTO users(username,password,salt) VALUES('".$user."','".md5($pass)."','no')");
 	
-		if (!$write)
-		{
-			adderror("We dun goofed! Try again!");
-		}
-			adderror("You are in!");
+			if (!$write)
+			{
+				adderror("We dun goofed! Try again!");
+			}
+			else
+			{
+				$successmsg = "$user has been successfully register!";
+			}
 		}
 	}
 	else
@@ -105,6 +115,10 @@ else if ($_POST['register']){
 			<?php
 				foreach($errorarray as $value)
 					echo "<p>$value</p>";
+				if ($successmsg != "")
+					echo "<p>$successmsg</p>";
+				unset($errorarray);
+				unset($successmsg);
 			?>
 			<h2 align="center">Login</h2>
 			<form method='POST'>
