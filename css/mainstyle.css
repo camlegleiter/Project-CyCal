@@ -39,6 +39,9 @@ a:visited {
 	color: #FFFFFF;
 	text-decoration: none;
 }
+p#para {
+	margin-bottom:10px;
+}
 #Container_Skinny{
 	margin: 10px auto 10px auto;
 	width: 400px;
