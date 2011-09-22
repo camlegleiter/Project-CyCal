@@ -1,0 +1,199 @@
+﻿body {
+	background-image: url('../img/BackgroundBottom.png');
+	color: #FFFFFF;
+	font-family: Verdana, Geneva, Tahoma, sans-serif;
+	margin: 0px;
+	padding: 15px;
+	background-repeat: no-repeat;
+	background-color: #CCCCCC;
+	background-position: right bottom;
+	background-attachment: fixed;
+}
+#NoContainer
+{
+	color: #333333;
+}
+h1 {
+	font-size: xx-large;
+	color: #CCCCCC;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+h2 {
+	font-size: x-large;
+	color: #CCCCCC;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+h3 {
+	font-size: large;
+	color: #CCCCCC;
+}
+h4,h5,h6 {
+	color: #CCCCCC;
+}
+a {
+	color: #800000;
+	text-decoration: none;
+}
+a:active, a:hover {
+	color: #800000;
+	text-decoration: underline;
+}
+a:visited {
+	color: #990000;
+	text-decoration: none;
+}
+#Container_Skinny{
+	margin: 10px auto 10px auto;
+	width: 400px;
+}
+#Container_Normal{
+	width:600px;
+	margin: 10px auto 10px auto;
+}
+
+#Container_Wide{
+	width:800px;
+	margin: 10px auto 10px auto;
+}
+
+#MainContainer {
+	padding: 15px;
+	-moz-border-radius: 15px;
+	border-radius: 15px;
+	background-image: url('../img/WindowBack.png');
+}
+form {
+	background-image: url('../img/WindowBack.png');
+	padding: 15px;
+	-moz-border-radius: 15px;
+	border-radius: 15px;
+	width: 250px;
+	margin: 10px auto 10px auto;
+	text-align: center;
+}
+
+
+#Footer {
+	margin: 10px auto 50px auto;
+	padding: 15px;
+	font-size: small;
+	color: #C0C0C0;
+	text-transform: uppercase;
+	width: 800px;
+	right: auto;
+	left: auto;
+	text-align:center;
+}
+
+
+#formtextbox{
+	background:url('../img/submit_form.png') no-repeat left top;
+	border:none;
+	color:#888888;
+	height:31px;
+	left:10px;
+	line-height:31px;
+	padding-left:8px;
+
+	text-shadow:1px 1px 0 #FFFFFF;
+	top:10px;
+	width:223px;
+	outline:none;
+}
+#textbox{
+	background:url('../img/submit_form.png') no-repeat left bottom;
+	border:none;
+	color:#888888;
+	height:31px;
+	left:10px;
+	line-height:31px;
+	padding-left:8px;
+
+	text-shadow:1px 1px 0 #FFFFFF;
+	top:10px;
+	width:223px;
+	outline:none;
+}
+
+
+#submitButton{
+	background:url('../img/submit_form.png') no-repeat right top;
+	border:none;
+	cursor:pointer;
+	height:31px;
+	left:236px;
+	line-height:31px;
+	
+	text-indent:-99999px;
+	text-transform:uppercase;
+	top:10px;
+	width:96px;
+}
+
+#submitButton:hover{
+	background-position:right bottom;
+}
+
+
+#registerButton{
+	background:url('../img/register_form.png') no-repeat right top;
+	border:none;
+	cursor:pointer;
+	height:31px;
+	left:236px;
+	line-height:31px;
+	
+	text-indent:-99999px;
+	text-transform:uppercase;
+	top:10px;
+	width:96px;
+}
+
+#registerButton:hover{
+	background-position:right bottom;
+}
+#registerOnlyButton{
+	background:url('../img/register_button.png') no-repeat right top;
+	border:none;
+	cursor:pointer;
+	height:31px;
+	line-height:31px;
+	text-indent:-99999px;
+	text-transform:uppercase;
+	top:10px;
+	width:96px;
+}
+
+#registerOnlyButton:hover{
+	background-position:right bottom;
+}
+#submitOnlyButton{
+	background:url('../img/submit_button.png') no-repeat right top;
+	border:none;
+	cursor:pointer;
+	height:31px;
+	line-height:31px;
+	text-indent:-99999px;
+	text-transform:uppercase;
+	top:10px;
+	width:96px;
+}
+
+#submitOnlyButton:hover{
+	background-position:right bottom;
+}
+
+#spacer{
+    height:50px;
+}
+
+
+table {
+	margin-left: auto;
+	margin-right: auto;
+}
+input {
+	margin: 10px;
+}
