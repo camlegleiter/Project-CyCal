@@ -39,7 +39,7 @@ a:visited {
 	color: #FFFFFF;
 	text-decoration: none;
 }
-p#para {
+p.para {
 	margin-bottom:10px;
 }
 #Container_Skinny{
