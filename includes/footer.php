@@ -1,8 +1,3 @@
-<html>
-
-<body>
-
-
 	<div id="Footer">
 
 		<div id="MainContainer">
