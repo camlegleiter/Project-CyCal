@@ -39,9 +39,17 @@ a:visited {
 	color: #FFFFFF;
 	text-decoration: none;
 }
-p#para {
+p.para {
 	margin-bottom:10px;
 }
+p.error {
+	color:#A6212D;
+}
+p.success {
+	color:#DFBD00;
+}
+
+
 #Container_Skinny{
 	margin: 10px auto 10px auto;
 	width: 400px;
@@ -89,7 +97,7 @@ form {
 #formtextbox{
 	background:url('../img/submit_form.png') no-repeat left top;
 	border:none;
-	color:#888888;
+	color:#333333;
 	height:31px;
 	left:10px;
 	line-height:31px;
@@ -108,7 +116,7 @@ form {
 #textbox{
 	background:url('../img/submit_form.png') no-repeat left bottom;
 	border:none;
-	color:#888888;
+	color:#333333;
 	height:31px;
 	left:10px;
 	line-height:31px;
