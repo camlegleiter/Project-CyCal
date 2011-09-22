@@ -1,6 +1,11 @@
 <?php
 require("includes/connect.php");
 
+function adderror($error){
+	global $errorarray;
+	$errorarray[] = $error;
+}
+
 if($_POST['submit']){
 	$user = mysql_real_escape_string($_POST['user']);
 	$pass = mysql_real_escape_string($_POST['pass']);
@@ -8,11 +13,10 @@ if($_POST['submit']){
 	$numrows = mysql_num_rows($extract);
 	if($user != ''){
 		if($numrows == 0){
-			echo "Access Denied! ".mysql_error();
-			echo "  |  SELECT * FROM users WHERE username='".$user."' AND password='".md5($pass)."'";
+			adderror("Invalid username and/or password.");
 		}
 		else{
-			echo"You are In!";
+			adderror("You are in!");
 		//	session_start();
 		//	$row = mysql_fetch_assoc($extract);
 		//	$id = $row['id'];
@@ -27,6 +31,10 @@ if($_POST['submit']){
 	//		}
 		}
 	}
+	else
+	{
+		adderror("Invalid username and/or password.");
+	}
 }
 else if ($_POST['register']){
 	$user = mysql_real_escape_string($_POST['user']);
@@ -35,25 +43,39 @@ else if ($_POST['register']){
 	$extract = mysql_query("SELECT * FROM users WHERE username='".$user."'");
 	$numrows = mysql_num_rows($extract);
 	if($user != ''){
-		if($numrows != 0){
-			echo "User Name Already Registered!!";
+		if(strlen($user)<4 || strlen($user)>32)
+		{
+			adderror("Your username must be between 3 and 32 characters!");
 		}
-		if($beta !="feedme"){
-			echo"Wrong beta key!";
+		if(preg_match('/[^a-z0-9\-\_\.]+/i',$user))
+		{
+			adderror("Your username contains invalid characters!");
+		}
+		if(strlen($pass) < 8)
+		{
+			adderror("Your password needs to be 8 characters or more!");
+		}
+
+		if($numrows != 0){
+			adderror("Username already exists.  Try another.");
+		}
+		
+		if($beta != "feedme"){
+			adderror("Invalid Beta Key!");
 		}
 		else{
 			$write = mysql_query("INSERT INTO users(username,password,salt) VALUES('".$user."','".md5($pass)."','no')");
 	
 		if (!$write)
 		{
-			die(mysql_error());
+			adderror("We dun goofed! Try again!");
 		}
-			echo"You are In!";
+			adderror("You are in!");
 		}
 	}
 	else
 	{
-		echo "Blah!";
+		adderror("Please enter a username.");
 	}
 }
 ?>
@@ -66,7 +88,9 @@ else if ($_POST['register']){
 	<link href="css/reset.css" rel="stylesheet" type="text/css">
 	<link href="css/mainstyle.css" rel="stylesheet" type="text/css">
 	
-	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+	<link href="js/css/jquery-ui.css" rel="stylesheet" type="text/css">
+	<script type="text/javascript" src="js/jquery-1.6.2.min.js"></script>
+	<script type="text/javascript" src="js/jquery-ui.min.js"></script>	
 
 </head>
 
@@ -74,13 +98,14 @@ else if ($_POST['register']){
 	<div id="Container_Normal">
 		<div id="NoContainer">
 			<p align="center"><img src="img/Logo2.png" alt="" /></p>
-			<p align="center"><strong>Coming Soon!</strong></p>
 		</div>
-	</div>
-	<div id="spacer">
 	</div>
 	<div id="Container_Normal">
 		<div id="MainContainer">
+			<?php
+				foreach($errorarray as $value)
+					echo "<p>$value</p>";
+			?>
 			<h2 align="center">Login</h2>
 			<form method='POST'>
 				<fieldset>
@@ -150,16 +175,14 @@ else if ($_POST['register']){
 			$('#registerOnlyButton').click(function(){
 				if (regShow)
 				{
-					$('#RegisterDivPass').hide();
-					$('#RegisterDivBeta').hide();
+					$('#RegisterDivBeta').hide('fade',{},500,function(){$('#RegisterDivPass').hide('fade',{},500);});
 					regShow = false;
 					$('#submitOnlyButton').attr('name','submit');
 					$('#cancelOnlyButton').attr('id', 'registerOnlyButton');
 				}
 				else
 				{
-					$('#RegisterDivPass').show();
-					$('#RegisterDivBeta').show();
+					$('#RegisterDivPass').show('fade',{},500,function(){$('#RegisterDivBeta').show('fade',{},500);});
 					regShow = true;
 					$('#submitOnlyButton').attr('name','register');
 					$('#registerOnlyButton').attr('id', 'cancelOnlyButton');
