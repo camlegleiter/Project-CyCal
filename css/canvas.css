@@ -1,15 +1,15 @@
 ﻿#panel {
-	background-color: #00FF00;
+	background-color: transparent;
 	width: 200px;
 	height: 100px;
 }
 #titlebar {
-	background-color: #FFFF00;
+	background-color: #FF0000;
 	width: auto;
 	height: 25px;
 }
 #panelContent {
 	background-color: #FFFFFF;
 	width: auto;
-	height: 100%;
+	height: auto;
 }
