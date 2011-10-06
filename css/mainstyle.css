@@ -225,3 +225,9 @@ table {
 input {
 	margin: 10px;
 }
+#article {
+	margin-left: 10px;
+}
+#articleTitle {
+	font-weight: bold;
+}
