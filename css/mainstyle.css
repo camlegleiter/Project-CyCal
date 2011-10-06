@@ -8,58 +8,66 @@
 	background-position: right bottom;
 	background-attachment: fixed;
 }
-#NoContainer
-{
+
+#NoContainer {
 	color: #333333;
 }
+
 h1 {
 	font-size: xx-large;
 	padding-top: 10px;
 	padding-bottom: 10px;
 }
+
 h2 {
 	font-size: x-large;
 	padding-top: 5px;
 	padding-bottom: 5px;
 }
+
 h3 {
 	font-size: large;
+	padding-top: 5px;
+	padding-bottom: 5px;
 }
-h4,h5,h6 {
-}
+
 a {
 	color: #FFFFFF;
 	text-decoration: none;
 }
+
 a:active, a:hover {
-	color: #FFFFFF;
 	text-decoration: underline;
 }
-a:visited {
-	color: #FFFFFF;
-	text-decoration: none;
-}
-p.para {
-	margin-bottom:10px;
-}
+
 p.error {
 	color:#A6212D;
 }
+
 p.success {
 	color:#DFBD00;
 }
 
+ul li {
+	padding-left: 20px;
+}
 
-#Container_Skinny{
+div.helpcontent {
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
+#Container_Skinny {
 	margin: 10px auto 10px auto;
 	width: 400px;
 }
-#Container_Normal{
+
+#Container_Normal {
 	width:600px;
 	margin: 10px auto 10px auto;
 }
 
-#Container_Wide{
+#Container_Wide {
 	width:800px;
 	margin: 10px auto 10px auto;
 }
@@ -70,6 +78,7 @@ p.success {
 	border-radius: 15px;
 	background-image: url('../img/WindowBack.png');
 }
+
 form {
 	background-image: url('../img/WindowBack.png');
 	padding: 15px;
@@ -79,7 +88,6 @@ form {
 	margin: 10px auto 10px auto;
 	text-align: center;
 }
-
 
 #Footer {
 	margin: 10px auto 50px auto;
@@ -93,8 +101,7 @@ form {
 	text-align:center;
 }
 
-
-#formtextbox{
+#formtextbox {
 	background:url('../img/submit_form.png') no-repeat left top;
 	border:none;
 	color:#333333;
@@ -113,7 +120,7 @@ form {
 	color:#CCCCCC;
 }
 
-#textbox{
+#textbox {
 	background:url('../img/submit_form.png') no-repeat left bottom;
 	border:none;
 	color:#333333;
@@ -128,8 +135,7 @@ form {
 	outline:none;
 }
 
-
-#submitButton{
+#submitButton {
 	background:url('../img/submit_form.png') no-repeat right top;
 	border:none;
 	cursor:pointer;
@@ -143,12 +149,11 @@ form {
 	width:96px;
 }
 
-#submitButton:hover{
+#submitButton:hover {
 	background-position:right bottom;
 }
 
-
-#registerButton{
+#registerButton {
 	background:url('../img/register_form.png') no-repeat right top;
 	border:none;
 	cursor:pointer;
@@ -162,10 +167,11 @@ form {
 	width:96px;
 }
 
-#registerButton:hover{
+#registerButton:hover {
 	background-position:right bottom;
 }
-#registerOnlyButton{
+
+#registerOnlyButton {
 	background:url('../img/register_button.png') no-repeat right top;
 	border:none;
 	cursor:pointer;
@@ -177,10 +183,11 @@ form {
 	width:96px;
 }
 
-#registerOnlyButton:hover{
+#registerOnlyButton:hover {
 	background-position:right bottom;
 }
-#submitOnlyButton{
+
+#submitOnlyButton {
 	background:url('../img/submit_button.png') no-repeat right top;
 	border:none;
 	cursor:pointer;
@@ -192,11 +199,11 @@ form {
 	width:96px;
 }
 
-#submitOnlyButton:hover{
+#submitOnlyButton:hover {
 	background-position:right bottom;
 }
 
-#cancelOnlyButton{
+#cancelOnlyButton {
 	background:url('../img/cancel_button.png') no-repeat right top;
 	border:none;
 	cursor:pointer;
@@ -208,26 +215,27 @@ form {
 	width:96px;
 }
 
-#cancelOnlyButton:hover{
+#cancelOnlyButton:hover {
 	background-position:right bottom;
 }
 
-
-#spacer{
+#spacer {
     height:50px;
 }
-
 
 table {
 	margin-left: auto;
 	margin-right: auto;
 }
+
 input {
 	margin: 10px;
 }
+
 #article {
 	margin-left: 10px;
 }
+
 #articleTitle {
 	font-weight: bold;
 }
