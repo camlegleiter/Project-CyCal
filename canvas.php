@@ -30,6 +30,13 @@
 			$("#panel"+i).resizable();
 		}*/				
 	});
+	function closewindow(){
+		$('#panel').remove();
+	}
+	
+	function toggleArticle(){
+		$('#panel_feed_article_content').slideToggle("slow");
+	}
 </script>
 
 </head>
@@ -37,16 +44,24 @@
 <body> 
 	<div id="panel">
 		<div id="panel_title">
-			<div id="panel_title_buttons">
-				<p>
-					text
-				</p>
-			</div>
 			Title Text
+			<div id="panel_title_buttons">
+				<img src="img/canvas/Title_Bar_Button_Min.png" alt="_">
+				<img src="img/canvas/Title_Bar_Button_Setting.png" alt="o">
+				<img src="img/canvas/Title_Bar_Button_Close.png" alt="x" onclick="closewindow()">
+			</div>
 		</div>
 		<div id="panel_feed">
 			<div id="panel_feed_article">
-				<p>I am an article about a lot of different things i suppose</p>
+				<div id="panel_feed_article_title" onclick="toggleArticle()">
+					Article Title
+					<div id="panel_feed_article_title_buttons">
+						&gt;
+					</div>
+				</div>
+				<div id="panel_feed_article_content">
+					here is some text in this content ish thing here
+				</div>
 			</div>
 		</div>	
 	</div> 
