@@ -1,9 +1,21 @@
 <?php
 
-error_reporting(0);
+error_reporting(E_ALL ^ E_NOTICE);
 
-$connect = mysql_connect("localhost", "root", "localpost") or die(mysql_error());//connect to the sql
-mysql_select_db("cycal") or die("Error: Could not connect to database! Try again later!"); //sql database name
+$db_host = 'localhost';
+$db_user = 'root';
+$db_pass = 'localpost';
+$db_name = 'cycal';
 
+@$mysqli = new mysqli($db_host, $db_user, $db_pass, $db_name);
+
+if (mysqli_connect_errno()) {
+	die('<h1>Could not connect to the database</h1><h2>Please try again after a few moments.</h2>');
+}
+
+$mysqli->set_charset("utf8");
+
+$link = mysql_connect($db_host, $db_user, $db_pass) or die('Error connecting to mysql, try again later.');
+mysql_select_db($db_name);
 
 ?>
