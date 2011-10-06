@@ -1,15 +1,54 @@
 ﻿#panel {
-	background-color: transparent;
 	width: 200px;
-	height: 100px;
-}
-#titlebar {
+	height: 500px;
 	background-color: #FF0000;
-	width: auto;
-	height: 25px;
+	border-width: 5px;
+	border-color: #000000;
 }
-#panelContent {
-	background-color: #FFFFFF;
-	width: auto;
-	height: auto;
+
+body {
+	background-image: url('../img/BackgroundBottom.png');
+	font-family: Verdana, Geneva, Tahoma, sans-serif;
+	margin: 0px;
+	padding: 15px;
+	background-repeat: no-repeat;
+	background-color: #CCCCCC;
+	background-position: right bottom;
+	background-attachment: fixed;
+}
+
+
+#panel_title{
+	background-color: #00FF00;
+	padding:5px 5px 5px 10px;
+	height:20px;
+	/*width:100%;*/
+	margin:auto 0 auto 0;
+	padding:5px 5px 5px 10px;
+	font-size:small;
+	font-weight:bold;
+	color:#404040;
+}
+
+#panel_title_buttons{
+	float:right;
+	width:50px;
+	height:20px;
+	background-color:#123456;
+}
+
+#panel_feed{
+	margin:0 0 0 0;
+	background-color:aqua;
+	height:100%;
+	overflow:scroll;
+	overflow-x:hidden;
+	-ms-overflow-x:hidden;
+}
+
+#panel_feed_article{
+	margin:0 0 0 0;
+	background-color:olive;
+	min-height:50px;
+	height:auto;
 }
