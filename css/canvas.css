@@ -31,11 +31,13 @@ body {
 	font-size:small;
 	font-weight:bold;
 	color:#404040;
+	z-index:0;
 }
 
 .panel_title_buttons{
 	float:right;
 	height:20px;
+	z-index:1001;
 }
 
 .caretDiv{
@@ -76,12 +78,14 @@ body {
 	overflow-x:hidden;
 	-ms-overflow-x:hidden;
 	margin:auto 0 auto 0;
+	z-index:0;
 }
 
 .panel_feed_article{
 	margin:0 0 0 0;
 	background-color:#DDDDDD;
 	height:auto;
+	z-index:1001;
 }
 
 .panel_feed_article_title{
@@ -92,6 +96,7 @@ body {
 	font-size:small;
 	font-weight:bold;
 	background:#DDDDDD;
+	z-index:1001;
 }
 
 .panel_feed_article_title:hover{
@@ -99,11 +104,13 @@ body {
 }
 
 .panel_feed_article_title_buttons{
+	z-index:1001;
 	float:right;
 	height:15px;
 }
 
 .panel_feed_article_content{
+	z-index:1001;
 	padding:0px 5px 5px 5px;
 	margin:auto 0 auto 0;
 }
