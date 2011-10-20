@@ -1,3 +1,29 @@
+<?php
+define('INCLUDE_CHECK',true);
+
+require "includes/connect.php";
+require 'includes/functions.php';
+session_id('CyCalLogin');
+session_start();
+
+if($_POST['savepass'])
+{
+	$email = mysql_real_escape_string($_POST['email']);
+	$newpass = mysql_real_escape_string($_POST['newpass']);
+	$confirmpass = mysql_real_escape_string($_POST['confirmpass']);
+	$oldpass = mysql_real_escape_string($_POST['oldpass']);
+	$result = mysql_query("Select * from users where email ='".$email."'");
+	$row = mysql_fetch_array($result);
+	$oldencodedpass = getPassword($row['username'], $oldpass, $row['salt']);
+	if ($newpass == $confirmpass && $row['password'] == $oldencodedpass) {	
+		mysql_query("Update users set password = '".getPassword($row['username'], $newpass, $row['salt'])."' where email = '".$email."'");
+		echo getPassword($row['username'], $newpass, $row['salt']);
+	}
+}
+
+$result = mysql_query("SELECT * from users where username = 'jamison'");
+$row = mysql_fetch_array($result);
+?>
 <head>
 
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -36,7 +62,10 @@ form p {
 </style>
 
 </head>
+
 <html>
+
+
 
 <div id="Container_Normal">
 	<div id="MainContainer">
@@ -45,7 +74,7 @@ form p {
 		</div>
 		<form style="float:left"method='POST'>
 			<h2>Account</h2>
-				<p>Email:</p><input style="width:100%" type='text' name='email'>
+				<p>Email:</p><input style="width:100%" type='text' name='email' value = <?php echo $row['email'] ?>>
 				<p>New Password:</p><input style="width:100%" type='password' name='newpass'>
 				<p>Confirm Password:</p><input  style="width:100%"type='password' name='confirmpass'>
 				<p>Current Password:</p><input  style="width:100%"type='password' name='oldpass'>
