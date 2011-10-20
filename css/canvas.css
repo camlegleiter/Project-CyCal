@@ -70,12 +70,12 @@ body {
 }
 
 .panel_feed{
-	background-color:white;
+	background-color:red;
 	overflow:scroll;
+	height:inherit;
 	overflow-x:hidden;
 	-ms-overflow-x:hidden;
 	margin:auto 0 auto 0;
-	max-height:400px;
 }
 
 .panel_feed_article{
