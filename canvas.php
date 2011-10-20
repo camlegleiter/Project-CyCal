@@ -2,7 +2,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
 <title>Canvas - CyCal</title>
-
+<?php
+	include 'includes/topBar_header.php';
+?>
 <link href="css/reset.css" rel="stylesheet" type="text/css">
 <link href="css/canvas.css" rel="stylesheet" type="text/css">
 <link href="css/mainstyle.css" rel="stylesheet" type="text/css">
@@ -86,6 +88,10 @@
 </head>
 
 <body> 
+	<?php
+		include 'includes/topbar.php';
+	?>
+
 	<div id="panel1" class="panel">
 		<div id="panel_title1" class="panel_title">
 			Title Text
