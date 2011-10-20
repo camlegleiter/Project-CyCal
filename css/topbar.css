@@ -1,0 +1,112 @@
+﻿.tb #topContainer {
+    font-weight: bold;
+    height: 0;
+    left: 0;
+    position: fixed;
+    text-align: right;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+}
+.tb #topMenu {
+	background-color: #800000;
+    border-bottom: 1px solid #FF0000;
+    padding: 7px 7px 0px 7px;
+    height:27px;
+}
+.tb #topLogo {
+	background-image:url('../img/Logo1_Small.png');
+	background-repeat:no-repeat;
+	width: 63px;
+	height: 27px;
+	float: left;
+	margin:7px;
+}
+.tb #topContent {
+	float: right;
+	right: 0;
+	text-align: right;
+	color: #FFCC00;
+	padding-left: 7px;
+	padding-right: 7px;
+	height:27px;
+}
+
+.tb #topContent:hover {
+ 	background-color:#CC0000;
+}
+
+.chromestyle{
+	width: 100%;
+	background: #800000;
+	border-bottom: 1px #CC0000 solid;
+	vertical-align: middle;
+}
+
+.chromestyle:after{ /*Add margin between menu and rest of content in Firefox*/
+content: "."; 
+display: block; 
+height: 0; 
+clear: both; 
+visibility: hidden;
+}
+
+.chromestyle ul{
+margin:13px 0px 0px 0px;
+padding: 4px 0;
+text-align: right; /*set value to "left", "center", or "right"*/
+float:right;
+bottom:0;
+}
+
+.chromestyle ul li{
+display: inline;
+color:#FFCC00;
+}
+
+.chromestyle ul li a{
+color:#FFCC00;
+padding: 4px 7px;
+margin: 0;
+text-decoration: none;
+}
+
+.chromestyle ul li a:hover, .chromestyle ul li a.selected{ /*script dynamically adds a class of "selected" to the current active menu item*/
+background-color:#CC0000;
+}
+
+/* ######### Style for Drop Down Menu ######### */
+
+.dropmenudiv{
+position:absolute;
+top: 0;
+border: 1px solid #BBB; /*THEME CHANGE HERE*/
+border-bottom-width: 0;
+font:normal 12px Verdana;
+line-height:18px;
+z-index:100;
+background-color: white;
+visibility: hidden;
+text-align:right;
+}
+
+
+.dropmenudiv a{
+width: auto;
+display: block;
+text-indent: 3px;
+border-bottom: 1px solid #BBB; /*THEME CHANGE HERE*/
+padding: 2px 0;
+text-decoration: none;
+font-weight: bold;
+color: black;
+padding:0px 7px;
+}
+
+* html .dropmenudiv a{ /*IE only hack*/
+width: 100%;
+}
+
+.dropmenudiv a:hover{ /*THEME CHANGE HERE*/
+background-color: #F0F0F0;
+}
