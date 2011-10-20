@@ -18,9 +18,9 @@
 	//2) Menu now works in IE8 beta2 (a valid doctype at the top of the page is required)
 
 var cssdropdown={
-disappeardelay: 250, //set delay in miliseconds before menu disappears onmouseout
-dropdownindicator: '<img src="down.gif" border="0" />', //specify full HTML to add to end of each menu item with a drop down menu
-enablereveal: [true, 8], //enable swipe effect? [true/false, steps (Number of animation steps. Integer between 1-20. Smaller=faster)]
+disappeardelay: 500, //set delay in miliseconds before menu disappears onmouseout
+dropdownindicator: '', //specify full HTML to add to end of each menu item with a drop down menu
+enablereveal: [true, 2], //enable swipe effect? [true/false, steps (Number of animation steps. Integer between 1-20. Smaller=faster)]
 enableiframeshim: 1, //enable "iframe shim" in IE5.5 to IE7? (1=yes, 0=no)
 
 //No need to edit beyond here////////////////////////

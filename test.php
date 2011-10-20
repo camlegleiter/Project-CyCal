@@ -7,46 +7,81 @@
 	
 	<link href="css/reset.css" rel="stylesheet" type="text/css">
 	<link href="css/mainstyle.css" rel="stylesheet" type="text/css">
+	<link href="js/css/jquery-ui.css" rel="stylesheet" type="text/css">
+	<script type="text/javascript" src="js/jquery-1.6.2.min.js"></script>
+	<script type="text/javascript" src="js/jquery-ui.min.js"></script>
+	<?php
+		//Must be included inside the Header (at bottom)
+		include 'includes/topbar_header.php';
+	?>
 
 </head>
 
 <body>
-	<h1 align="center">CyCal</h1>
-	<h1 align="center">Register</h1>
-	<form method='POST'>
-		<table align="center">
-			<tr>
-				<td>
-					<strong>Username:</strong>
-				</td> 
-				<td>
-					<input type='text' name='user'>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<strong>Password:</strong>
-				</td> 
-				<td>
-					<input type='password' name='pass'>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<strong>Beta Key:</strong>
-				</td>
-				<td>
-					<input type='password' name='beta'>
-				</td>
-			</tr>
-			<tr>
-				<td>
-				</td>
-				<td>
-					<input type='submit' name='register' value='Register'>
-				</td>
-			</tr>
-		</table>
-	</form>
+	<?php
+		//Must be included at the top of the <body> tag
+		include 'includes/topbar.php';
+	?>
+	<p>test</p><p>test</p>
+<p>test</p>
+<p>test</p>
+<p>test</p>
+<p>test</p>
+<p>test</p>
+<p>test</p>
+<p>test</p>
+<p>test</p>
+<p>test</p>
+<p>test</p>
+<p>test</p>
+<p>test</p>
+<p>test</p>
+<p>test</p>
+<p>test</p>
+<p>test</p>
+<p>test</p>
+<p>test</p>
+<p>test</p>
+<p>test</p>
+<p>test</p>
+<p>test</p>
+<p>test</p>
+<p>test</p>
+<p>test</p>
+<p>test</p>
+<p>test</p>
+<p>test</p>
+<p>test</p>
+<p>test</p>
+<p>test</p>
+<p>test</p>
+<p>test</p>
+<p>test</p>
+<p>test</p>
+<p>test</p>
+<p>test</p>
+<p>test</p>
+<p>test</p>
+<p>test</p>
+<p>test</p>
+<p>test</p>
+<p>test</p>
+<p>test</p>
+<p>test</p>
+<p>test</p>
+<p>test</p>
+<p>test</p>
+<p>test</p>
+<p>test</p>
+<p>test</p>
+<p>test</p>
+<p>test</p>
+<p>test</p>
+<p>test</p>
+<p>test</p>
+<p>test</p>
+<p>test</p>
+<p>test</p>
+
 </body>
 </html>
