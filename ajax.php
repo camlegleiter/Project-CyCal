@@ -19,7 +19,7 @@
 				<!-- <input type="button" value="Submit" name="Submit"> -->
 			</fieldset>
 		</form>
-		<div style="width:50%; margin:auto">
+		<div style="width:50%; margin:auto; border:medium black solid">
 			<div id="panel">
 				<div id="panel_title">
 				Title Text
