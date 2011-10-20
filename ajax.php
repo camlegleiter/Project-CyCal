@@ -54,6 +54,7 @@
 	
 			
 				$('#panel').resizable();
+				query('feedspage.html');
 			}
 		</script>
 	</body>
