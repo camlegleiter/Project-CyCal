@@ -8,11 +8,8 @@
     width: 100%;
     z-index: 100;
 }
-.tb #topMenu {
-	background-color: #800000;
-    border-bottom: 1px solid #FF0000;
-    padding: 7px 7px 0px 7px;
-    height:27px;
+.tb #spacer {
+	height: 30px;
 }
 .tb #topLogo {
 	background-image:url('../img/Logo1_Small.png');
@@ -20,7 +17,15 @@
 	width: 63px;
 	height: 27px;
 	float: left;
-	margin:7px;
+	margin:5px;
+}
+
+/*
+.tb #topMenu {
+	background-color: #800000;
+    border-bottom: 1px solid #FF0000;
+    padding: 7px 7px 0px 7px;
+    height:27px;
 }
 .tb #topContent {
 	float: right;
@@ -35,12 +40,22 @@
 .tb #topContent:hover {
  	background-color:#CC0000;
 }
+*/
 
 .chromestyle{
 	width: 100%;
 	background: #800000;
 	border-bottom: 1px #CC0000 solid;
 	vertical-align: middle;
+	
+	
+	font-weight: bold;
+    left: 0;
+    position: fixed;
+    text-align: right;
+    top: 0;
+    width: 100%;
+    z-index: 100;
 }
 
 .chromestyle:after{ /*Add margin between menu and rest of content in Firefox*/
@@ -80,12 +95,11 @@ background-color:#CC0000;
 .dropmenudiv{
 position:absolute;
 top: 0;
-border: 1px solid #BBB; /*THEME CHANGE HERE*/
+border: 1px solid #CC0000; /*THEME CHANGE HERE*/
 border-bottom-width: 0;
-font:normal 12px Verdana;
-line-height:18px;
+line-height:25px;
 z-index:100;
-background-color: white;
+background-color: #800000;
 visibility: hidden;
 text-align:right;
 }
@@ -95,11 +109,11 @@ text-align:right;
 width: auto;
 display: block;
 text-indent: 3px;
-border-bottom: 1px solid #BBB; /*THEME CHANGE HERE*/
-padding: 2px 0;
+border-bottom: 1px solid #CC0000; /*THEME CHANGE HERE*/
+padding: 0;
 text-decoration: none;
 font-weight: bold;
-color: black;
+color: #FFCC00;
 padding:0px 7px;
 }
 
@@ -108,5 +122,5 @@ width: 100%;
 }
 
 .dropmenudiv a:hover{ /*THEME CHANGE HERE*/
-background-color: #F0F0F0;
+background-color:#CC0000;
 }

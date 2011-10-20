@@ -14,10 +14,13 @@
 	</div>
 </div>
 
+<div class="tb" id="spacer">
+</div>
+
 <!--1st drop down menu -->                                                   
 <span id="dropmenu1" class="dropmenudiv">
 	<a href="#">Add ISU Feed</a>
-	<a href="#">Add other Feed</a>
+	<a href="#">Add Other Feed</a>
 	<a href="#">Account Settings</a>
 	<a href="#">Log Out</a>
 </span>
