@@ -17,7 +17,6 @@ if($_POST['savepass'])
 	$oldencodedpass = getPassword($row['username'], $oldpass, $row['salt']);
 	if ($newpass == $confirmpass && $row['password'] == $oldencodedpass) {	
 		mysql_query("Update users set password = '".getPassword($row['username'], $newpass, $row['salt'])."' where email = '".$email."'");
-		echo getPassword($row['username'], $newpass, $row['salt']);
 	}
 }
 
