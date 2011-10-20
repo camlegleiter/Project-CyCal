@@ -3,7 +3,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
 <title>Canvas - CyCal</title>
 <?php
-	include 'includes/topBar_header.php';
+	include 'includes/topbar_header.php';
 ?>
 <link href="css/reset.css" rel="stylesheet" type="text/css">
 <link href="css/canvas.css" rel="stylesheet" type="text/css">
@@ -15,7 +15,7 @@
 <script type="text/javascript">
 	$('document').ready(function(){
 		$("#panel1").draggable({handle:$('#panel_title1')}); 
-		$("#panel1").resizable();
+		$("#panel1").resizable({handle:$('#panel_feed1')});
 		
 		$('body').append('<div id=\'panel2\' class=\'panel\'><div id=\'panel_title2\' class=\'panel_title\'>  Title Text<div id=\'panel_title_buttons2\' class=\'panel_title_buttons\'><img src=\'img/canvas/Title_Bar_Button_Min.png\' alt=\'_\'><img src=\'img/canvas/Title_Bar_Button_Setting.png\' alt=\'o\'><img src=\'img/canvas/Title_Bar_Button_Close.png\' alt=\'x\' onclick=\'closewindow(2)\'></div></div><div id=\'panel_feed2\' class=\'panel_feed\'></div></div>');
 		populatePanel();
@@ -29,6 +29,8 @@
 		if($('#panel'+id).css('min-height') != "0px"){
 			$('#panel'+id).css('min-height', '0px');
 			$('#panel'+id).css('min-width', '0px');
+			$('#minimize'+id).removeClass('ui-icon-minusthick');
+			$('#minimize'+id).addClass('ui-icon-arrowthick-2-ne-sw');
 			$("#panel1").resizable({ disabled: true });
 			$('#panel_feed'+id).animate({opacity:0},500,function(){});
 			$('#panel'+id).animate({
@@ -42,6 +44,8 @@
 		}else{
 			$('#panel'+id).css('min-height', '100px');
 			$('#panel'+id).css('min-width', '400px');
+			$('#minimize'+id).removeClass('ui-icon-arrowthick-2-ne-sw');
+			$('#minimize'+id).addClass('ui-icon-minusthick');
 			$("#panel1").resizable({ disabled: false });
 			$('#panel_feed'+id).animate({opacity:1},1000,function(){});
 			$('#panel'+id).animate({
@@ -97,9 +101,9 @@
 			Title Text
 			<table style="float:right; margin-top:2px;">
 				<tr>
-					<td id="" class="minimize ui-icon-minusthick" onclick="togglewindow(1);"></td>
-					<td id="" class="settings ui-icon-info"></td>
-					<td id="" class="close ui-icon-closethick" onclick="closewindow(1);"></td>
+					<td id="minimize1" class="minimize ui-icon-minusthick" onclick="togglewindow(1);"></td>
+					<td id="settings1" class="settings ui-icon-info"></td>
+					<td id="close1" class="close ui-icon-closethick" onclick="closewindow(1);"></td>
 				</tr>
 			</table>
 		</div>
