@@ -3,24 +3,29 @@ define('INCLUDE_CHECK',true);
 
 require "includes/connect.php";
 require 'includes/functions.php';
-session_id('CyCalLogin');
+session_name('CyCalLogin');
 session_start();
 
 if($_POST['savepass'])
 {
-	$email = mysql_real_escape_string($_POST['email']);
+	$newEmail = mysql_real_escape_string($_POST['newEmail']);
 	$newpass = mysql_real_escape_string($_POST['newpass']);
 	$confirmpass = mysql_real_escape_string($_POST['confirmpass']);
 	$oldpass = mysql_real_escape_string($_POST['oldpass']);
-	$result = mysql_query("Select * from users where email ='".$email."'");
+	$result = mysql_query("Select * from users where username ='".$_SESSION['usr']."'");
 	$row = mysql_fetch_array($result);
 	$oldencodedpass = getPassword($row['username'], $oldpass, $row['salt']);
-	if ($newpass == $confirmpass && $row['password'] == $oldencodedpass) {	
-		mysql_query("Update users set password = '".getPassword($row['username'], $newpass, $row['salt'])."' where email = '".$email."'");
-	}
+	if ($oldencodedpass == $row['password']) {
+		if ($newpass == $confirmpass) { 
+			mysql_query("Update users set password = '".getPassword($row['username'], $newpass, $row['salt'])."' where username = '".$_SESSION['usr']."'");
+		} 
+		if (!($newEmail == $row['email'])) {
+			mysql_query("Update users set email = '".$newEmail."' where username = '".$_SESSION['usr']."'");
+		}
+	} 
 }
 
-$result = mysql_query("SELECT * from users where username = 'jamison'");
+$result = mysql_query("SELECT * from users where username = '".$_SESSION['usr']."'");
 $row = mysql_fetch_array($result);
 ?>
 <head>
@@ -73,7 +78,7 @@ form p {
 		</div>
 		<form style="float:left"method='POST'>
 			<h2>Account</h2>
-				<p>Email:</p><input style="width:100%" type='text' name='email' value = <?php echo $row['email'] ?>>
+				<p>Email:</p><input style="width:100%" type='text' name='newEmail' value = <?php echo $row['email'] ?>>
 				<p>New Password:</p><input style="width:100%" type='password' name='newpass'>
 				<p>Confirm Password:</p><input  style="width:100%"type='password' name='confirmpass'>
 				<p>Current Password:</p><input  style="width:100%"type='password' name='oldpass'>
