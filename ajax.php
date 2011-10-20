@@ -19,7 +19,7 @@
 				<!-- <input type="button" value="Submit" name="Submit"> -->
 			</fieldset>
 		</form>
-		<div style="width:50%; margin:auto; border:medium black solid">
+		<div style="width:50%; height:100%; margin:auto; border:medium black solid">
 			<div id="panel">
 				<div id="panel_title">
 				Title Text
@@ -54,8 +54,8 @@
 	
 			
 				$('#panel').resizable();
-				query('feedspage.html');
 			}
+			query('newuserchoosefeed.php');
 		</script>
 	</body>
 </html>
