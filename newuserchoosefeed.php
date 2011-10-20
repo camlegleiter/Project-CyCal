@@ -1,3 +1,7 @@
+<?php
+session_name('CyCalLogin');
+session_start();
+?>
 <html>
 <head>
 
@@ -13,16 +17,26 @@
 	form {
 		width:39%;
 		text-align:center;
+		
+		height:100px;
+		width:450px;
+	}
+	#feedSettings {
+		height:100px;
+		width:450px;
+		margin-left:auto;
+		margin-right:auto;
 	}
 </style>
 </head>
 <body>
- 	<h1><strong> Welcome, User </strong></h1>
+<div id="feedSettings">
+ 	<h1><strong> Welcome, <?php echo $_SESSION['usr']; ?></strong></h1>
 
  	<br>
 
  	<p>
-Here are some RSS feeds you can choose to start viewing
+Here are some popular Iowa State University RSS feeds you can choose to start viewing right away
 	</p>
 
  	<br>
@@ -63,8 +77,9 @@ Here are some RSS feeds you can choose to start viewing
  		</div>
  		<button type="button">Do it</button>
 	</form>
+</div>
 </body>
- </html>
+</html>
  
  
  
