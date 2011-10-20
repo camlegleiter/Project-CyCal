@@ -17,7 +17,7 @@ campus events in an interactive and customizable setting. </p>
 <h1>Developers</h1>
 
 <li type = "circle"><pre>Justin Derby		 - Networking, RSS Research, Facebook</pre></li>
-<li type = "circle"><pre>Michael Kinsella	 - SQL Structure/Layout</pre></li>
+<li type = "circle"><pre>Michael Kinsella		 - SQL Structure/Layout</pre></li>
 <li type = "circle"><pre>Kurt Kohl			 - Web Development</pre></li>
 <li type = "circle"><pre>Blair Billings		 - Javascript/JQuery</pre></li>
 <li type = "circle"><pre>Jamison Voss		 - Web Development</pre></li>
