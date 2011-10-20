@@ -12,14 +12,14 @@
 		<h2>Ajax Test</h2>
 		<form method='POST' style="text-align:left">
 			<fieldset>
-				<input type="radio" name="group1" value="New user" checked onclick="query('feedspage.html')"> New user<br>
+				<input type="radio" name="group1" value="New user" checked onclick="query('newuserchoosefeed.php')"> New user<br>
 				<input type="radio" name="group1" value="Panel Settings" onclick="query('feedsettings.php')"> Panel Settings<br>
 				<input type="radio" name="group1" value="Add Other Feed" onclick="query('otherfeed.html')"> Add other Feed<br>
 				<input type="radio" name="group1" value="Add ISU Feed" onclick="query('isufeed.html')"> Add ISU Feed<br>
 				<!-- <input type="button" value="Submit" name="Submit"> -->
 			</fieldset>
 		</form>
-		<div style="width:50%; margin:auto">
+		<div style="width:50%; margin:auto; border:medium black solid">
 			<div id="panel">
 				<div id="panel_title">
 				Title Text
@@ -54,6 +54,7 @@
 	
 			
 				$('#panel').resizable();
+				query('feedspage.html');
 			}
 		</script>
 	</body>
