@@ -38,6 +38,37 @@ body {
 	height:20px;
 }
 
+.caretDiv{
+	width:20px;
+	height:20px;
+	background-image:url('../js/css/images/ui-icons_222222_256x240.png');
+}
+
+.close{
+	height:20px;
+	width:20px;
+	background-image:url('../js/css/images/ui-icons_222222_256x240.png');
+}
+
+.minimize{
+	height:20px;
+	width:20px;
+	background-image:url('../js/css/images/ui-icons_222222_256x240.png');
+}
+
+.expand{
+	height:20px;
+	width:20px;
+	background-image:url('../js/css/images/ui-icons_222222_256x240.png');	
+}
+
+.settings{
+	height:20px;
+	width:20px;
+	text-align:center;
+	background-image:url('../js/css/images/ui-icons_222222_256x240.png');
+}
+
 .panel_feed{
 	background-color:white;
 	overflow:scroll;
