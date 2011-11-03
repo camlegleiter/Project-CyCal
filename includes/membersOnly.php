@@ -1,6 +1,10 @@
 <?php
 require "includes/connect.php";
 
+session_name('CyCalLogin');
+// Starting the session
+session_start();
+
 function checkToken($userid, $token)
 {
 	$valid = false;
