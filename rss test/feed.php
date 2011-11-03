@@ -3,7 +3,7 @@ header('Content-Type: application/json');
 
 $q = $_GET["q"];
  
-$feed = new DOMDocument(); 
+$feed = new DOMDocument();
 $feed->load($q); 
 $json = array(); 
  

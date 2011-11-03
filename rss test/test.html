@@ -21,7 +21,7 @@
 					}
 				}
 
-				str = escape(str);
+				str = encodeURIComponent(str);
 				xmlhttp.open("GET", "feed.php?q=" + str, true);
 				xmlhttp.send();
 			}
