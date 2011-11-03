@@ -82,7 +82,6 @@
 							</script>
 						</div>
 					</div>
-					<hr width="100%" style="margin: 10px 0px 10px 0px">
 					<div width="100%">
 						<input type="checkbox" style="float: left; top: 50%;">
 						<div style="float: left; top: 50%; width: 200px">Start Minimized</div>
