@@ -2,11 +2,15 @@
 	background-image: url('../img/BackgroundBottom.png');
 	font-family: Verdana, Geneva, Tahoma, sans-serif;
 	margin: 0px;
-	padding: 15px;
+	padding: 0px;
 	background-repeat: no-repeat;
 	background-color: #CCCCCC;
 	background-position: right bottom;
 	background-attachment: fixed;
+}
+
+#cushion {
+	padding: 15px;
 }
 
 #NoContainer {
