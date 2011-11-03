@@ -15,6 +15,15 @@
 <script type="text/javascript">
 	$('document').ready(function(){
 		
+		//this will eventually be the get of the rss feeds
+		var jqxhr = $.get("rsstest/feed.php", function() {
+    						
+  						})
+  						.success(function() { console.log("second success"); })
+  						.error(function() { console.log("error"); })
+  						.complete(function() { console.log("complete"); });
+  						
+		//example json object for parsing
 		var articles = { "feeds": [{        "url":"www.google.com",
 											"title":"this is my overalltitle 1",
 											"articles": [{"title": "article1title", "content": "this is my article content for 1", "articleURL": "artURL1"},
@@ -47,6 +56,7 @@
 									     ]		       
 				      };
 		
+		//adds the panels to the page
 		for(i = 1; i <= 5; i++){
 			populatePanels(i, articles);
 		}
@@ -96,14 +106,15 @@
 		$("#panel"+id).draggable({handle:$('#panel_title'+id)}); 
 		$("#panel"+id).resizable();
 		$("#panel"+id).css('z-index', id);
-		for(var i = 0; i < articles.feeds[id-1].articles.length; i++)
+		for(var i = 0; i < articles.feeds[id-1].articles.length; i++){
 			$('#panel_feed'+id).append('<div id=\'panel_feed_article'+id+'\' class=\'panel_feed_article\'> <div id=\'panel_feed_article_title'+id+'\' class=\'panel_feed_article_title\' onclick=\'toggleArticle('+id+','+i+')\'>'+articles.feeds[id-1].articles[i].title+'<div id=\'panel_feed_article_title_buttons'+id+'\' class=\'panel_feed_article_title_buttons\'><div id=\'caret'+id+''+i+'\' class=\'caretDiv ui-icon-carat-1-s\'></div></div></div><div id=\'panel_feed_article_content'+id+''+i+'\' class=\'panel_feed_article_content\'>'+articles.feeds[id-1].articles[i].content+'</div></div>');
+		}
 		
 		$("#panel"+id).draggable({handle:$('#panel_title'+id)}); 
 		$("#panel"+id).resizable();
 		$("#panel"+id).css({"position":"fixed"});
 		var lastId = (id-1);
-		$("#panel"+id).css({"z-index": id, "top": $("#panel1").position().top, "left": $("#panel1").position().left+100});
+		$("#panel"+id).css({"z-index": id, "top": $("#panel"+(id == 1 ? 1 : (id-1))).position().top+20, "left": $("#panel"+(id == 1 ? 1 : (id-1))).position().left+100});
 		$("#panel"+id).mousedown(function(id){
 			$(".panel").css("z-index", id);
 			$("#panel"+id).css("z-index", "99");
