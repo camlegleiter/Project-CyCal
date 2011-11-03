@@ -14,15 +14,31 @@ if($_POST['savepass'])
 	$oldpass = mysql_real_escape_string($_POST['oldpass']);
 	$result = mysql_query("Select * from users where username ='".$_SESSION['usr']."'");
 	$row = mysql_fetch_array($result);
+	$printout = "";
 	$oldencodedpass = getPassword($row['username'], $oldpass, $row['salt']);
-	if ($oldencodedpass == $row['password']) {
-		if ($newpass == $confirmpass) { 
-			mysql_query("Update users set password = '".getPassword($row['username'], $newpass, $row['salt'])."' where username = '".$_SESSION['usr']."'");
+	if (!($newpass == "") && !($confirmpass == "") && !($oldpass == "")) {
+		if ($oldencodedpass == $row['password']) {
+			
+			if ($newpass == $confirmpass) { 
+				mysql_query("Update users set password = '".getPassword($row['username'], $newpass, $row['salt'])."' where username = '".$_SESSION['usr']."'");
+			} 
+			else {
+				$printout = "New passwords don't match!";
+			}
+			
+			if (!($newEmail == $row['email'])) {
+				mysql_query("Update users set email = '".$newEmail."' where username = '".$_SESSION['usr']."'");
+			}
 		} 
-		if (!($newEmail == $row['email'])) {
-			mysql_query("Update users set email = '".$newEmail."' where username = '".$_SESSION['usr']."'");
+		
+		else {
+			$printout = "Old password doesn't match!"; 
 		}
-	} 
+	}
+
+	else {
+		$printout = "Nothing to update";
+	}
 }
 
 $result = mysql_query("SELECT * from users where username = '".$_SESSION['usr']."'");
@@ -75,6 +91,7 @@ form p {
 	<div id="MainContainer">
 		<div id="Header_Title">
 		<h1>Settings</h1>
+		<?php echo "<font color = 'red'>$printout</font>"; ?>
 		</div>
 		<form style="float:left"method='POST'>
 			<h2>Account</h2>
