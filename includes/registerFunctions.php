@@ -101,7 +101,8 @@ if($_POST['submit']=='Login')
 					
 					setcookie('CyCalRemember',$_POST['rememberMe']);
 					
-					//Redirect to members page
+					//TODO: check if new user or not
+					//New user = 0 rss feeds
 					header("Location: canvas.php");
 					exit;
 				}
