@@ -23,21 +23,41 @@ function successMessage($success){
 	echo $success;
 	exit;
 }
+/*
+=====================================
+	Error Testing
+=====================================
+*/
+
+if($_POST['error']){
+	errorMessage('Error message flag set');
+}
+if($_POST['success']){
+	successMessage('Success message flag set');
+}
 
 /*
 =====================================
 	GRAB POST DATA
 =====================================
 */
-$action = strtolower($_POST['action']);
-$userid = $_POST['userid'];
+$action = mysql_real_escape_string(strtolower($_POST['action']));
+$userid = mysql_real_escape_string($_SESSION['id']);
 $rss = $_POST['rss'];
-$posx = $_POST['posx'];
-$posy = $_POST['posy'];
-$sizex = $_POST['sizex'];
-$sizey = $_POST['sizey'];
-$themeid = $_POST['themeid'];
+$posx = mysql_real_escape_string($_POST['posx']);
+$posy = mysql_real_escape_string($_POST['posy']);
+$sizex = mysql_real_escape_string($_POST['sizex']);
+$sizey = mysql_real_escape_string($_POST['sizey']);
+$themeid = mysql_real_escape_string($_POST['themeid']);
 
+/*
+=====================================
+	Prinat all
+=====================================
+*/
+if($_POST['print']){
+	successMessage(print_r($_POST, true));
+}
 /*
 =====================================
 	SET DEFAULTS
@@ -96,14 +116,16 @@ if (!is_int($themeid))
 */
 if ($action == "add")
 {
-	$rssCheck = mysql_query("SELECT 1 FROM panel WHERE userid='$userid', rss='$rss'");
-	$numrows = mysql_num_rows($rssCheck);
-	
-	if($numrows != 0){
-		errorMessage("RSS feed already added");
+	foreach ($rss as $value)
+	{
+		mysql_real_escape_string($value);
+		$rssCheck = mysql_query("SELECT 1 FROM panel WHERE userid='$userid', rss='$value'");
+		$numrows = mysql_num_rows($rssCheck);
+		if($numrows != 0){
+			errorMessage("RSS feed already added");
+		}
+	mysql_query("INSERT INTO panel VALUES ('','$userid','$value','$posx','$posy','$sizex','$sizey','$themeid')");
 	}
-
-	mysql_query("INSERT INTO panel VALUES ('','$userid','$rss','$posx','$posy','$sizex','$sizey','$themeid')");
 }
 else if ($action == "delete")
 {
