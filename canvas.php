@@ -64,7 +64,7 @@
 	}
 	
 	function populatePanels(id){
-		$('body').append('<div id=\'panel'+id+'\' onmousedown=\'setTopZIndex('+id+')\' class=\'panel\'><div id=\'panel_title'+id+'\' class=\'panel_title\'>  Title Text<div id=\'panel_title_buttons'+id+'\' class=\'panel_title_buttons\'><img src=\'img/canvas/Title_Bar_Button_Min.png\' alt=\'_\'><img src=\'img/canvas/Title_Bar_Button_Setting.png\' alt=\'o\'><img src=\'img/canvas/Title_Bar_Button_Close.png\' alt=\'x\' onclick=\'closewindow('+id+')\'></div></div><div id=\'panel_feed'+id+'\' class=\'panel_feed\'></div></div>');
+		$('body').append('<div id=\'panel'+id+'\' onmousedown=\'setTopZIndex('+id+')\' class=\'panel\'><div id=\'panel_title'+id+'\' class=\'panel_title\'>  Title Text<table style="float:right; margin-top:2px;"><tr><td id="minimize'+id+'" class="minimize ui-icon-minusthick" onclick="togglewindow('+id+');"></td><td id="settings'+id+'" class="settings ui-icon-info"></td><td id="close'+id+'" class="close ui-icon-closethick" onclick="closewindow('+id+');"></td></tr></table></div><div id=\'panel_feed'+id+'\' class=\'panel_feed\'></div></div>');
 		$("#panel"+id).draggable({handle:$('#panel_title'+id)}); 
 		$("#panel"+id).resizable();
 		$("#panel"+id).css('z-index', id);
@@ -76,8 +76,8 @@
 		var lastId = (id-1);
 		$("#panel"+id).css({"z-index": id, "top": $("#panel1").position().top, "left": $("#panel1").position().left+100});
 		$("#panel"+id).mousedown(function(id){
-			$(".panel").css("z-index", "1");
-			$("#panel"+id).css("z-index", "1001");
+			$(".panel").css("z-index", id);
+			$("#panel"+id).css("z-index", "99");
 		});
 	}
 	
@@ -94,7 +94,7 @@
 	
 	function setTopZIndex(id){
 			$(".panel").css("z-index", "1");
-			$("#panel"+id).css("z-index", "1001");
+			$("#panel"+id).css("z-index", "99");
 	}
 </script>
 
