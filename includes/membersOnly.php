@@ -1,5 +1,9 @@
 <?php
-require "includes/connect.php";
+if (!isset($TO_ROOT))
+	$TO_ROOT = "../";
+
+require $TO_ROOT."includes/connect.php";
+
 
 session_name('CyCalLogin');
 // Starting the session
@@ -31,7 +35,7 @@ function checkToken($userid, $token)
 if (!checkToken($_SESSION['id'], $_SESSION['token']))
 {
 	//If not, redirect them to the main page
-	header("Location: index.php");
+	header("Location: ".$TO_ROOT."index.php");
 	exit;
 }
 ?>

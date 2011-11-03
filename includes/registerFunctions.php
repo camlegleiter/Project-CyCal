@@ -1,6 +1,9 @@
 <?php
 define('INCLUDE_CHECK',true);
 
+if (!isset($TO_ROOT))
+	$TO_ROOT = "../";
+
 // Those two files can be included only if INCLUDE_CHECK is defined
 require "includes/connect.php";
 require 'includes/functions.php';
