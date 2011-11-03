@@ -49,13 +49,11 @@ if (isset($_POST['chooseFeeds'])) {
 		//}
 	}
 }
-
-
-
 ?>
 <html>
 <head>
-
+<link href="css/mainstyle.css" rel="stylesheet" type="text/css">
+<!-- 
 <style type="text/css">
 	#Check_Container {
 		width:100%;
@@ -66,6 +64,9 @@ if (isset($_POST['chooseFeeds'])) {
 		width:50%;
 	}
 	form {
+		-moz-border-radius: 15px;
+		border-radius: 15px;
+	
 		width:39%;
 		text-align:center;
 		
@@ -79,6 +80,7 @@ if (isset($_POST['chooseFeeds'])) {
 		margin-right:auto;
 	}
 </style>
+-->
 </head>
 <body>
 <div id="feedSettings">
@@ -95,7 +97,36 @@ Here are some popular Iowa State University RSS feeds you can choose to start vi
  	<strong>Pick some:</strong>
 	
  	<br>
-	
+ 	
+  		<div id="Container_Normal">
+ 	<form id="newuser" method="post" action="">
+ 				<table>
+ 				<?php
+ 					$arrA = array('featuredEvents', 'academicCalendar', 'arts', 'athletics', 'conferences', 'diversity', 
+ 					'lectures', 'liveGreen', 'meetings', 'specialEvents', 'studentActivites', 'training');
+ 					$arrB = array('Featured Events', 'Academic Calendar', 'Arts, performances', 'Athletics', 'Conferences', 'Diversity', 
+ 					'Lectures', 'Live Green', 'Meetings, receptions', 'Special Events', 'Student activites', 'Training, development');
+					for ($i = 0; $i < 6; $i++) {
+						echo '<tr>';
+ 					   	echo '<td>';
+ 					   	echo '<input type="checkbox" name="' . $arrA[$i] . '" value="" />';
+ 					   	echo $arrB[$i];
+ 					   	echo '</td>';
+ 					   	echo '<td>';
+ 					   	echo '<input type="checkbox" name="' . $arrA[$i+6] . '" value="" />';
+ 					   	echo $arrB[$i+6];
+ 					   	echo '</td>'; 					   	
+ 					   	echo '</tr>';
+					}
+				?>
+				</table>
+ 			<br style="clear:left;">
+ 		<input type="submit" name="chooseFeeds" value = "Submit"/>
+	</form>
+ 		</div>
+
+ 	
+<!--	
  	<form method="post" action="">
  		<div id="Check_Container">
  			<div id="Check_List">
@@ -128,12 +159,10 @@ Here are some popular Iowa State University RSS feeds you can choose to start vi
  		</div>
  		<input type="submit" name="chooseFeeds" value = "Submit"/>
 	</form>
+-->
 </div>
 </body>
 </html>
- 
- 
- 
  
  
  
