@@ -25,7 +25,12 @@ enableiframeshim: 1, //enable "iframe shim" in IE5.5 to IE7? (1=yes, 0=no)
 
 //No need to edit beyond here////////////////////////
 
-dropmenuobj: null, asscmenuitem: null, domsupport: document.all || document.getElementById, standardbody: null, iframeshimadded: false, revealtimers: {},
+dropmenuobj: null, 
+asscmenuitem: null, 
+domsupport: document.all || document.getElementById, 
+standardbody: null, 
+iframeshimadded: false, 
+revealtimers: {},
 
 getposOffset:function(what, offsettype){
 	var totaloffset=(offsettype=="left")? what.offsetLeft : what.offsetTop;
@@ -108,7 +113,7 @@ dropit:function(obj, e, dropmenuID){
 	this.dropmenuobj.x=this.getposOffset(obj, "left")
 	this.dropmenuobj.y=this.getposOffset(obj, "top")
 	this.dropmenuobj.style.left=this.dropmenuobj.x-this.clearbrowseredge(obj, "rightedge")+"px"
-	this.dropmenuobj.style.top=this.dropmenuobj.y-this.clearbrowseredge(obj, "bottomedge")+obj.offsetHeight+1+"px"
+	this.dropmenuobj.style.top=this.dropmenuobj.y-this.clearbrowseredge(obj, "bottomedge")+obj.offsetHeight+1+"px" //This needs to change for scrollingS
 	this.positionshim() //call iframe shim function
 },
 
