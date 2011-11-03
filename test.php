@@ -2,7 +2,7 @@
 <html>
 <head>
 
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
 	<title>Canvas - CyCal</title>
 	
 	<link href="css/reset.css" rel="stylesheet" type="text/css">
@@ -22,66 +22,7 @@
 		//Must be included at the top of the <body> tag
 		include 'includes/topbar.php';
 	?>
-	<p>test</p><p>test</p>
-<p>test</p>
-<p>test</p>
-<p>test</p>
-<p>test</p>
-<p>test</p>
-<p>test</p>
-<p>test</p>
-<p>test</p>
-<p>test</p>
-<p>test</p>
-<p>test</p>
-<p>test</p>
-<p>test</p>
-<p>test</p>
-<p>test</p>
-<p>test</p>
-<p>test</p>
-<p>test</p>
-<p>test</p>
-<p>test</p>
-<p>test</p>
-<p>test</p>
-<p>test</p>
-<p>test</p>
-<p>test</p>
-<p>test</p>
-<p>test</p>
-<p>test</p>
-<p>test</p>
-<p>test</p>
-<p>test</p>
-<p>test</p>
-<p>test</p>
-<p>test</p>
-<p>test</p>
-<p>test</p>
-<p>test</p>
-<p>test</p>
-<p>test</p>
-<p>test</p>
-<p>test</p>
-<p>test</p>
-<p>test</p>
-<p>test</p>
-<p>test</p>
-<p>test</p>
-<p>test</p>
-<p>test</p>
-<p>test</p>
-<p>test</p>
-<p>test</p>
-<p>test</p>
-<p>test</p>
-<p>test</p>
-<p>test</p>
-<p>test</p>
-<p>test</p>
-<p>test</p>
-<p>test</p>
+	<p>Content here!</p>
 
 </body>
 </html>
