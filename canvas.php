@@ -18,13 +18,14 @@
 		//this will eventually be the get of the rss feeds
 		
 		var realArticles;
-		var jqxhr = $.get("Util/postdata.php", function() {
+		$.get("Util/postdata.php", function() {
     						
   						})
   						.success(function() { console.log("second success"); })
   						.error(function() { console.log("error"); })
-  						.complete(function() { console.log("complete"); });
-  						
+  						.complete(function() { console.log("complete"); 
+  		});
+				
 		//example json object for parsing
 		var articles = { "feeds": [{        "url":"www.google.com",
 											"title":"this is my overalltitle 1",
