@@ -143,14 +143,28 @@ else if ($action == "edit")
 else if ($action == "get")
 {
 	$getRSS = mysql_query("SELECT * FROM panel WHERE userid='$userid'");
-	if (!getRSS)
+	$rssarr = array();
+	while ($row = mysql_fetch_assoc($getRSS))
 	{
-		successMessage(mysql_error());
-		return;
+		$rss = array();
+		$rss['rss'] = urldecode($row['rss']);
+		$rss['posx'] = $row['posx'];
+		$rss['posy'] = $row['posy'];
+		$rss['sizex'] = $row['sizex'];
+		$rss['sizey'] = $row['sizey'];
+		$rss['themeid'] = array();
+		if ($row['themeid'] == -1)
+		{
+			$rss['themeid']['type'] = "System";
+		}
+		else
+		{
+			$rss['themeid']['type'] = "User";
+		}
+		array_push($rssarr, $rss);
 	}
-	$rows = mysql_fetch_assoc($getRSS);
-	mysql_free_result($rssCheck);
-	successMessage(print_r($rows,true));
+	mysql_free_result($getRSS);
+	successMessage(json_encode($rssarr));
 }
 else
 {
