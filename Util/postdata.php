@@ -15,7 +15,7 @@ require $TO_ROOT."includes/membersOnly.php";
 */
 function errorMessage($error){
 	//for errors, use 409 error
-	header("HTTP/1.1 409 Conflict");
+	header("HTTP/1.1 409 ".$error);
 	echo $error;
 	exit;
 }
@@ -29,7 +29,7 @@ function successMessage($success){
 =====================================
 */
 
-if($_POST['error']){
+if($_POST['error'] || isset($_GET['error'])){
 	errorMessage('Error message flag set');
 }
 if($_POST['success']){
@@ -43,7 +43,8 @@ if($_POST['success']){
 */
 $action = mysql_real_escape_string(strtolower($_POST['action']));
 $userid = mysql_real_escape_string($_SESSION['id']);
-$rss = mysql_real_escape_string(urlencode($_POST['rss']));
+$_POST['rss'] = json_decode(stripslashes($_POST['rss']),true);
+$rss = $_POST['rss'];
 $posx = mysql_real_escape_string($_POST['posx']);
 $posy = mysql_real_escape_string($_POST['posy']);
 $sizex = mysql_real_escape_string($_POST['sizex']);
@@ -56,33 +57,32 @@ $themeid = mysql_real_escape_string($_POST['themeid']);
 =====================================
 */
 if($_POST['print']){
-	//successMessage(print_r($_POST, true));
-	header('application/json');
-	successMessage(print_r(count($_POST['rss']),true));
+	successMessage(print_r($_POST, true));
 }
+
 /*
 =====================================
 	SET DEFAULTS
 =====================================
 */
-if(!isset($action)){
+if(!isset($action) || empty($action)){
 	//Needs to throw error after done testing!
 	$action = "add";
 	//errorMessage("action must be specified: ['add','delete','edit', 'get']");
 }
-if(!isset($posx)){
+if(!isset($posx) || empty($posx)){
 	$posx = 0;
 }
-if(!isset($posy)){
+if(!isset($posy) || empty($posy)){
 	$posy = 0;
 }
-if(!isset($sizex)){
+if(!isset($sizex) || empty($sizex)){
 	$sizex = 500;
 }
-if(!isset($sizey)){
+if(!isset($sizey) || empty($sizey)){
 	$sizey = 400;
 }
-if(!isset($themeid)){
+if(!isset($themeid) || empty($themeid)){
 	$themeid = -1;
 }
 /*
@@ -120,14 +120,15 @@ if ($action == "add")
 {
 	foreach ($rss as $value)
 	{
-		mysql_real_escape_string($value);
-		$rssCheck = mysql_query("SELECT 1 FROM panel WHERE userid='$userid', rss='$value'");
-		$numrows = mysql_num_rows($rssCheck);
-		if($numrows != 0){
-			errorMessage("RSS feed already added");
+		$errorvalue = urlencode($value);
+		$value = mysql_real_escape_string($errorvalue);
+		$rssCheck = mysql_query("SELECT COUNT(*) FROM panel WHERE userid='$userid' AND rss='$value'");
+		$numrows = mysql_fetch_assoc($rssCheck);
+		if($numrows['COUNT(*)'] != 0){
+			errorMessage("RSS feed already added: ".$errorvalue);
 		}
 		mysql_free_result($rssCheck);
-		mysql_query("INSERT INTO panel VALUES ('','$userid','$value','$posx','$posy','$sizex','$sizey','$themeid')");
+		mysql_query("INSERT INTO panel(userid,rss,posx,posy,sizex,sizey,themeid) VALUES ('$userid','$value','$posx','$posy','$sizex','$sizey','$themeid')");
 	}
 	successMessage('');
 }
