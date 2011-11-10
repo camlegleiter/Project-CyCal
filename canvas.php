@@ -20,13 +20,22 @@ if (!isset ($_COOKIE[ini_get('CyCalLogin')])) {
 <script type="text/javascript" src="js/jquery-ui.min.js"></script>
 <script type="text/javascript" src="js/xml2json.js"></script>
 <script type="text/javascript" src="js/getjson.js"></script>
-<script type="text/javascript" src="js/panel_lib.js"></script>
+<script type="text/javascript" src="js/panel_libf.js"></script>
 
 </head>
 
 <body> 
 	<?php
 		include 'includes/topbar.php';
-	?> 
+	?>
+	<noscript>
+		<br>
+		<br>
+		<br>
+		<p style="text-align:center"><strong>Please enable Javascript! This <em>WHOLE</em> page relies on it!</strong></p>
+		<br>
+		<br>
+		<br>
+	</noscript>
 </body>
 </html>

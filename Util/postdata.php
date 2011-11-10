@@ -118,23 +118,47 @@ if (!is_int($themeid))
 */
 if ($action == "add")
 {
+	$count = 0;
 	foreach ($rss as $value)
 	{
 		$errorvalue = urlencode($value);
 		$value = mysql_real_escape_string($errorvalue);
 		$rssCheck = mysql_query("SELECT COUNT(*) FROM panel WHERE userid='$userid' AND rss='$value'");
 		$numrows = mysql_fetch_assoc($rssCheck);
-		if($numrows['COUNT(*)'] != 0){
-			errorMessage("RSS feed already added: ".$errorvalue);
-		}
 		mysql_free_result($rssCheck);
 		mysql_query("INSERT INTO panel(userid,rss,posx,posy,sizex,sizey,themeid) VALUES ('$userid','$value','$posx','$posy','$sizex','$sizey','$themeid')");
+		$rows = mysql_affected_rows();
+		if($rows != -1){
+			$count++;
+		}
+
 	}
-	successMessage('');
+	if($count == 0){
+		errorMessage("Those Feeds are already on your page!");
+	}
+	else{
+		successMessage('');
+	}
 }
 else if ($action == "delete")
 {
-	errorMessage("Not implemented yet.");
+	$count = 0;
+	foreach ($rss as $value)
+	{
+		$value = mysql_real_escape_string(urlencode($value));
+		$rssCheck = mysql_query("DELETE FROM panel WHERE userid='$userid' AND rss='$value'");
+		$rows = mysql_affected_rows();
+		if($rows != 0){
+			$count++;
+		}
+	}
+	if($count == 0){
+		errorMessage("Those Feeds are not in our database.");
+	}
+	else{
+		successMessage('');
+	}
+
 }
 else if ($action == "edit")
 {
@@ -165,6 +189,9 @@ else if ($action == "get")
 	}
 	mysql_free_result($getRSS);
 	successMessage(json_encode($rssarr));
+	$rows = mysql_fetch_assoc($getRSS);
+	mysql_free_result($rssCheck);
+	successMessage(print_r($rows,true));
 }
 else
 {

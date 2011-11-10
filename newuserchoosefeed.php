@@ -115,8 +115,8 @@ function submitAjax() {
 				alert('Error: ' + errorThrown);
 			},
 			200: function(data, textStatus, jqXHR) {
-				window.location = './canvas.php';
-				//alert('200 - ' + data);
+				//window.location = './canvas.php';
+				alert('200 - ' + data);
 			}
 		},
 		data: {
