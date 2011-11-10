@@ -56,7 +56,9 @@ $themeid = mysql_real_escape_string($_POST['themeid']);
 =====================================
 */
 if($_POST['print']){
-	successMessage(print_r($_POST, true));
+	//successMessage(print_r($_POST, true));
+	header('application/json');
+	successMessage(print_r(count($_POST['rss']),true));
 }
 /*
 =====================================
