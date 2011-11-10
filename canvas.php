@@ -16,7 +16,9 @@
 	$('document').ready(function(){
 		
 		//this will eventually be the get of the rss feeds
-		var jqxhr = $.get("rsstest/feed.php", function() {
+		
+		var realArticles;
+		var jqxhr = $.get("Util/postdata.php", function() {
     						
   						})
   						.success(function() { console.log("second success"); })
@@ -68,7 +70,7 @@
 			$('#panel'+id).css('min-width', '0px');
 			$('#minimize'+id).removeClass('ui-icon-minusthick');
 			$('#minimize'+id).addClass('ui-icon-arrowthick-2-ne-sw');
-			$("#panel1").resizable({ disabled: true });
+			$("#panel"+id).resizable({ disabled: true });
 			$('#panel_feed'+id).animate({opacity:0},500,function(){});
 			$('#panel'+id).animate({
 	    					opacity: 0.75,
@@ -83,7 +85,7 @@
 			$('#panel'+id).css('min-width', '400px');
 			$('#minimize'+id).removeClass('ui-icon-arrowthick-2-ne-sw');
 			$('#minimize'+id).addClass('ui-icon-minusthick');
-			$("#panel1").resizable({ disabled: false });
+			$("#panel"+id).resizable({ disabled: false });
 			$('#panel_feed'+id).animate({opacity:1},1000,function(){});
 			$('#panel'+id).animate({
 	    					opacity: 1,
