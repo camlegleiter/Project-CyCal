@@ -11,6 +11,6 @@ $url = urldecode($q)
 if (isValueURL($url)) {
 	echo file_get_contents($q);
 } else {
-	echo "<error><message>Invalid URL. Please enter a valid URL including http://.</message</error>";
+	echo "<error><message>Invalid URL. Please enter a valid URL including http://.</message></error>";
 }
 ?>
