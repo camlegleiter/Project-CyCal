@@ -16,13 +16,31 @@
 	$('document').ready(function(){
 		
 		//this will eventually be the get of the rss feeds
-		var jqxhr = $.get("rsstest/feed.php", function() {
-    						
-  						})
-  						.success(function() { console.log("second success"); })
-  						.error(function() { console.log("error"); })
-  						.complete(function() { console.log("complete"); });
-  						
+		
+		var realArticles;
+		
+		
+		$.ajax({
+			type: 'POST',	
+			url: "./util/postdata.php",
+			statusCode: {
+				404: function() {
+					alert('Page not found');
+				},
+				409: function(jqXHR, textStatus, errorThrown) {
+					alert('Error: ' + errorThrown);
+				},
+				200: function(data, textStatus, jqXHR) {
+					alert('200' + data);
+				}
+			},
+			data: {
+				action : 'get',
+			},
+			complete: function(jqXHR, textStatus) {
+			}
+		});
+				
 		//example json object for parsing
 		var articles = { "feeds": [{        "url":"www.google.com",
 											"title":"this is my overalltitle 1",
@@ -68,7 +86,7 @@
 			$('#panel'+id).css('min-width', '0px');
 			$('#minimize'+id).removeClass('ui-icon-minusthick');
 			$('#minimize'+id).addClass('ui-icon-arrowthick-2-ne-sw');
-			$("#panel1").resizable({ disabled: true });
+			$("#panel"+id).resizable({ disabled: true });
 			$('#panel_feed'+id).animate({opacity:0},500,function(){});
 			$('#panel'+id).animate({
 	    					opacity: 0.75,
@@ -83,7 +101,7 @@
 			$('#panel'+id).css('min-width', '400px');
 			$('#minimize'+id).removeClass('ui-icon-arrowthick-2-ne-sw');
 			$('#minimize'+id).addClass('ui-icon-minusthick');
-			$("#panel1").resizable({ disabled: false });
+			$("#panel"+id).resizable({ disabled: false });
 			$('#panel_feed'+id).animate({opacity:1},1000,function(){});
 			$('#panel'+id).animate({
 	    					opacity: 1,
