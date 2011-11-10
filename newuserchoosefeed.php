@@ -1,6 +1,6 @@
 <?php
-session_name('CyCalLogin');
-session_start();
+$TO_ROOT = "";
+require "includes/membersOnly.php";
 
 if (isset($_POST['chooseFeeds'])) {
 	$arr = array();
@@ -116,6 +116,7 @@ function submitAjax() {
 			},
 			200: function(data, textStatus, jqXHR) {
 				window.location = './canvas.php';
+				//alert('200 - ' + data);
 			}
 		},
 		data: {
