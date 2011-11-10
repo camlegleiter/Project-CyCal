@@ -1,35 +1,5 @@
 $('document').ready(function(){
-		
-		//this will eventually be the get of the rss feeds		
-		var panelSettings;
-		function setData(data, textStatus, jqXHR);
-		$.ajax({
-			type: 'POST',	
-			url: "./util/postdata.php",
-			statusCode: {
-				404: function() {
-					alert('Page not found');
-				},
-				409: function(jqXHR, textStatus, errorThrown) {
-					alert('Error: ' + errorThrown);
-				},
-				200: function(data, textStatus, jqXHR) {
-					panelSettings = data;
-					console.log(data);
-				}
-			},
-			data: {
-				action : 'get',
-			},
-			complete: function(jqXHR, textStatus) {
-			}
-		});
-
-		/*extra stuffs to expect*/
-		//position
-		//size
-		//theme
-		
+				
 		//example json object for parsing
 		var articles = { "feeds": [{        "url":"www.google.com",
 											"title":"this is my overalltitle 1",
@@ -63,10 +33,34 @@ $('document').ready(function(){
 									     ]		       
 				      };
 		
-		//adds the panels to the page
-		for(i = 1; i <= 5; i++){
-			populatePanels(i, articles, panelSettings);
-		}
+		$.ajax({
+			type: 'POST',	
+			url: "./util/postdata.php",
+			statusCode: {
+				404: function() {
+					alert('Page not found');
+				},
+				409: function(jqXHR, textStatus, errorThrown) {
+					alert('Error: ' + errorThrown);
+				},
+				200: function(data, textStatus, jqXHR) {
+					//adds the panels to the page
+					for(i = 1; i <= 5; i++){
+						populatePanels(i, articles, panelSettings);
+					}
+				}
+			},
+			data: {
+				action : 'get',
+			},
+			complete: function(jqXHR, textStatus) {
+			}
+		});
+
+		/*extra stuffs to expect*/
+		//position
+		//size
+		//theme
 	});
 	
 	function togglewindow(id){

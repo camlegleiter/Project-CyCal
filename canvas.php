@@ -1,3 +1,10 @@
+<?php
+//checks to see if session is started
+if (!isset ($_COOKIE[ini_get('CyCalLogin')])) {
+	session_name('CyCalLogin');
+	session_start();
+}
+?>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
@@ -11,6 +18,8 @@
 <link href="js/css/jquery-ui.css" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="js/jquery-1.6.2.min.js"></script>
 <script type="text/javascript" src="js/jquery-ui.min.js"></script>
+<script type="text/javascript" src="js/xml2json.js"></script>
+<script type="text/javascript" src="js/getjson.js"></script>
 <script type="text/javascript" src="js/panel_lib.js"></script>
 
 </head>
