@@ -124,8 +124,10 @@ if ($action == "add")
 		if($numrows != 0){
 			errorMessage("RSS feed already added");
 		}
-	mysql_query("INSERT INTO panel VALUES ('','$userid','$value','$posx','$posy','$sizex','$sizey','$themeid')");
+		mysql_free_result($rssCheck);
+		mysql_query("INSERT INTO panel VALUES ('','$userid','$value','$posx','$posy','$sizex','$sizey','$themeid')");
 	}
+	successMessage('');
 }
 else if ($action == "delete")
 {
@@ -137,7 +139,10 @@ else if ($action == "edit")
 }
 else if ($action == "get")
 {
-	
+	$getRSS = mysql_query("SELECT * FROM panel WHERE userid='$userid'");
+	$rows = mysql_fetch_assoc($getRSS);
+	mysql_free_result($rssCheck);
+	successMessage(print_r($rows,true));
 }
 else
 {
