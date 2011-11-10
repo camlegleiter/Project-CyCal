@@ -18,13 +18,28 @@
 		//this will eventually be the get of the rss feeds
 		
 		var realArticles;
-		$.get("Util/postdata.php", function() {
-    						
-  						})
-  						.success(function() { console.log("second success"); })
-  						.error(function() { console.log("error"); })
-  						.complete(function() { console.log("complete"); 
-  		});
+		
+		
+		$.ajax({
+			type: 'POST',	
+			url: "./util/postdata.php",
+			statusCode: {
+				404: function() {
+					alert('Page not found');
+				},
+				409: function(jqXHR, textStatus, errorThrown) {
+					alert('Error: ' + errorThrown);
+				},
+				200: function(data, textStatus, jqXHR) {
+					alert('200' + data);
+				}
+			},
+			data: {
+				action : 'get',
+			},
+			complete: function(jqXHR, textStatus) {
+			}
+		});
 				
 		//example json object for parsing
 		var articles = { "feeds": [{        "url":"www.google.com",
