@@ -20,7 +20,6 @@ if (!isset ($_COOKIE[ini_get('CyCalLogin')])) {
 <script type="text/javascript" src="js/jquery-ui.min.js"></script>
 <script type="text/javascript" src="js/xml2json.js"></script>
 <script type="text/javascript" src="js/getjson.js"></script>
-
 <script type="text/javascript" src="js/panel_libf.js"></script>
 
 </head>
