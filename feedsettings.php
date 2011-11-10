@@ -26,6 +26,16 @@
 		</style>
 	</head>
 	<body>
+		<script type="text/javascript">
+		function alertX()
+		{			
+			alert("query submitted");
+		}
+		</script>
+	<?php
+		//Must be included at the top of the <body> tag
+		include 'includes/topbar.php';
+	?>
 		<div>
 			<div id="MainContainer">
 				<div id="Header_Title">
@@ -109,7 +119,7 @@
 						</div>
 					</div>
 					<a href="#">DELETE FEED</a>
-					<input type="submit">
+					<input type="submit" onClick="alertX()">
 				</form>
 			</div>
 		</div>
