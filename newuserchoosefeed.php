@@ -103,7 +103,7 @@ function submitAjax() {
 			    }
 			}
 		    }
-
+		var myJsonString = JSON.stringify(feeds);
 	$.ajax({
 		type: 'POST',	
 		url: "./util/postdata.php",
