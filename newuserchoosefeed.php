@@ -95,7 +95,7 @@ function Course(course_name, course_page, notes_no, notes_dir)
 var feeds = new Array();
 
 function submitAjax() {
-	var cbResults = 'Checkboxes: ';
+	feeds.length = 0;
 	for (var i = 0; i < document.forms[0].elements.length; i++ ) {
 		if (document.forms[0].elements[i].type == 'checkbox') {
 			if (document.forms[0].elements[i].checked == true) {
@@ -104,8 +104,6 @@ function submitAjax() {
 		}
 	}
 	var myJsonString = JSON.stringify(feeds);
-	alert(myJsonString);
-	return;
 	$.ajax({
 		type: 'POST',	
 		url: "./util/postdata.php",
@@ -114,7 +112,7 @@ function submitAjax() {
 				alert('page not found');
 			},
 			409: function(jqXHR, textStatus, errorThrown) {
-				alert('409 ' + errorThrown);
+				alert('409 ' + errorThrown + textStatus);
 			},
 			200: function(data, textStatus, jqXHR) {
 				alert('200 ' + data);
@@ -122,6 +120,7 @@ function submitAjax() {
 		},
 		data: {
 			//key1: "value1",
+			print: "true",
 			action : 'add',
 			rss : myJsonString
 		},

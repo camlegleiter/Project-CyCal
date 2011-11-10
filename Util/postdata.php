@@ -43,7 +43,7 @@ if($_POST['success']){
 */
 $action = mysql_real_escape_string(strtolower($_POST['action']));
 $userid = mysql_real_escape_string($_SESSION['id']);
-$rss = mysql_real_escape_string(urlencode($_POST['rss']));
+$rss = $_POST['rss'];
 $posx = mysql_real_escape_string($_POST['posx']);
 $posy = mysql_real_escape_string($_POST['posy']);
 $sizex = mysql_real_escape_string($_POST['sizex']);
@@ -56,7 +56,7 @@ $themeid = mysql_real_escape_string($_POST['themeid']);
 =====================================
 */
 if($_POST['print']){
-	successMessage(print_r($_POST, true));
+	successMessage(print_r($_POST, true).'\n'.print_r(json_decode($_POST['rss'], true), true));
 }
 /*
 =====================================
