@@ -1,5 +1,7 @@
 $('document').ready(function(){
-				
+		
+		//this will eventually be the get of the rss feeds
+		
 		//example json object for parsing
 		var articles = { "feeds": [{        "url":"www.google.com",
 											"title":"this is my overalltitle 1",
@@ -46,7 +48,7 @@ $('document').ready(function(){
 				200: function(data, textStatus, jqXHR) {
 					//adds the panels to the page
 					for(i = 1; i <= 5; i++){
-						populatePanels(i, articles, panelSettings);
+						populatePanels(i, articles, data);
 					}
 				}
 			},
