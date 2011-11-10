@@ -68,7 +68,7 @@ if (isset($_POST['chooseFeeds'])) {
 		float:left;
 		text-align:left;
 		width:50%;
-		//height:100px;
+		/*height:100px;*/
 		width:450px;
 	}
 
@@ -109,18 +109,17 @@ function submitAjax() {
 		url: "./util/postdata.php",
 		statusCode: {
 			404: function() {
-				alert('page not found');
+				alert('Page not found');
 			},
 			409: function(jqXHR, textStatus, errorThrown) {
-				alert('409 ' + errorThrown + textStatus);
+				alert('Error: ' + errorThrown);
 			},
 			200: function(data, textStatus, jqXHR) {
-				alert('200 ' + data);
+				window.location = './canvas.php';
 			}
 		},
 		data: {
 			//key1: "value1",
-			print: "true",
 			action : 'add',
 			rss : myJsonString
 		},
