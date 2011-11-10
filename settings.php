@@ -44,9 +44,10 @@ if($_POST['savepass'])
 $result = mysql_query("SELECT * from users where username = '".$_SESSION['usr']."'");
 $row = mysql_fetch_array($result);
 ?>
+<html>
 <head>
 
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
 	<title>CyCal</title>
 
@@ -82,10 +83,7 @@ form p {
 </style>
 
 </head>
-
-<html>
-
-
+<body>
 
 <div id="Container_Normal">
 	<div id="MainContainer">
@@ -115,5 +113,5 @@ form p {
 		<br style="clear:both">
 	</div>
 </div>
-
+</body>
 </html>
