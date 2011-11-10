@@ -1,5 +1,4 @@
 $('document').ready(function(){
-		
 		//this will eventually be the get of the rss feeds
 		
 		//example json object for parsing
@@ -104,7 +103,10 @@ $('document').ready(function(){
 		$('#panel'+id).remove();
 	}
 	
+	//******panelSettings not accessing correctly******/////
 	function populatePanels(id, articles, panelSettings){
+		console.log(panelSettings);
+	
 		$('body').append('<div id=\'panel'+id+'\' onmousedown=\'setTopZIndex('+id+')\' class=\'panel\'><div id=\'panel_title'+id+'\' class=\'panel_title\'>'+articles.feeds[id-1].title+'<table style="float:right; margin-top:2px;"><tr><td id="minimize'+id+'" class="minimize ui-icon-minusthick" onclick="togglewindow('+id+');"></td><td id="settings'+id+'" class="settings ui-icon-info"></td><td id="close'+id+'" class="close ui-icon-closethick" onclick="closewindow('+id+');"></td></tr></table></div><div id=\'panel_feed'+id+'\' class=\'panel_feed\'></div></div>');
 		$("#panel"+id).draggable({handle:$('#panel_title'+id)}); 
 		$("#panel"+id).resizable();
@@ -112,12 +114,16 @@ $('document').ready(function(){
 		for(var i = 0; i < articles.feeds[id-1].articles.length; i++){
 			$('#panel_feed'+id).append('<div id=\'panel_feed_article'+id+'\' class=\'panel_feed_article\'> <div id=\'panel_feed_article_title'+id+'\' class=\'panel_feed_article_title\' onclick=\'toggleArticle('+id+','+i+')\'>'+articles.feeds[id-1].articles[i].title+'<div id=\'panel_feed_article_title_buttons'+id+'\' class=\'panel_feed_article_title_buttons\'><div id=\'caret'+id+''+i+'\' class=\'caretDiv ui-icon-carat-1-s\'></div></div></div><div id=\'panel_feed_article_content'+id+''+i+'\' class=\'panel_feed_article_content\'>'+articles.feeds[id-1].articles[i].content+'</div></div>');
 		}
-		
+		console.log(panelSettings.posy);
 		$("#panel"+id).draggable({handle:$('#panel_title'+id)}); 
 		$("#panel"+id).resizable();
 		$("#panel"+id).css({"position":"fixed"});
 		var lastId = (id-1);
-		$("#panel"+id).css({"z-index": id, "top": $("#panel"+(id == 1 ? 1 : (id-1))).position().top+20, "left": $("#panel"+(id == 1 ? 1 : (id-1))).position().left+100});
+		$("#panel"+id).css({"height":panelSettings.sizey == null ? 400 : panelSettings.sizey,
+		                    "width":panelSettings.sizex == null ? 500 : panelSettings.sizex,
+		                    "z-index": id, "top": panelSettings.posy == null ? 60 : panelSettings.posy, 
+		                    "left": panelSettings.posx == null ? 20 : panelSettings.posx});
+		                    
 		$("#panel"+id).mousedown(function(id){
 			$(".panel").css("z-index", id);
 			$("#panel"+id).css("z-index", "99");
