@@ -1,4 +1,3 @@
-<html>
 <?php
 session_name('CyCalLogin');
 session_start();
@@ -51,6 +50,7 @@ if (isset($_POST['chooseFeeds'])) {
 	}
 }
 ?>
+<html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
 
@@ -95,15 +95,15 @@ function Course(course_name, course_page, notes_no, notes_dir)
 var feeds = new Array();
 
 function submitAjax() {
-	    var cbResults = 'Checkboxes: ';
-		    for (var i = 0; i < document.forms[0].elements.length; i++ ) {
-			if (document.forms[0].elements[i].type == 'checkbox') {
-			    if (document.forms[0].elements[i].checked == true) {
+	feeds.length = 0;
+	for (var i = 0; i < document.forms[0].elements.length; i++ ) {
+		if (document.forms[0].elements[i].type == 'checkbox') {
+			if (document.forms[0].elements[i].checked == true) {
 				feeds.push(document.forms[0].elements[i].value);
-			    }
 			}
-		    }
-		var myJsonString = JSON.stringify(feeds);
+		}
+	}
+	var myJsonString = JSON.stringify(feeds);
 	$.ajax({
 		type: 'POST',	
 		url: "./util/postdata.php",
@@ -112,7 +112,7 @@ function submitAjax() {
 				alert('page not found');
 			},
 			409: function(jqXHR, textStatus, errorThrown) {
-				alert('409 ' + errorThrown);
+				alert('409 ' + errorThrown + textStatus);
 			},
 			200: function(data, textStatus, jqXHR) {
 				alert('200 ' + data);
@@ -120,12 +120,11 @@ function submitAjax() {
 		},
 		data: {
 			//key1: "value1",
+			print: "true",
 			action : 'add',
-			print : 'true',
-
+			rss : myJsonString
 		},
 		complete: function(jqXHR, textStatus) {
-			ed.setProgressState(0);// Hide progress
 		}
 	});
 }
@@ -167,7 +166,7 @@ function submitAjax() {
 				?>
 				</table>
  			<br style="clear:left;">
- 		<input type="button" name="chooseFeeds" onclick="submitAjax()" value = "Submit"/>
+ 		<input type="button" name="chooseFeeds" onclick="submitAjax()" value = "Submit">
 	</form>
 <!--	
  	<form method="post" action="">
