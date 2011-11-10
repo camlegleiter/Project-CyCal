@@ -143,6 +143,11 @@ else if ($action == "edit")
 else if ($action == "get")
 {
 	$getRSS = mysql_query("SELECT * FROM panel WHERE userid='$userid'");
+	if (!getRSS)
+	{
+		successMessage(mysql_error());
+		return;
+	}
 	$rows = mysql_fetch_assoc($getRSS);
 	mysql_free_result($rssCheck);
 	successMessage(print_r($rows,true));
