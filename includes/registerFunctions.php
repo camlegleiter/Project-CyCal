@@ -98,11 +98,22 @@ if($_POST['submit']=='Login')
 					$_SESSION['rememberMe'] = $_POST['rememberMe'];
 					
 					// Store some data in the session
-					
 					setcookie('CyCalRemember',$_POST['rememberMe']);
 					
-					//Redirect to members page
-					header("Location: canvas.php");
+					//TODO: check if new user or not
+					//New user = 0 rss feeds
+					$numOfCal = mysql_query("SELECT COUNT(*) FROM panel WHERE 
+						userid='{$row['userid']}'
+						");
+						
+					$rowCount = mysql_fetch_assoc($numOfCal);
+
+					if($rowCount['COUNT(*)'] != 0)
+						header("Location: canvas.php");
+					else
+						header("Location: newuserchoosefeed.php");
+					
+					mysql_free_result($numOfCal);
 					exit;
 				}
 				else $err[]='Something went wrong on our end! Try again!';

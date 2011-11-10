@@ -43,7 +43,7 @@ if($_POST['success']){
 */
 $action = mysql_real_escape_string(strtolower($_POST['action']));
 $userid = mysql_real_escape_string($_SESSION['id']);
-$rss = $_POST['rss'];
+$rss = mysql_real_escape_string(urlencode($_POST['rss']));
 $posx = mysql_real_escape_string($_POST['posx']);
 $posy = mysql_real_escape_string($_POST['posy']);
 $sizex = mysql_real_escape_string($_POST['sizex']);
@@ -66,7 +66,7 @@ if($_POST['print']){
 if(!isset($action)){
 	//Needs to throw error after done testing!
 	$action = "add";
-	//errorMessage("action must be specified: ['add','delete','edit']");
+	//errorMessage("action must be specified: ['add','delete','edit', 'get']");
 }
 if(!isset($posx)){
 	$posx = 0;
@@ -134,6 +134,10 @@ else if ($action == "delete")
 else if ($action == "edit")
 {
 	errorMessage("Not implemented yet.");
+}
+else if ($action == "get")
+{
+	
 }
 else
 {
