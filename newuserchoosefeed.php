@@ -2,6 +2,14 @@
 $TO_ROOT = "";
 require "includes/membersOnly.php";
 
+$userid = mysql_real_escape_string($_SESSION['id']);
+$getRSS = mysql_query("SELECT * FROM panel WHERE userid='$userid'");
+$num_rows = mysql_num_rows($getRSS);
+if($num_rows != 0) {
+	header("Location: canvas.php");
+	exit;
+}
+
 if (isset($_POST['chooseFeeds'])) {
 	$arr = array();
     if (isset($_POST['featuredEvents'])) {
