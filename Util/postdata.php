@@ -134,7 +134,7 @@ if ($action == "add")
 
 	}
 	if($count == 0){
-		errorMessage("Those Feeds are already on your page!");
+		errorMessage("Those Feeds are already on your page or you have not selected a feed.");
 	}
 	else{
 		successMessage('');
@@ -162,7 +162,8 @@ else if ($action == "delete")
 }
 else if ($action == "edit")
 {
-	errorMessage("Not implemented yet.");
+	mysql_query("UPDATE panel SET posx='$posx',posy='$posy', sizex='$sizex' , sizey='$sizey' WHERE userid='$userid' AND rss='$rss'");
+
 }
 else if ($action == "get")
 {
