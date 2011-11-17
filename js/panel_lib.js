@@ -1,4 +1,15 @@
 $('document').ready(function(){
+
+		//add refresh functionality
+		$(window).bind('beforeunload',function(){
+			var panels = $('body').find('.panel');
+			for(var i = 1; i <= panels.length; i++){
+				savePosition(i);
+			}
+		
+			console.log($('body').find('.panel'));
+			//savePosition();
+		}); 
 		//this will eventually be the get of the rss feeds
 		
 		//example json object for parsing
@@ -45,16 +56,19 @@ $('document').ready(function(){
 					alert('Error: ' + errorThrown);
 				},
 				200: function(data, textStatus, jqXHR) {
-					//adds the panels to the page
-					for(i = 1; i <= 5; i++){
-						populatePanels(i, articles, data);
-					}
+					
 				}
 			},
 			data: {
 				action : 'get',
 			},
 			complete: function(jqXHR, textStatus) {
+				//adds the panels to the page
+				var panelSettings = eval('(' + jqXHR.responseText + ')');
+				console.log(panelSettings.length);
+				for(i = 1; i <= panelSettings.length; i++){
+					populatePanels(i, articles, panelSettings);
+				}
 			}
 		});
 
@@ -103,30 +117,82 @@ $('document').ready(function(){
 		$('#panel'+id).remove();
 	}
 	
-	//******panelSettings not accessing correctly******/////
-	function populatePanels(id, articles, panelSettings){
-		console.log(panelSettings);
+	function addISUFeed(){
 	
-		$('body').append('<div id=\'panel'+id+'\' onmousedown=\'setTopZIndex('+id+')\' class=\'panel\'><div id=\'panel_title'+id+'\' class=\'panel_title\'>'+articles.feeds[id-1].title+'<table style="float:right; margin-top:2px;"><tr><td id="minimize'+id+'" class="minimize ui-icon-minusthick" onclick="togglewindow('+id+');"></td><td id="settings'+id+'" class="settings ui-icon-info"></td><td id="close'+id+'" class="close ui-icon-closethick" onclick="closewindow('+id+');"></td></tr></table></div><div id=\'panel_feed'+id+'\' class=\'panel_feed\'></div></div>');
+	}
+	
+	function addOtherFeed(){
+	
+	}
+	
+	//THIS IS WHAT FIRST CREATES INDIVIDUAL PANELS
+	function populatePanels(id, articles, myPanelSettings){			
+		if(myPanelSettings[id-1].sizey == null || myPanelSettings[id-1].sizey == '' || 
+		   parseInt(myPanelSettings[id-1].sizey) == 'NaN' || myPanelSettings[id-1].sizey == '0'){
+			myPanelSettings[id-1].sizey = 400;
+		}
+		if(myPanelSettings[id-1].sizex == null || myPanelSettings[id-1].sizex == '' || 
+		   parseInt(myPanelSettings[id-1].sizex) == 'NaN' || myPanelSettings[id-1].sizex == '0'){
+			myPanelSettings[id-1].sizex = 500;
+		}
+		if(myPanelSettings[id-1].posy == null || myPanelSettings[id-1].posy == '' || 
+		   parseInt(myPanelSettings[id-1].posy) == 'NaN' || myPanelSettings[id-1].posy == '0'){
+			myPanelSettings[id-1].posy = 60;
+		}
+		if(myPanelSettings[id-1].posx == null || myPanelSettings[id-1].posx == '' || 
+		   parseInt(myPanelSettings[id-1].posx) == 'NaN' || myPanelSettings[id-1].posx == '0'){
+			myPanelSettings[id-1].posx = 20;
+		}
+
+		$('body').append('<div id=\'panel'+id+'\' onmousedown=\'setTopZIndex('+id+')\' class=\'panel\'><div id=\'panel_title'+id+'\' class=\'panel_title\'>'+myPanelSettings[id-1].rss+'<table style="float:right; margin-top:2px;"><tr><td id="minimize'+id+'" class="minimize ui-icon-minusthick" onclick="togglewindow('+id+');"></td><td id="settings'+id+'" class="settings ui-icon-info"></td><td id="close'+id+'" class="close ui-icon-closethick" onclick="closewindow('+id+');"></td></tr></table></div><div id=\'panel_feed'+id+'\' class=\'panel_feed\'></div></div>');
 		$("#panel"+id).draggable({handle:$('#panel_title'+id)}); 
 		$("#panel"+id).resizable();
 		$("#panel"+id).css('z-index', id);
 		for(var i = 0; i < articles.feeds[id-1].articles.length; i++){
 			$('#panel_feed'+id).append('<div id=\'panel_feed_article'+id+'\' class=\'panel_feed_article\'> <div id=\'panel_feed_article_title'+id+'\' class=\'panel_feed_article_title\' onclick=\'toggleArticle('+id+','+i+')\'>'+articles.feeds[id-1].articles[i].title+'<div id=\'panel_feed_article_title_buttons'+id+'\' class=\'panel_feed_article_title_buttons\'><div id=\'caret'+id+''+i+'\' class=\'caretDiv ui-icon-carat-1-s\'></div></div></div><div id=\'panel_feed_article_content'+id+''+i+'\' class=\'panel_feed_article_content\'>'+articles.feeds[id-1].articles[i].content+'</div></div>');
 		}
-		console.log(panelSettings.posy);
+		
 		$("#panel"+id).draggable({handle:$('#panel_title'+id)}); 
 		$("#panel"+id).resizable();
 		$("#panel"+id).css({"position":"fixed"});
 		var lastId = (id-1);
-		$("#panel"+id).css({"height":panelSettings.sizey == null ? 400 : panelSettings.sizey,
-		                    "width":panelSettings.sizex == null ? 500 : panelSettings.sizex,
-		                    "z-index": id, "top": panelSettings.posy == null ? 60 : panelSettings.posy, 
-		                    "left": panelSettings.posx == null ? 20 : panelSettings.posx});
+		$("#panel"+id).css({"height":myPanelSettings[id-1].sizey, "width":myPanelSettings[id-1].sizex,
+		                    "z-index": id, "top":myPanelSettings[id-1].posy, "left":myPanelSettings[id-1].posx});
 		                    
 		$("#panel"+id).mousedown(function(id){
 			$(".panel").css("z-index", id);
 			$("#panel"+id).css("z-index", "99");
+		});
+		
+		console.log(myPanelSettings[id-1].rss);
+	}
+	
+	function savePosition(id){
+		$.ajax({
+			type: 'POST',	
+			url: "./util/postdata.php",
+			async:true,
+			statusCode: {
+				404: function() {
+					alert('Page not found');
+				},
+				409: function(jqXHR, textStatus, errorThrown) {
+					alert('Error: ' + errorThrown);
+				},
+				200: function(data, textStatus, jqXHR) {
+					alert(data);
+				}
+			},
+			data: {
+				action : 'edit',
+				sizey : parseInt($('#panel'+id).css('height')),
+				sizex : parseInt($('#panel'+id).css('width')), 
+				posy : parseInt($('#panel'+id).css('top')),
+				posx : parseInt($('#panel'+id).css('left')),
+				rss : "[\"http://www.event.iastate.edu/rssgen.php?category=14\"]"
+			},
+			complete: function(jqXHR, textStatus) {
+			}
 		});
 	}
 	
