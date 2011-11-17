@@ -84,14 +84,6 @@ if (isset($_POST['chooseFeeds'])) {
 		include 'includes/topbar_header.php';
 	?>
 <script type="text/javascript">
-function Course(course_name, course_page, notes_no, notes_dir)
-{
-    this.courseName = course_name;
-    this.coursePage = course_page;
-    this.notes = new Array();
-    this.hws = new Array();
-
-}
 var feeds = new Array();
 
 function submitAjax() {
