@@ -165,9 +165,10 @@ else if ($action == "edit")
 	if(count($rss) != 1){
 		errorMessage("1 RSS feed must be given.");
 	}
+	//Get it so it matches the database
 	$feed = mysql_real_escape_string(urlencode($rss[0]));
 	if(mysql_query("UPDATE panel SET posx='$posx',posy='$posy', sizex='$sizex' , sizey='$sizey' WHERE userid='$userid' AND rss='$feed'")){
-		successMessage("UPDATE panel SET posx='$posx',posy='$posy', sizex='$sizex' , sizey='$sizey' WHERE userid='$userid' AND rss='$feed'");
+		successMessage('');
 	}	
 	else{
 		errorMessage("Failed to Update Panel");
