@@ -16,10 +16,10 @@
 
 <!--1st drop down menu -->                                                   
 <span id="dropmenu1" class="dropmenudiv">
-	<a href="#">Add ISU Feed</a>
-	<a href="#">Add Other Feed</a>
-	<a href="#">Account Settings</a>
-	<a href="#">Log Out</a>
+	<a href="#addISU" onclick="addISUFeed()">Add ISU Feed</a>
+	<a href="#addOther" onclick="addOtherFeed()">Add Other Feed</a>
+	<a href="settings.php">Account Settings</a>
+	<a href="logout.php">Log Out</a>
 </span>
 
 <script type="text/javascript">
