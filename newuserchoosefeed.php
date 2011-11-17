@@ -2,6 +2,14 @@
 $TO_ROOT = "";
 require "includes/membersOnly.php";
 
+$userid = mysql_real_escape_string($_SESSION['id']);
+$getRSS = mysql_query("SELECT * FROM panel WHERE userid='$userid'");
+$num_rows = mysql_num_rows($getRSS);
+if($num_rows != 0) {
+	header("Location: canvas.php");
+	exit;
+}
+
 if (isset($_POST['chooseFeeds'])) {
 	$arr = array();
     if (isset($_POST['featuredEvents'])) {
@@ -84,14 +92,6 @@ if (isset($_POST['chooseFeeds'])) {
 		include 'includes/topbar_header.php';
 	?>
 <script type="text/javascript">
-function Course(course_name, course_page, notes_no, notes_dir)
-{
-    this.courseName = course_name;
-    this.coursePage = course_page;
-    this.notes = new Array();
-    this.hws = new Array();
-
-}
 var feeds = new Array();
 
 function submitAjax() {
@@ -115,8 +115,8 @@ function submitAjax() {
 				alert('Error: ' + errorThrown);
 			},
 			200: function(data, textStatus, jqXHR) {
-				//window.location = './canvas.php';
-				alert('200 - ' + data);
+				window.location = './canvas.php';
+				//alert('200 - ' + data);
 			}
 		},
 		data: {
