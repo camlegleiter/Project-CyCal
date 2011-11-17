@@ -91,14 +91,13 @@ $row = mysql_fetch_array($result);
 			<h2 style="text-align:left">Panel Background</h2>
 			<div style="text-align:left">
 				<input class="radio" type="radio" name="group1" value="Default" id="cbDef" <?php echo 'checked="checked"' ?>>
-					<span onclick="$('#cbDef').prop('checked', true)"> Default</span>
-					<div style="clear:both"></div>
+					<label onclick="$('#cbDef').prop('checked', true)"> Default</label>
 					<div id="colorSelectorDef" style="margin-left:2em">
 						<div style="background-color: #a3a3a3"></div>
 					</div>
 					<br>
 				<input class="radio" type="radio" name="group1" value="Color" id="cbColor">
-					<span onclick="$('#cbColor').prop('checked', true)"> Color:</span><br>
+					<label onclick="$('#cbColor').prop('checked', true)"> Color:</label>
 					<div id="colorSelector" style="margin-left:2em">
 						<div style="background-color: #a3a3a3"></div>
 					</div>			
