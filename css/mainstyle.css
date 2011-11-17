@@ -47,11 +47,13 @@ a:active, a:hover {
 .error {
 	color: #A6212D;
 	font-weight: bold;
+	font-size:0.8em;
 }
 
 .success {
 	color:#DFBE00;
 	font-weight: bold;
+	font-size:0.8em;
 }
 
 ul li {
@@ -115,6 +117,74 @@ form .checkbox, .radio {
 	text-align:left;
 }
 
+form .submit {
+	background:url('../img/submit_button.png') no-repeat right top;
+	border:none;
+	cursor:pointer;
+	height:31px;
+	left:236px;
+	line-height:31px;
+	
+	text-indent:-99999px;
+	text-transform:uppercase;
+	top:10px;
+	width:96px;
+}
+
+form .save:hover {
+	background-position:right bottom;
+}
+
+form .save {
+	background:url('../img/save_button.png') no-repeat right top;
+	border:none;
+	cursor:pointer;
+	height:31px;
+	left:236px;
+	line-height:31px;
+	
+	text-indent:-99999px;
+	text-transform:uppercase;
+	top:10px;
+	width:96px;
+}
+
+form .submit:hover {
+	background-position:right bottom;
+}
+
+form .register {
+	background:url('../img/register_button.png') no-repeat right top;
+	border:none;
+	cursor:pointer;
+	height:31px;
+	line-height:31px;
+	text-indent:-99999px;
+	text-transform:uppercase;
+	top:10px;
+	width:96px;
+}
+
+form .register:hover {
+	background-position:right bottom;
+}
+
+form .cancel {
+	background:url('../img/cancel_button.png') no-repeat right top;
+	border:none;
+	cursor:pointer;
+	height:31px;
+	line-height:31px;
+	text-indent:-99999px;
+	text-transform:uppercase;
+	top:10px;
+	width:96px;
+}
+
+form .cancel:hover {
+	background-position:right bottom;
+}
+
 form #newuser {
 	width: 500px;
 
@@ -164,90 +234,6 @@ form #newuser {
 	top:10px;
 	width:223px;
 	outline:none;
-}
-
-#submitButton {
-	background:url('../img/submit_form.png') no-repeat right top;
-	border:none;
-	cursor:pointer;
-	height:31px;
-	left:236px;
-	line-height:31px;
-	
-	text-indent:-99999px;
-	text-transform:uppercase;
-	top:10px;
-	width:96px;
-}
-
-#submitButton:hover {
-	background-position:right bottom;
-}
-
-#registerButton {
-	background:url('../img/register_form.png') no-repeat right top;
-	border:none;
-	cursor:pointer;
-	height:31px;
-	left:236px;
-	line-height:31px;
-	
-	text-indent:-99999px;
-	text-transform:uppercase;
-	top:10px;
-	width:96px;
-}
-
-#registerButton:hover {
-	background-position:right bottom;
-}
-
-#registerOnlyButton {
-	background:url('../img/register_button.png') no-repeat right top;
-	border:none;
-	cursor:pointer;
-	height:31px;
-	line-height:31px;
-	text-indent:-99999px;
-	text-transform:uppercase;
-	top:10px;
-	width:96px;
-}
-
-#registerOnlyButton:hover {
-	background-position:right bottom;
-}
-
-#submitOnlyButton {
-	background:url('../img/submit_button.png') no-repeat right top;
-	border:none;
-	cursor:pointer;
-	height:31px;
-	line-height:31px;
-	text-indent:-99999px;
-	text-transform:uppercase;
-	top:10px;
-	width:96px;
-}
-
-#submitOnlyButton:hover {
-	background-position:right bottom;
-}
-
-#cancelOnlyButton {
-	background:url('../img/cancel_button.png') no-repeat right top;
-	border:none;
-	cursor:pointer;
-	height:31px;
-	line-height:31px;
-	text-indent:-99999px;
-	text-transform:uppercase;
-	top:10px;
-	width:96px;
-}
-
-#cancelOnlyButton:hover {
-	background-position:right bottom;
 }
 
 #spacer {
