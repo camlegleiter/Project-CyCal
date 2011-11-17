@@ -162,8 +162,16 @@ else if ($action == "delete")
 }
 else if ($action == "edit")
 {
-	//Add error checking
-	mysql_query("UPDATE panel SET posx='$posx',posy='$posy', sizex='$sizex' , sizey='$sizey' WHERE userid='$userid' AND rss='$rss'");
+	if(count($rss) != 1){
+		errorMessage("1 RSS feed must be given.");
+	}
+	if(mysql_query("UPDATE panel SET posx='$posx',posy='$posy', sizex='$sizex' , sizey='$sizey' WHERE userid='$userid' AND rss='$rss[0]'")){
+		successMessage('');
+	}	
+	else{
+		errorMessage("Failed to Update Panel");
+
+	}
 	
 }
 else if ($action == "get")
