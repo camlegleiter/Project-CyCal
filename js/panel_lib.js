@@ -1,4 +1,15 @@
 $('document').ready(function(){
+
+		//add refresh functionality
+		$(window).bind('beforeunload',function(){
+			var panels = $('body').find('.panel');
+			for(var i = 1; i <= panels.length; i++){
+				savePosition(i);
+			}
+		
+			console.log($('body').find('.panel'));
+			//savePosition();
+		}); 
 		//this will eventually be the get of the rss feeds
 		
 		//example json object for parsing
@@ -114,7 +125,7 @@ $('document').ready(function(){
 	
 	}
 	
-	//******panelSettings not accessing correctly******/////
+	//THIS IS WHAT FIRST CREATES INDIVIDUAL PANELS
 	function populatePanels(id, articles, myPanelSettings){			
 		if(myPanelSettings[id-1].sizey == null || myPanelSettings[id-1].sizey == '' || 
 		   parseInt(myPanelSettings[id-1].sizey) == 'NaN' || myPanelSettings[id-1].sizey == '0'){
@@ -133,7 +144,7 @@ $('document').ready(function(){
 			myPanelSettings[id-1].posx = 20;
 		}
 
-		$('body').append('<div id=\'panel'+id+'\' onmousedown=\'setTopZIndex('+id+')\' class=\'panel\'><div id=\'panel_title'+id+'\' class=\'panel_title\'>'+articles.feeds[id-1].title+'<table style="float:right; margin-top:2px;"><tr><td id="minimize'+id+'" class="minimize ui-icon-minusthick" onclick="togglewindow('+id+');"></td><td id="settings'+id+'" class="settings ui-icon-info"></td><td id="close'+id+'" class="close ui-icon-closethick" onclick="closewindow('+id+');"></td></tr></table></div><div id=\'panel_feed'+id+'\' class=\'panel_feed\'></div></div>');
+		$('body').append('<div id=\'panel'+id+'\' onmousedown=\'setTopZIndex('+id+')\' class=\'panel\'><div id=\'panel_title'+id+'\' class=\'panel_title\'>'+myPanelSettings[id-1].rss+'<table style="float:right; margin-top:2px;"><tr><td id="minimize'+id+'" class="minimize ui-icon-minusthick" onclick="togglewindow('+id+');"></td><td id="settings'+id+'" class="settings ui-icon-info"></td><td id="close'+id+'" class="close ui-icon-closethick" onclick="closewindow('+id+');"></td></tr></table></div><div id=\'panel_feed'+id+'\' class=\'panel_feed\'></div></div>');
 		$("#panel"+id).draggable({handle:$('#panel_title'+id)}); 
 		$("#panel"+id).resizable();
 		$("#panel"+id).css('z-index', id);
@@ -154,10 +165,13 @@ $('document').ready(function(){
 		});
 		
 		console.log(myPanelSettings[id-1].rss);
-       
+	}
+	
+	function savePosition(id){
 		$.ajax({
 			type: 'POST',	
 			url: "./util/postdata.php",
+			async:false,
 			statusCode: {
 				404: function() {
 					alert('Page not found');
@@ -170,12 +184,12 @@ $('document').ready(function(){
 				}
 			},
 			data: {
-				action : 'post',
-				sizey : myPanelSettings[id-1].sizey,
-				sizex : myPanelSettings[id-1].sizex, 
-				posy : myPanelSettings[id-1].posy,
-				posx : myPanelSettings[id-1].posx,
-				rss : "[\""+myPanelSettings[id-1].rss+"\"]"
+				action : 'edit',
+				sizey : parseInt($('#panel'+id).css('height')),
+				sizex : parseInt($('#panel'+id).css('width')), 
+				posy : parseInt($('#panel'+id).css('top')),
+				posx : parseInt($('#panel'+id).css('left')),
+				rss : "[\"this is where our rss will go\"]"
 			},
 			complete: function(jqXHR, textStatus) {
 			}
