@@ -64,8 +64,8 @@ include 'includes/header.php';
 							</tr>
 							<tr>
 								<td align="center">
-									<input type='submit' id="submitOnlyButton" name='submit' value='Login'>
-									<input type='button' id="registerOnlyButton" name='register' value='RegisterToggle'>	
+									<input type='submit' class="submit" id="submitButton" name='submit' value='Login'>
+									<input type='button' class="register" id="registercancelButton" name='register' value='RegisterToggle'>	
 								</td>
 							</tr>
 					</table>
@@ -95,22 +95,20 @@ include 'includes/header.php';
 					echo "
 						regShow = true;
 						//$('#submitOnlyButton').attr('name','submit');
-						$('#submitOnlyButton').attr('value','Register');
-						$('#registerOnlyButton').attr('id', 'cancelOnlyButton');
+						$('#submitButton').attr('value','Register');
+						$('#registercancelButton').attr('class', 'cancel');
 						$('#LoginRegisterTxt').html('Register');
 					";
 				}
 			?>
-			
-			<?php if ($_SESSION['msg']['formtype'] != 'register') echo "$('#registerOnlyButton')"; else echo "$('#cancelOnlyButton')"; ?>
-			.click(function(){
+			$('#registercancelButton').click(function(){
 				if (regShow)
 				{
 					$('#RegisterDivBeta').hide('fade',{},500,function(){$('#RegisterDivPass').hide('fade',{},500);});
 					regShow = false;
 					//$('#submitOnlyButton').attr('name','submit');
-					$('#submitOnlyButton').attr('value','Login');
-					$('#cancelOnlyButton').attr('id', 'registerOnlyButton');
+					$('#submitButton').attr('value','Login');
+					$('#registercancelButton').attr('class', 'register');
 					$('#LoginRegisterTxt').html('Login');
 				}
 				else
@@ -118,8 +116,8 @@ include 'includes/header.php';
 					$('#RegisterDivPass').show('fade',{},500,function(){$('#RegisterDivBeta').show('fade',{},500);});
 					regShow = true;
 					//$('#submitOnlyButton').attr('name','submit');
-					$('#submitOnlyButton').attr('value','Register');
-					$('#registerOnlyButton').attr('id', 'cancelOnlyButton');
+					$('#submitButton').attr('value','Register');
+					$('#registercancelButton').attr('class', 'cancel');
 					$('#LoginRegisterTxt').html('Register');
 
 				}
