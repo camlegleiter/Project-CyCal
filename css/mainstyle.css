@@ -96,6 +96,9 @@ form {
 	margin: 10px auto 10px auto;
 	text-align: center;
 }
+form p {
+	text-align:left;
+}
 form input {
 	background:url('../img/submit_form.png') no-repeat left bottom;
 	border:none;
