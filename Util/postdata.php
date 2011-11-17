@@ -90,23 +90,23 @@ if(!isset($themeid) || empty($themeid)){
 	ERROR CHECKING
 =====================================
 */
-if (!is_int($posx))
+if (!is_numeric($posx))
 {
 	errorMessage("posx is not an int");
 }
-if (!is_int($posy))
+if (!is_numeric($posy))
 {
 	errorMessage("posy is not an int");
 }
-if (!is_int($sizex))
+if (!is_numeric($sizex))
 {
 	errorMessage("sizex is not an int");
 }
-if (!is_int($sizey))
+if (!is_numeric($sizey))
 {
 	errorMessage("sizey is not an int");
 }
-if (!is_int($themeid))
+if (!is_numeric($themeid))
 {
 	errorMessage("themeid is not an int");
 }
@@ -162,8 +162,9 @@ else if ($action == "delete")
 }
 else if ($action == "edit")
 {
+	//Add error checking
 	mysql_query("UPDATE panel SET posx='$posx',posy='$posy', sizex='$sizex' , sizey='$sizey' WHERE userid='$userid' AND rss='$rss'");
-
+	
 }
 else if ($action == "get")
 {
