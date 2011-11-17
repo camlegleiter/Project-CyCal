@@ -44,12 +44,14 @@ a:active, a:hover {
 	text-decoration: underline;
 }
 
-p.error {
-	color:#A6212D;
+.error {
+	color: #A6212D;
+	font-weight: bold;
 }
 
-p.success {
-	color:#DFBD00;
+.success {
+	color:#DFBE00;
+	font-weight: bold;
 }
 
 ul li {
@@ -92,7 +94,28 @@ form {
 	margin: 10px auto 10px auto;
 	text-align: center;
 }
-form#newuser {
+form input {
+	background:url('../img/submit_form.png') no-repeat left bottom;
+	border:none;
+	color:#333333;
+	height:31px;
+	left:10px;
+	line-height:31px;
+	padding-left:8px;
+
+	text-shadow:1px 1px 0 #FFFFFF;
+	top:10px;
+	width:223px;
+	outline:none;
+}
+
+form .checkbox, .radio {
+	width:auto;
+	height:auto;
+	text-align:left;
+}
+
+form #newuser {
 	width: 500px;
 
 }
