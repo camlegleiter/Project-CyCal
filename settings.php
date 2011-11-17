@@ -46,45 +46,25 @@ $row = mysql_fetch_array($result);
 ?>
 <html>
 <head>
-
+<?php
+	include 'includes/topbar_header.php';
+?>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-
 	<title>CyCal</title>
-
 	<link href="css/reset.css" rel="stylesheet" type="text/css">
-
 	<link href="css/mainstyle.css" rel="stylesheet" type="text/css">
-
 	<link href="js/css/jquery-ui.css" rel="stylesheet" type="text/css">
-
 	<script type="text/javascript" src="js/jquery-1.6.2.min.js"></script>
-
 	<script type="text/javascript" src="js/jquery-ui.min.js"></script>
-<style type="text/css">
-form{
-	background-image: url('../img/WindowBack.png');
-	padding: 15px;
-	-moz-border-radius: 15px;
-	border-radius: 15px;
-	width: 250px;
-	margin: 10px auto 10px auto;
-	text-align: left;
-}
-#Header_Title{
-	width: 100%;
-	padding: 10px;
-}
-input {
-	margin: 0px;
-}
-form p {
-	padding:5px 0px 2px 0px;
-}
-</style>
-
+	<link rel="stylesheet" media="screen" type="text/css" href="css/colorpicker.css" >
+	<script type="text/javascript" src="js/colorpicker.js"></script>
 </head>
 <body>
-
+<?php
+	//Must be included at the top of the <body> tag
+	define("SETTINGSPAGE", true);
+	include 'includes/topbar.php';
+?>
 <div id="Container_Normal">
 	<div id="MainContainer">
 		<div id="Header_Title">
@@ -93,25 +73,56 @@ form p {
 		</div>
 		<form style="float:left"method='POST'>
 			<h2>Account</h2>
-				<p>Email:</p><input style="width:100%" type='text' name='newEmail' value = <?php echo $row['email'] ?>>
-				<p>New Password:</p><input style="width:100%" type='password' name='newpass'>
-				<p>Confirm Password:</p><input  style="width:100%"type='password' name='confirmpass'>
-				<p>Current Password:</p><input  style="width:100%"type='password' name='oldpass'>
+				<p>Email:</p><input type='text' name='newEmail' value = <?php echo $row['email'] ?>>
+				<p>New Password:</p><input type='password' name='newpass'>
+				<p>Confirm Password:</p><input type='password' name='confirmpass'>
+				<p>Current Password:</p><input type='password' name='oldpass'>
 			
 			<center><input type='submit' name='savepass' value='Save'><br></center>
 			<a style="font-size:xx-small;color:red;" href='#'><strong>Delete Account</strong></a>
 		</form>
-		<form style="float:right"method='POST'>
-			<h2 align="left">Background</h2>
-			<input style="margin-bottom:5px" type="radio" name="group1" value="Default"> Default<br>
-			<input style="margin-bottom:5px" type="radio" name="group1" value="Color"> Color<br>
-			<input style="margin-left:20px" type='text' name='color'><input type="submit" value='...'><br>
-			<input style="margin-bottom:5px" type="radio" name="group1" value="Image"> Image<br>
-			<input style="margin-left:20px" type='text' name='img'><input type="submit" value='...'>
+		<form style="float:right" method='POST'>
+			<h2 style="text-align:left">Panel Background</h2>
+			<div style="text-align:left">
+				<input class="radio" type="radio" name="group1" value="Default" id="cbDef" <?php echo 'checked="checked"' ?>>
+					<span onclick="$('#cbDef').prop('checked', true)"> Default</span>
+					<div style="clear:both"></div>
+					<div id="colorSelectorDef" style="margin-left:2em">
+						<div style="background-color: #a3a3a3"></div>
+					</div>
+					<br>
+				<input class="radio" type="radio" name="group1" value="Color" id="cbColor">
+					<span onclick="$('#cbColor').prop('checked', true)"> Color:</span><br>
+					<div id="colorSelector" style="margin-left:2em">
+						<div style="background-color: #a3a3a3"></div>
+					</div>			
+					<br>
+				<!--
+				<input style="margin-bottom:5px" type="radio" name="group1" value="Image"> Image<br>
+				<input style="margin-left:20px" type='text' name='img'><input type="button" value='...'>
+				-->
+			</div>
 			<input type='submit' name='savepass1' value='Set Background'>
 		</form>
 		<br style="clear:both">
 	</div>
 </div>
+
+<script type="text/javascript">
+	$('#colorSelector').ColorPicker({
+		color: '#a3a3a3',
+		onShow: function (colpkr) {
+			$(colpkr).fadeIn(500);
+			return false;
+		},
+		onHide: function (colpkr) {
+			$(colpkr).fadeOut(500);
+			return false;
+		},
+		onChange: function (hsb, hex, rgb) {
+			$('#colorSelector div').css('backgroundColor', '#' + hex);
+		}
+	});
+</script>
 </body>
 </html>
