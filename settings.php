@@ -80,12 +80,12 @@ $row = mysql_fetch_array($result);
 		</div>
 		<form style="float:left"method='POST'>
 			<h2>Account</h2>
-				<p>Email:</p><input type='text' name='newEmail' value = <?php echo $row['email'] ?>>
+				<p>Email:</p><input type='text' name='newEmail' value="<?php echo $row['email'] ?>">
 				<p>New Password:</p><input type='password' name='newpass'>
 				<p>Confirm Password:</p><input type='password' name='confirmpass'>
 				<p>Current Password:</p><input type='password' name='oldpass'>
 			<center><input class="save" type='submit' name='savepass' value='Save'><br></center>
-			<a style="font-size:xx-small;color:red;" href='#'><strong>Delete Account</strong></a>
+			<a style="font-size:xx-small;color:red;" href='#' onclick="alert('Coming soon! ;D')"><strong>Delete Account</strong></a>
 		</form>
 		<form style="float:right" method='POST'>
 			<h2 style="text-align:left">Panel Background</h2>
