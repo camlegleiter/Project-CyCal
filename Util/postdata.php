@@ -165,8 +165,9 @@ else if ($action == "edit")
 	if(count($rss) != 1){
 		errorMessage("1 RSS feed must be given.");
 	}
-	if(mysql_query("UPDATE panel SET posx='$posx',posy='$posy', sizex='$sizex' , sizey='$sizey' WHERE userid='$userid' AND rss='$rss[0]'")){
-		successMessage("UPDATE panel SET posx='$posx',posy='$posy', sizex='$sizex' , sizey='$sizey' WHERE userid='$userid' AND rss='$rss[0]'");
+	$feed = mysql_real_escape_string(urlencode($rss[0]));
+	if(mysql_query("UPDATE panel SET posx='$posx',posy='$posy', sizex='$sizex' , sizey='$sizey' WHERE userid='$userid' AND rss='$feed'")){
+		successMessage("UPDATE panel SET posx='$posx',posy='$posy', sizex='$sizex' , sizey='$sizey' WHERE userid='$userid' AND rss='$feed'");
 	}	
 	else{
 		errorMessage("Failed to Update Panel");
