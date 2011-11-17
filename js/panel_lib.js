@@ -171,7 +171,7 @@ $('document').ready(function(){
 		$.ajax({
 			type: 'POST',	
 			url: "./util/postdata.php",
-			async:false,
+			async:true,
 			statusCode: {
 				404: function() {
 					alert('Page not found');
