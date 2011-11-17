@@ -166,7 +166,7 @@ else if ($action == "edit")
 		errorMessage("1 RSS feed must be given.");
 	}
 	if(mysql_query("UPDATE panel SET posx='$posx',posy='$posy', sizex='$sizex' , sizey='$sizey' WHERE userid='$userid' AND rss='$rss[0]'")){
-		successMessage('');
+		successMessage("UPDATE panel SET posx='$posx',posy='$posy', sizex='$sizex' , sizey='$sizey' WHERE userid='$userid' AND rss='$rss[0]'");
 	}	
 	else{
 		errorMessage("Failed to Update Panel");
