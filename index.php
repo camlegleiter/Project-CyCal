@@ -17,17 +17,17 @@ include 'includes/header.php';
 					unset($successmsg);*/
 					if($_SESSION['msg']['login-err'])
 					{
-						echo '<div class="err">'.$_SESSION['msg']['login-err'].'</div>';
+						echo '<div class="error"><p>'.$_SESSION['msg']['login-err'].'</p></div>';
 						unset($_SESSION['msg']['login-err']);
 					}
 					else if ($_SESSION['msg']['reg-success'])
 					{
-						echo '<div class="err">'.$_SESSION['msg']['reg-success'].'</div>';
+						echo '<div class="success"><p>'.$_SESSION['msg']['reg-success'].'</p></div>';
 						unset($_SESSION['msg']['reg-success']);
 					}
 					if($_SESSION['msg']['reg-err'])
 					{
-						echo '<div class="err">'.$_SESSION['msg']['reg-err'].'</div>';
+						echo '<div class="error"><p>'.$_SESSION['msg']['reg-err'].'</p></div>';
 						unset($_SESSION['msg']['reg-err']);
 					}
 				?>
