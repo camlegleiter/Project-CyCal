@@ -189,7 +189,7 @@ $('document').ready(function(){
 				sizex : parseInt($('#panel'+id).css('width')), 
 				posy : parseInt($('#panel'+id).css('top')),
 				posx : parseInt($('#panel'+id).css('left')),
-				rss : "[\"this is where our rss will go\"]"
+				rss : "[\"http://www.event.iastate.edu/rssgen.php?category=14\"]"
 			},
 			complete: function(jqXHR, textStatus) {
 			}
