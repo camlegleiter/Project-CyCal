@@ -14,7 +14,7 @@ if($_POST['savepass'])
 	$oldpass = mysql_real_escape_string($_POST['oldpass']);
 	$result = mysql_query("Select * from users where username ='".$_SESSION['usr']."'");
 	$row = mysql_fetch_array($result);
-	$printout = "";
+	//$_SESSION['msg']['err'] = "";
 	$oldencodedpass = getPassword($row['username'], $oldpass, $row['salt']);
 	if (!($newpass == "") && !($confirmpass == "") && !($oldpass == "")) {
 		if ($oldencodedpass == $row['password']) {
@@ -23,7 +23,7 @@ if($_POST['savepass'])
 				mysql_query("Update users set password = '".getPassword($row['username'], $newpass, $row['salt'])."' where username = '".$_SESSION['usr']."'");
 			} 
 			else {
-				$printout = "New passwords don't match!";
+				$_SESSION['msg']['err'] = "New passwords don't match!";
 			}
 			
 			if (!($newEmail == $row['email'])) {
@@ -32,12 +32,12 @@ if($_POST['savepass'])
 		} 
 		
 		else {
-			$printout = "Old password doesn't match!"; 
+			$_SESSION['msg']['err'] = "Old password doesn't match!"; 
 		}
 	}
 
 	else {
-		$printout = "Nothing to update";
+		$_SESSION['msg']['err'] = "Nothing to update";
 	}
 }
 
@@ -69,7 +69,14 @@ $row = mysql_fetch_array($result);
 	<div id="MainContainer">
 		<div id="Header_Title">
 		<h1>Settings</h1>
-		<?php echo "<font color = 'red'>$printout</font>"; ?>
+		<?php 
+			if(isset($_SESSION['msg']['err']))
+			{
+				echo '<div class="error"><p>'.$_SESSION['msg']['err'].'</p></div>';
+				unset($_SESSION['msg']['err']);
+			}
+
+		?>
 		</div>
 		<form style="float:left"method='POST'>
 			<h2>Account</h2>
@@ -77,8 +84,7 @@ $row = mysql_fetch_array($result);
 				<p>New Password:</p><input type='password' name='newpass'>
 				<p>Confirm Password:</p><input type='password' name='confirmpass'>
 				<p>Current Password:</p><input type='password' name='oldpass'>
-			
-			<center><input type='submit' name='savepass' value='Save'><br></center>
+			<center><input class="save" type='submit' name='savepass' value='Save'><br></center>
 			<a style="font-size:xx-small;color:red;" href='#'><strong>Delete Account</strong></a>
 		</form>
 		<form style="float:right" method='POST'>
@@ -102,7 +108,7 @@ $row = mysql_fetch_array($result);
 				<input style="margin-left:20px" type='text' name='img'><input type="button" value='...'>
 				-->
 			</div>
-			<input type='submit' name='savepass1' value='Set Background'>
+			<input class="save" type='submit' name='savepass1' value='Set Background'>
 		</form>
 		<br style="clear:both">
 	</div>
