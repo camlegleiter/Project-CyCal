@@ -2,12 +2,15 @@
 $TO_ROOT = "";
 require "includes/membersOnly.php";
 
-$userid = mysql_real_escape_string($_SESSION['id']);
-$getRSS = mysql_query("SELECT * FROM panel WHERE userid='$userid'");
-$num_rows = mysql_num_rows($getRSS);
-if($num_rows != 0) {
-	header("Location: canvas.php");
-	exit;
+if (!$_GET['new'])
+{
+	$userid = mysql_real_escape_string($_SESSION['id']);
+	$getRSS = mysql_query("SELECT * FROM panel WHERE userid='$userid'");
+	$num_rows = mysql_num_rows($getRSS);
+	if($num_rows != 0) {
+		header("Location: canvas.php");
+		exit;
+	}
 }
 
 if (isset($_POST['chooseFeeds'])) {
@@ -143,7 +146,7 @@ function submitAjax() {
 	</div>
  	
   		<div id="Container_Normal">
- 	<form id="newuser" method="" action="">
+ 	<form id="newuser" method="" action="" style="width:500px">
  				<table>
  				<?php
  					$arrA = array('featuredEvents', 'academicCalendar', 'arts', 'athletics', 'conferences', 'diversity', 
@@ -151,14 +154,63 @@ function submitAjax() {
  					$arrB = array('Featured Events', 'Academic Calendar', 'Arts, performances', 'Athletics', 'Conferences', 'Diversity', 
  					'Lectures', 'Live Green', 'Meetings, receptions', 'Special Events', 'Student activites', 'Training, development');
 					$arrUrl = array('http://www.event.iastate.edu/rssgen.php?featured=1', 'http://www.event.iastate.edu/rssgen.php?category=14', 'http://www.event.iastate.edu/rssgen.php?category=3', 'http://www.event.iastate.edu/rssgen.php?category=8', 'http://www.event.iastate.edu/rssgen.php?category=2', 'http://www.event.iastate.edu/rssgen.php?category=7', 'http://www.event.iastate.edu/rssgen.php?category=4', 'http://www.event.iastate.edu/rssgen.php?category=18', 'http://www.event.iastate.edu/rssgen.php?category=15', 'http://www.event.iastate.edu/rssgen.php?category=16', 'http://www.event.iastate.edu/rssgen.php?category=9', 'http://www.event.iastate.edu/rssgen.php?category=17');
+
+	$userid = mysql_real_escape_string($_SESSION['id']);
+	$getRSS = mysql_query("SELECT * FROM panel WHERE userid='$userid'");
+	$num_rows = mysql_num_rows($getRSS);
+
+	$taken = array();
+	$takenIndexes = array();
+	while ($chosen = mysql_fetch_assoc($getRSS)) {
+		$taken[] = urldecode($chosen['rss']);
+	}
+		//spit our each
+		foreach ($taken as $i => $value) {
+				for($j = 0; $j < 12; $j++) {
+					if(strcmp($taken[$i], $arrUrl[$j]) == 0) {
+						$takenIndexes[] = $j;
+					}
+				}
+		}
+
 					for ($i = 0; $i < 6; $i++) {
 						echo '<tr>';
  					   	echo '<td>';
- 					   	echo '<input type="checkbox" name="' . $arrA[$i] . '" value="' . $arrUrl[$i] . '" />';
+
+						$match = false;
+						//check against each value
+						foreach ($takenIndexes as $k => $value) {
+							if($i == $takenIndexes[$k]) {
+								$match = true;
+							}
+						}
+						//If we have a match - disable
+						if($match == true) {
+							echo '<input type="checkbox" disabled="disabled" class="checkbox" name="' . $arrA[$i] . '" value="' . $arrUrl[$i] . '" />';
+						} 
+						//Otherwise - print normal for people to select
+						else {
+							echo '<input type="checkbox"  class="checkbox" name="' . $arrA[$i] . '" value="' . $arrUrl[$i] . '" />';
+						}
+
  					   	echo $arrB[$i];
  					   	echo '</td>';
  					   	echo '<td>';
- 					   	echo '<input type="checkbox" name="' . $arrA[$i+6] . '" value="' . $arrUrl[$i + 6] . '" />';
+						$match = false;
+						//check against each value
+						foreach ($takenIndexes as $k => $value) {
+							if(($i+6) == $takenIndexes[$k]) {
+								$match = 'true';
+							}
+						}
+						//If we have a match - disable
+						if($match == true) {
+							echo '<input type="checkbox" disabled="disabled" class="checkbox" name="' . $arrA[$i+6] . '" value="' . $arrUrl[$i + 6] . '" />';
+						} 
+						//Otherwise - print normal for people to select
+						else {
+ 					   		echo '<input type="checkbox" class="checkbox" name="' . $arrA[$i+6] . '" value="' . $arrUrl[$i + 6] . '" />';
+						}
  					   	echo $arrB[$i+6];
  					   	echo '</td>'; 					   	
  					   	echo '</tr>';

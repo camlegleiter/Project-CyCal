@@ -1,9 +1,17 @@
 var jsonObject;
 
-function showRSS(str) {
-	str = encodeURIComponent(str);
+function showRSS(url) {
 
-	$.get("pipes.php?q=" + str, function(xml, status) {
-		jsonObject = xml2json.parser(xml);
+	$.ajax({
+		type: "POST",
+		url: "pipes.php", 
+		data: {
+			q: url
+		},
+		statusCode: {
+			200: function(xml, status) {
+				jsonObject = xml2json.parser(xml);
+			}
+		}
 	});
 }
