@@ -1,52 +1,17 @@
-$('document').ready(function(){
+window.onunload = function(){
+							var panels = $('body').find('.panel');
+							for(var i = 1; i <= panels.length; i++){
+								savePosition(i);
+							}
+				};
 
-		//add refresh functionality
-		$(window).bind('beforeunload',function(){
-			var panels = $('body').find('.panel');
-			for(var i = 1; i <= panels.length; i++){
-				savePosition(i);
-			}
-		
-			//savePosition();
-		}); 
-		//this will eventually be the get of the rss feeds
-		
-		//example json object for parsing
-		var articles = { "feeds": [{        "url":"www.google.com",
-											"title":"this is my overalltitle 1",
-											"articles": [{"title": "article1title", "content": "this is my article content for 1", "articleURL": "artURL1"},
-        								                 {"title": "article2title", "content": "this is my article content for 2", "articleURL": "artURL2"},
-        								                 {"title": "article3title", "content": "this is my article content for 3", "articleURL": "artURL3"}]} ,
-        								      
-        								  { "url":"www.google.com",
-											"title":"this is my overalltitle 2",
-        								    "articles": [{"title": "article1title", "content": "this is my article content for 1", "articleURL": "artURL1"},
-        								                 {"title": "article2title", "content": "this is my article content for 2", "articleURL": "artURL2"},
-        								                 {"title": "article3title", "content": "this is my article content for 3", "articleURL": "artURL3"}]} ,
-        								                    
-									      { "url":"www.google.com",
-											"title":"this is my overalltitle 3",
-        								    "articles": [{"title": "article1title", "content": "this is my article content for 1", "articleURL": "artURL1"},
-        								                 {"title": "article2title", "content": "this is my article content for 2", "articleURL": "artURL2"},
-        								                 {"title": "article3title", "content": "this is my article content for 3", "articleURL": "artURL3"}]} ,
-        								                    
-        								  { "url":"www.google.com",
-											"title":"this is my overalltitle 4",
-        								    "articles": [{"title": "article1title", "content": "this is my article content for 1", "articleURL": "artURL1"},
-        								                 {"title": "article2title", "content": "this is my article content for 2", "articleURL": "artURL2"},
-        								                 {"title": "article3title", "content": "this is my article content for 3", "articleURL": "artURL3"}]} ,
-        								     
-        								  { "url":"www.google.com",
-											"title":"this is my overalltitle 5",
-        								    "articles": [{"title": "article1title", "content": "this is my article content for 1", "articleURL": "artURL1"},
-        								    			 {"title": "article2title", "content": "this is my article content for 2", "articleURL": "artURL2"},
-        								                 {"title": "article3title", "content": "this is my article content for 3", "articleURL": "artURL3"}]} ,
-									     ]		       
-				      };
+$('document').ready(function(){		
+		var panelSettings;
 		
 		$.ajax({
 			type: 'POST',	
-			url: "./util/postdata.php",
+			url: "./Util/postdata.php",
+			async:false,
 			statusCode: {
 				404: function() {
 					alert('Page not found');
@@ -63,17 +28,28 @@ $('document').ready(function(){
 			},
 			complete: function(jqXHR, textStatus) {
 				//adds the panels to the page
-				var panelSettings = eval('(' + jqXHR.responseText + ')');
-				for(i = 1; i <= panelSettings.length; i++){
-					populatePanels(i, articles, panelSettings);
-				}
+				panelSettings = eval('(' + jqXHR.responseText + ')');
 			}
 		});
 
-		/*extra stuffs to expect*/
-		//position
-		//size
-		//theme
+		var jsonArticles;
+
+		for(i = 1; i <= panelSettings.length; i++){
+			$.ajax({
+				method:'POST',
+				url:'./includes/pipes.php',
+				async:false,
+				data:{
+					q: panelSettings[i-1].rss
+				},
+				statusCode: {
+					200: function(xml, status){
+						jsonArticles = xml2json.parser(xml);
+						populatePanels(i, jsonArticles, panelSettings);
+					}
+				}
+			});
+		}
 	});
 	
 	function togglewindow(id){
@@ -87,8 +63,7 @@ $('document').ready(function(){
 			$('#panel'+id).animate({
 	    					opacity: 0.75,
 	    					//left: '+=50',
-	   						height: '30',
-	   						width: '250'
+	   						height: '30'
 	 					   }, 1000, function() {
 	    					// Animation complete.
 	  					   });
@@ -102,8 +77,7 @@ $('document').ready(function(){
 			$('#panel'+id).animate({
 	    					opacity: 1,
 	    					//left: '+=50',
-	   						height: '400',
-	   						width: '500'
+	   						height: '400'
 	 					   }, 1000, function() {
 	    					// Animation complete.
 	  					   });
@@ -123,34 +97,50 @@ $('document').ready(function(){
 	
 	}
 	
+	function checkPosition(id){
+		if(parseInt($('#panel'+id).css('top')) < 40){
+			$('#panel'+id).css('top',40);
+		}
+	}
+	
 	//THIS IS WHAT FIRST CREATES INDIVIDUAL PANELS
-	function populatePanels(id, articles, myPanelSettings){			
+	function populatePanels(id, article, myPanelSettings){
 		if(myPanelSettings[id-1].sizey == null || myPanelSettings[id-1].sizey == '' || 
-		   parseInt(myPanelSettings[id-1].sizey) == 'NaN' || myPanelSettings[id-1].sizey == '0'){
+		   parseInt(myPanelSettings[id-1].sizey) == 'NaN' || myPanelSettings[id-1].sizey == '0'
+		   || parseInt(myPanelSettings[id-1].sizey) > 600){
 			myPanelSettings[id-1].sizey = 400;
 		}
 		if(myPanelSettings[id-1].sizex == null || myPanelSettings[id-1].sizex == '' || 
-		   parseInt(myPanelSettings[id-1].sizex) == 'NaN' || myPanelSettings[id-1].sizex == '0'){
+		   parseInt(myPanelSettings[id-1].sizex) == 'NaN' || myPanelSettings[id-1].sizex == '0'
+		   || parseInt(myPanelSettings[id-1].sizex) > 1000){
 			myPanelSettings[id-1].sizex = 500;
 		}
 		if(myPanelSettings[id-1].posy == null || myPanelSettings[id-1].posy == '' || 
-		   parseInt(myPanelSettings[id-1].posy) == 'NaN' || myPanelSettings[id-1].posy == '0'){
-			myPanelSettings[id-1].posy = 60;
+		   parseInt(myPanelSettings[id-1].posy) == 'NaN' || myPanelSettings[id-1].posy == '0' ||
+		   parseInt(myPanelSettings[id-1].posy) < 40){
+			myPanelSettings[id-1].posy = 40;
 		}
 		if(myPanelSettings[id-1].posx == null || myPanelSettings[id-1].posx == '' || 
-		   parseInt(myPanelSettings[id-1].posx) == 'NaN' || myPanelSettings[id-1].posx == '0'){
-			myPanelSettings[id-1].posx = 20;
+		   parseInt(myPanelSettings[id-1].posx) == 'NaN' || myPanelSettings[id-1].posx == '0' ||
+		   parseInt(myPanelSettings[id-1].posx) < 0){
+			myPanelSettings[id-1].posx = 10;
 		}
-
-		$('body').append('<div id=\'panel'+id+'\' onmousedown=\'setTopZIndex('+id+')\' class=\'panel\'><div id=\'panel_title'+id+'\' class=\'panel_title\'>'+myPanelSettings[id-1].rss+'<table style="float:right; margin-top:2px;"><tr><td id="minimize'+id+'" class="minimize ui-icon-minusthick" onclick="togglewindow('+id+');"></td><td id="settings'+id+'" class="settings ui-icon-info"></td><td id="close'+id+'" class="close ui-icon-closethick" onclick="closewindow('+id+');"></td></tr></table></div><div id=\'panel_feed'+id+'\' class=\'panel_feed\'></div></div>');
+		
+		$('body').append('<div id=\'panel'+id+'\' onmouseup=\'checkPosition('+id+');\' onmouseout=\'checkPosition('+id+');\' onmousedown=\'setTopZIndex('+id+')\' class=\'panel\'><div id=\'panel_title'+id+'\' class=\'panel_title\'>'+article.rss.channel.title+'<table style="float:right; margin-top:2px;"><tr><td id="minimize'+id+'" class="minimize ui-icon-minusthick" onclick="togglewindow('+id+');"></td><td id="settings'+id+'" class="settings ui-icon-info"></td><td id="close'+id+'" class="close ui-icon-closethick" onclick="closewindow('+id+');"></td></tr></table></div><div id=\'panel_feed'+id+'\' class=\'panel_feed\'></div></div>');
 		$("#panel"+id).draggable({handle:$('#panel_title'+id)}); 
 		$("#panel"+id).resizable();
 		$("#panel"+id).css('z-index', id);
-		for(var i = 0; i < articles.feeds[id-1].articles.length; i++){
-			$('#panel_feed'+id).append('<div id=\'panel_feed_article'+id+'\' class=\'panel_feed_article\'> <div id=\'panel_feed_article_title'+id+'\' class=\'panel_feed_article_title\' onclick=\'toggleArticle('+id+','+i+')\'>'+articles.feeds[id-1].articles[i].title+'<div id=\'panel_feed_article_title_buttons'+id+'\' class=\'panel_feed_article_title_buttons\'><div id=\'caret'+id+''+i+'\' class=\'caretDiv ui-icon-carat-1-s\'></div></div></div><div id=\'panel_feed_article_content'+id+''+i+'\' class=\'panel_feed_article_content\'>'+articles.feeds[id-1].articles[i].content+'</div></div>');
+		for(var i = 0; i < article.rss.channel.item.length; i++){
+			var description = article.rss.channel.item[i].description;
+			if(!description.length){
+				description = "No description available.";
+			}
+			var link = '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="panel_feed_article_link" href='+article.rss.channel.item[i].link+'>link to full article</a>'
+			var title = article.rss.channel.item[i].title;
+			$('#panel_feed'+id).append('<div id=\'panel_feed_article'+id+'\' class=\'panel_feed_article\'> <div id=\'panel_feed_article_title'+id+'\' class=\'panel_feed_article_title\' onclick=\'toggleArticle('+id+','+i+')\'>'+title+'<div id=\'panel_feed_article_title_buttons'+id+'\' class=\'panel_feed_article_title_buttons\'><div id=\'caret'+id+''+i+'\' class=\'caretDiv ui-icon-carat-1-e\'></div></div></div><div style="display:none;" id=\'panel_feed_article_content'+id+''+i+'\' class=\'panel_feed_article_content\'>'+description+link+'</div></div>');
 		}
 		
-		$("#panel"+id).draggable({handle:$('#panel_title'+id)}); 
+		$("#panel"+id).draggable({handle:$('#panel_title'+id), containment:"window"}); 
 		$("#panel"+id).resizable();
 		$("#panel"+id).css({"position":"fixed"});
 		var lastId = (id-1);
@@ -164,10 +154,11 @@ $('document').ready(function(){
 	}
 	
 	function savePosition(id){
+		console.log("saving panel: "+$('#panel'+id).css('top'));
 		$.ajax({
 			type: 'POST',	
 			url: "./util/postdata.php",
-			async:true,
+			async:false,
 			statusCode: {
 				404: function() {
 					alert('Page not found');
@@ -176,7 +167,6 @@ $('document').ready(function(){
 					alert('Error: ' + errorThrown);
 				},
 				200: function(data, textStatus, jqXHR) {
-					alert(data);
 				}
 			},
 			data: {
