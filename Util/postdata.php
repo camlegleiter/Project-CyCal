@@ -7,7 +7,7 @@
 if (!isset($TO_ROOT))
 	$TO_ROOT = "../";	
 require $TO_ROOT."includes/membersOnly.php";
-
+require $TO_ROOT."includes/htmlToArray.php";
 /*
 =====================================
 	SENDING FUNCTIONS
@@ -144,9 +144,6 @@ if ($action == "add")
 		}
 		$errorvalue = urlencode($value);
 		$value = mysql_real_escape_string($errorvalue);
-		$rssCheck = mysql_query("SELECT COUNT(*) FROM panel WHERE userid='$userid' AND rss='$value'");
-		$numrows = mysql_fetch_assoc($rssCheck);
-		mysql_free_result($rssCheck);
 		mysql_query("INSERT INTO panel(userid,rss,posx,posy,sizex,sizey,themeid) VALUES ('$userid','$value','$posx','$posy','$sizex','$sizey','$themeid')");
 		$rows = mysql_affected_rows();
 		if($rows != -1){
