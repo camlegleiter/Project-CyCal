@@ -36,7 +36,7 @@
 			      $validated = false;
 			    }
 			    409: function(jqXHR, status, error) {
-			    	alert(data);
+			    	alert('409: ' + error);
 			    	$validated = false;
 			    }
 			    200: function(data) {
