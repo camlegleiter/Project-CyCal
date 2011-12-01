@@ -120,11 +120,11 @@ if($_POST['submit']=='Login')
 				
 				mysql_free_result($giveToken);
 			}
-			else $err[]='Wrong username and/or password! (1)';
+			else $err[]='Wrong username and/or password!';
 			
 			mysql_free_result($result);
 		}
-		else $err[]='Wrong username and/or password! (2)';
+		else $err[]='Wrong username and/or password!';
 		
 		mysql_free_result($userSalt);
 	}
@@ -206,9 +206,9 @@ else if($_POST['submit']=='Register')
 						)");
 		
 		//TODO : REMOVE AT PRODUCTION (SECURITY RISK)
-		if (!$result) {
-		    die('Invalid query (158): ' . mysql_error() . '<br>' . $stringQ);
-		}
+//		if (!$result) {
+//		    die('Invalid query (158): ' . mysql_error() . '<br>' . $stringQ);
+//		}
 		
 		if(mysql_affected_rows($link)==1)
 		{

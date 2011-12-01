@@ -117,3 +117,53 @@ body {
 	color:black;
 	font-weight:bold;
 }
+
+.popup {
+	border: 1px dotted #FFFFFF;
+	position: absolute;
+	z-index: 9999;
+	left: 35%;
+	top: 150px;
+	width: 450px;
+	background-color: #CCCCCC;
+}
+.popup .header {
+	border: 1px solid #FFFFFF;
+	padding: 5px;
+	left: 0;
+	right: 0;
+	height: 25px;
+	background-color: #C0C0C0;
+	color: #333333;
+}
+.popup .header h1 {
+	float:left;
+	font-size:20px;
+	padding:0;
+}
+.popup .header #buttons {
+	float: right;
+	height: 100%;
+	vertical-align: middle;
+}
+.popup .content {
+	padding: 10px;
+	left:0;
+	right:0;
+	color:#000000;
+}
+.popup .footer {
+	padding: 5px;
+	left: 0;
+	right: 0;
+	color:#333333;
+	text-align:right;
+}
+.popup a {
+	color:#333333;
+	border-bottom:0px;
+	outline:none;
+}
+.popup a:hover {
+	color:#000000;
+}
