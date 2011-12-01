@@ -11,3 +11,4 @@ TODO in order of importance:
    - help.php
 6. Social integration
 5. Themes
+7. Beautification
