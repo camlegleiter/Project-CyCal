@@ -6,7 +6,7 @@
 </div>
 <div class="content">
 	<p>Have a blog who's articles you'd like to see on its own panel here? Just add the RSS feed link in the input box below!</p>
-	<form method="POST" onsubmit="return validate()">
+	<form method="" onsubmit="return validate()">
 		<input type="text" id="textbox" name="otherfeed" onFocus="if (this.value == 'RSS Feed') { this.value='';}" 
 			onblur="if (this.value == '') { this.value = 'RSS Feed';}" value="RSS Feed">
 		<input type="submit" value="Ok">
@@ -22,29 +22,42 @@
 	$('#otherfeed').jqmAddClose($('#otherfeed .header #buttons #close'));
 	
 	function validate()
-	{
+	{		
+		var $text = $('.content form #textbox').val();
+		if ($text.toLowerCase() == 'rss feed' ||
+			$text.toLowerCase() == '')
+		{
+			alert('Please specify a URL');
+			return false;
+		}
+		
 		var $validated = false;
+		var feeds = new Array();
+		feeds.push($text);
+		
 		$.ajax({
-			  url: page,
-			  cache: false,
-			  success: function(html){
-			    $("#panel_feed").html(html);
-			  },
-			  statusCode: {
-			    404: function() {
-			      alert('Page not found! :/');
-			      $validated = false;
-			    }
-			    409: function(jqXHR, status, error) {
-			    	alert('409: ' + error);
-			    	$validated = false;
-			    }
-			    200: function(data) {
-			    	alert(data);
-			    	$validated = true;
-			    }
-			  }
-			});
+			type: 'POST',
+			url: './util/postdata.php',
+			data: {
+				action: 'add',
+				rss: JSON.stringify(feeds),
+				//print: true
+			},
+			statusCode: {
+				404: function() {
+					alert('404: Page not found!');
+					$validated = false;
+				},
+				409: function(jqXHR, status, error) {
+					alert('Error: ' + error);
+					$validated = false;
+				},
+				200: function(data) {
+					$validated = true;
+				}
+			}
+		});
+		
 		return $validated;
 	}
 </script>
