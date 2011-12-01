@@ -7,7 +7,7 @@
 if (!isset($TO_ROOT))
 	$TO_ROOT = "../";	
 require $TO_ROOT."includes/membersOnly.php";
-
+require $TO_ROOT."includes/htmlToArray.php";
 /*
 =====================================
 	SENDING FUNCTIONS
@@ -121,6 +121,9 @@ if ($action == "add")
 	$count = 0;
 	foreach ($rss as $value)
 	{
+		$parsed = new htmlParser($rss);
+		$arr = $parsed->toArray();
+		
 		$errorvalue = urlencode($value);
 		$value = mysql_real_escape_string($errorvalue);
 		$rssCheck = mysql_query("SELECT COUNT(*) FROM panel WHERE userid='$userid' AND rss='$value'");
