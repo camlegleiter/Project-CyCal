@@ -121,6 +121,27 @@ if ($action == "add")
 	$count = 0;
 	foreach ($rss as $value)
 	{
+		$html = file_get_contents($value);
+		if($html === false)
+			errorMessage('Invalid RSS Feed: '.$value);
+		$parsed = new htmlParser($html);
+		$arr = $parsed->toArray();
+		$title = false;
+		$des = false;
+		$link = false;
+		$ref = $arr[0]['childNodes'];
+		for ($i=0; $i < count($ref); $i++)
+		{
+			if($ref[$i]['tag'] == 'title')
+			$title = true;
+			if($ref[$i]['tag'] == 'description')
+			$des = true;
+			if($ref[$i]['tag'] == 'link')
+			$link = true;
+		}
+		if($title != true || $des != true || $link != true){
+			errorMessage('Invalid RSS Feed: '.$value);
+		}
 		$errorvalue = urlencode($value);
 		$value = mysql_real_escape_string($errorvalue);
 		$rssCheck = mysql_query("SELECT COUNT(*) FROM panel WHERE userid='$userid' AND rss='$value'");
