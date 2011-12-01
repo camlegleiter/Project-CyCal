@@ -33,6 +33,7 @@ body {
 	font-weight:bold;
 	color:#404040;
 	z-index:0;
+	text-overflow: ellipsis;
 }
 
 .panel_title_buttons{
@@ -109,4 +110,10 @@ body {
 .panel_feed_article_content{
 	padding:0px 5px 5px 5px;
 	margin:auto 0 auto 0;
+}
+
+.panel_feed_article_link{
+	font-size:x-small;
+	color:black;
+	font-weight:bold;
 }
