@@ -121,7 +121,7 @@ if ($action == "add")
 	$count = 0;
 	foreach ($rss as $value)
 	{
-		$html = file_get_contents($value);
+		$html = @file_get_contents($value);
 		if($html === false)
 			errorMessage('Invalid RSS Feed: '.$value);
 		$parsed = new htmlParser($html);

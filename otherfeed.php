@@ -20,7 +20,7 @@
 </div>
 <script type="text/javascript">
 	$('#otherfeed').jqmAddClose($('#otherfeed .header #buttons #close'));
-	
+	var $validated = false;
 	function validate()
 	{		
 		var $text = $('.content form #textbox').val();
@@ -30,8 +30,7 @@
 			alert('Please specify a URL');
 			return false;
 		}
-		
-		var $validated = false;
+		$validated = false;
 		var feeds = new Array();
 		feeds.push($text);
 		
@@ -43,6 +42,7 @@
 				rss: JSON.stringify(feeds),
 				//print: true
 			},
+			async:false,
 			statusCode: {
 				404: function() {
 					alert('404: Page not found!');
@@ -57,7 +57,7 @@
 				}
 			}
 		});
-		
+		alert($validated);
 		return $validated;
 	}
 </script>
