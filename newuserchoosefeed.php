@@ -2,12 +2,15 @@
 $TO_ROOT = "";
 require "includes/membersOnly.php";
 
-$userid = mysql_real_escape_string($_SESSION['id']);
-$getRSS = mysql_query("SELECT * FROM panel WHERE userid='$userid'");
-$num_rows = mysql_num_rows($getRSS);
-if($num_rows != 0) {
-	header("Location: canvas.php");
-	exit;
+if (!$_GET['new'])
+{
+	$userid = mysql_real_escape_string($_SESSION['id']);
+	$getRSS = mysql_query("SELECT * FROM panel WHERE userid='$userid'");
+	$num_rows = mysql_num_rows($getRSS);
+	if($num_rows != 0) {
+		header("Location: canvas.php");
+		exit;
+	}
 }
 
 if (isset($_POST['chooseFeeds'])) {
@@ -143,7 +146,7 @@ function submitAjax() {
 	</div>
  	
   		<div id="Container_Normal">
- 	<form id="newuser" method="" action="">
+ 	<form id="newuser" method="" action="" style="width:500px">
  				<table>
  				<?php
  					$arrA = array('featuredEvents', 'academicCalendar', 'arts', 'athletics', 'conferences', 'diversity', 
@@ -154,11 +157,11 @@ function submitAjax() {
 					for ($i = 0; $i < 6; $i++) {
 						echo '<tr>';
  					   	echo '<td>';
- 					   	echo '<input type="checkbox" name="' . $arrA[$i] . '" value="' . $arrUrl[$i] . '" />';
+ 					   	echo '<input type="checkbox" class="checkbox" name="' . $arrA[$i] . '" value="' . $arrUrl[$i] . '" />';
  					   	echo $arrB[$i];
  					   	echo '</td>';
  					   	echo '<td>';
- 					   	echo '<input type="checkbox" name="' . $arrA[$i+6] . '" value="' . $arrUrl[$i + 6] . '" />';
+ 					   	echo '<input type="checkbox" class="checkbox" name="' . $arrA[$i+6] . '" value="' . $arrUrl[$i + 6] . '" />';
  					   	echo $arrB[$i+6];
  					   	echo '</td>'; 					   	
  					   	echo '</tr>';
