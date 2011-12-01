@@ -17,18 +17,18 @@
 <!--1st drop down menu -->                                                   
 <span id="dropmenu1" class="dropmenudiv">
 <?php
-if (!defined("SETTINGSPAGE"))
+if (defined("SETTINGSPAGE"))
+{
+	echo '
+	<a href="canvas.php">Back to Canvas</a>
+	';
+}
+else if (!defined("ONLYLOGOUT"))
 {
 	echo '
 	<a href="#addISU" onclick="addISUFeed()">Add ISU Feed</a>
 	<a href="#addOther" onclick="addOtherFeed()">Add Other Feed</a>
 	<a href="settings.php">Account Settings</a>
-	';
-}
-else
-{
-	echo '
-	<a href="canvas.php">Back to Canvas</a>
 	';
 }
 ?>
@@ -39,4 +39,9 @@ else
 
 	cssdropdown.startchrome("chromemenu")
 
+	function addISUFeed()
+	{
+		window.location.href = 'newuserchoosefeed.php?new=1';
+	}
 </script>
+

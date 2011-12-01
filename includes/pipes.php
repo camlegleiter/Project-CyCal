@@ -6,9 +6,9 @@ function isValidURL($url) {
 
 $q = $_GET["q"];
 
-$url = urldecode($q)
+$url = urldecode($q);
 
-if (isValueURL($url)) {
+if (isValidURL($url)) {
 	echo file_get_contents($q);
 } else {
 	echo "<error><message>Invalid URL. Please enter a valid URL including http://.</message></error>";
