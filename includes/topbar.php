@@ -23,7 +23,7 @@ if (defined("SETTINGSPAGE"))
 	<a href="canvas.php">Back to Canvas</a>
 	';
 }
-else if (!define("ONLYLOGOUT"))
+else if (!defined("ONLYLOGOUT"))
 {
 	echo '
 	<a href="#addISU" onclick="addISUFeed()">Add ISU Feed</a>
