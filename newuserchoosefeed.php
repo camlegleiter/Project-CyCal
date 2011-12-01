@@ -136,6 +136,14 @@ function submitAjax() {
 <body>
 	<?php
 		//Must be included at the top of the <body> tag
+		if (!$_GET['new'])
+		{
+			define("ONLYLOGOUT",true);
+		}
+		else
+		{
+			define("SETTINGSPAGE",true);
+		}
 		include 'includes/topbar.php';
 	?>
 	<div id="welcome">
