@@ -7,7 +7,6 @@ $('document').ready(function(){
 				savePosition(i);
 			}
 		
-			console.log($('body').find('.panel'));
 			//savePosition();
 		}); 
 		//this will eventually be the get of the rss feeds
@@ -65,7 +64,6 @@ $('document').ready(function(){
 			complete: function(jqXHR, textStatus) {
 				//adds the panels to the page
 				var panelSettings = eval('(' + jqXHR.responseText + ')');
-				console.log(panelSettings.length);
 				for(i = 1; i <= panelSettings.length; i++){
 					populatePanels(i, articles, panelSettings);
 				}
@@ -163,8 +161,6 @@ $('document').ready(function(){
 			$(".panel").css("z-index", id);
 			$("#panel"+id).css("z-index", "99");
 		});
-		
-		console.log(myPanelSettings[id-1].rss);
 	}
 	
 	function savePosition(id){
