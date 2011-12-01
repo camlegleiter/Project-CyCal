@@ -1,6 +1,8 @@
 TODO in order of importance:
 (Blaire) 1. Look at save issue in postdata.php for save panel settings
    - Fixing this issue will fix the only error currently on canvas.php
+1.5 Clicking close on panel removes feed from database
+1.75 Settings function on panel
 (Mike) 2. Make the RSS checking in postdata.php work (Try XKCD)
    - Check structure
 (Justin) 3. Get background table set up
