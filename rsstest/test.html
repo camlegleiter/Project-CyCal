@@ -3,15 +3,12 @@
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
 		<script type="text/javascript" src="xml2json.js"></script>
 		<script type="text/javascript" src="getjson.js"></script>
-		<script type="text/javascript">
-			$('.rssOutput').html(jsonObject);
-		</script>
 	</head>
 	<body>
 		<form>
 			<select onchange="showRSS(this.value)">
 				<option value="">Select an RSS-feed:</option>
-				<option value="http://news.google.com/news?ned=us&topic=h&output=rss">Google</option>
+				<option value="http://www.event.iastate.edu/rssgen.php?all=1">Iowa State All Events</option>
 				<option value="http://rss.msnbc.msn.com/id/3032091/device/rss/rss.xml">MSNBC News</option>
 			</select>
 		</form>
