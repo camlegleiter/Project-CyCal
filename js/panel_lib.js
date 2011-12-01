@@ -11,6 +11,18 @@ $('document').ready(function(){
 		}); 
 		//this will eventually be the get of the rss feeds
 		
+		//rss
+		//- channel
+		//  - title (of whole calendar)
+		//	 - item
+		//	    - title (of event)
+		//	    - link (url)
+		//	    - pubDate (of article)
+		//	    - description (short description of article)
+		//	  - item
+		
+		var articleTest;
+		
 		//example json object for parsing
 		var articles = { "feeds": [{        "url":"www.google.com",
 											"title":"this is my overalltitle 1",
@@ -46,7 +58,8 @@ $('document').ready(function(){
 		
 		$.ajax({
 			type: 'POST',	
-			url: "./util/postdata.php",
+			url: "./Util/postdata.php",
+			async:false,
 			statusCode: {
 				404: function() {
 					alert('Page not found');
@@ -63,6 +76,7 @@ $('document').ready(function(){
 			},
 			complete: function(jqXHR, textStatus) {
 				//adds the panels to the page
+				articleTest = eval('(' + jqXHR.responseText + ')');
 				var panelSettings = eval('(' + jqXHR.responseText + ')');
 				for(i = 1; i <= panelSettings.length; i++){
 					populatePanels(i, articles, panelSettings);
@@ -70,6 +84,23 @@ $('document').ready(function(){
 			}
 		});
 
+		var jsonArticles;
+
+		$.ajax({
+			method:'POST',
+			url:'./includes/pipes.php',
+			async:false,
+			data:{
+				q: articleTest[0].rss
+			},
+			statusCode: {
+				200: function(xml, status){
+					jsonArticles = xml2json.parser(xml);
+					console.log(jsonArticles.rss.channel.title);
+				}
+			}
+		});
+		//
 		/*extra stuffs to expect*/
 		//position
 		//size
