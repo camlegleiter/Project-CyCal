@@ -90,11 +90,28 @@ $('document').ready(function(){
 	
 	//remove panel
 	function closewindow(id){
-		$('#panel'+id).remove();
+		if (confirm("Closing this will remove this feed from your canvas. Are you sure you want to remove this feed?")) {
+			var feed = $('#panel'+id).attr('rss');
+			$('#panel'+id).remove();
 		
-		/*
-			need to handle removing rss feed from database
-		*/
+			/*
+				need to handle removing rss feed from database
+			*/
+			$.ajax({
+				method: 'POST',
+				url: './includes/postdata.php',
+				async: false,
+				data:{
+					action: 'delete',
+					rss: "[\"" + feed + "\"]"
+				},
+				statusCode: {
+					200: function(xml, status) {
+						alert("You can add this feed back to your canvas at any time by clicking \"Add ISU Feed\" from the menu bar.");
+					}
+				}
+			});
+		}
 	}
 		
 	//bounds check after moving a panel

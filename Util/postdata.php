@@ -161,17 +161,17 @@ if ($action == "add")
 else if ($action == "delete")
 {
 	$count = 0;
-	foreach ($rss as $value)
+	foreach ($rss as $feed)
 	{
-		$value = mysql_real_escape_string(urlencode($value));
-		$rssCheck = mysql_query("DELETE FROM panel WHERE userid='$userid' AND rss='$value'");
+		$feed = mysql_real_escape_string(urlencode($feed));
+		$rssCheck = mysql_query("DELETE FROM panel WHERE userid='$userid' AND rss='$feed'");
 		$rows = mysql_affected_rows();
 		if($rows != 0){
 			$count++;
 		}
 	}
 	if($count == 0){
-		errorMessage("Those Feeds are not in our database.");
+		errorMessage("Those feeds are not in our database.");
 	}
 	else{
 		successMessage('');
