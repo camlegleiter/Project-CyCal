@@ -152,7 +152,7 @@ if ($action == "add")
 
 	}
 	if($count == 0){
-		errorMessage("Those Feeds are already on your page or you have not selected a feed.");
+		errorMessage("Those feeds are already on your page or you have not selected a feed.");
 	}
 	else{
 		successMessage('');

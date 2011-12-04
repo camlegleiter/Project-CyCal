@@ -98,17 +98,17 @@ $('document').ready(function(){
 				need to handle removing rss feed from database
 			*/
 			$.ajax({
-				method: 'POST',
-				url: './includes/postdata.php',
+				type: 'POST',
+				url: './Util/postdata.php',
 				async: false,
-				data:{
+				data: {
 					action: 'delete',
 					rss: "[\"" + feed + "\"]"
 				},
 				statusCode: {
 					200: function(xml, status) {
 						alert("You can add this feed back to your canvas at any time by clicking \"Add ISU Feed\" from the menu bar.");
-					}
+					},
 				}
 			});
 		}
