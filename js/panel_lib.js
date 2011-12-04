@@ -130,7 +130,7 @@ $('document').ready(function(){
 		}
 		if(myPanelSettings[id].sizex == null || myPanelSettings[id].sizex == '' || 
 		   parseInt(myPanelSettings[id].sizex) == 'NaN' || myPanelSettings[id].sizex == '0'
-		   || parseInt(myPanelSettings[id].sizex) > 1000){
+		   || parseInt(myPanelSettings[id].sizex) > 1000 || parseInt(myPanelSettings[id].sizex) < 600){
 			myPanelSettings[id].sizex = 600;
 		}
 		if(myPanelSettings[id].posy == null || myPanelSettings[id].posy == '' || 
@@ -172,6 +172,10 @@ $('document').ready(function(){
 			$(".panel").css("z-index", id);
 			$("#panel"+id).css("z-index", "99");
 		});
+		
+		console.log(myPanelSettings[id].rss);
+		$("#panel"+id).attr('rss',myPanelSettings[id].rss);
+		console.log($("#panel"+id).attr('rss'));
 	}
 	
 	function savePosition(id){
@@ -195,7 +199,7 @@ $('document').ready(function(){
 				sizex : parseInt($('#panel'+id).css('width')), 
 				posy : parseInt($('#panel'+id).css('top')),
 				posx : parseInt($('#panel'+id).css('left')),
-				rss : "[\"http://www.event.iastate.edu/rssgen.php?category=14\"]"
+				rss : "[\""+$("#panel"+id).attr('rss')+"\"]"
 			},
 			complete: function(jqXHR, textStatus) {
 			}
