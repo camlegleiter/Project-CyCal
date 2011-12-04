@@ -88,6 +88,13 @@ body {
 	height:auto;
 }
 
+.panel_feed_no_article{
+	padding:5px 5px 5px 5px;
+	height:30px;
+	background-color:#DDDDDD;
+	height:auto;
+}
+
 .panel_feed_article_title{
 	padding:5px 5px 5px 5px;
 	min-height:15px;
