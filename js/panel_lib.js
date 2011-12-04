@@ -1,6 +1,7 @@
 window.onunload = function(){
 							var panels = $('body').find('.panel');
-							for(var i = 1; i <= panels.length; i++){
+							console.log(panels.length);
+							for(var i = 0; i < panels.length; i++){
 								savePosition(i);
 							}
 				};
@@ -34,13 +35,14 @@ $('document').ready(function(){
 
 		var jsonArticles;
 
-		for(i = 1; i <= panelSettings.length; i++){
+		for(i = 0; i < panelSettings.length; i++){
+			console.log("panel settings for " +i);
 			$.ajax({
 				method:'POST',
 				url:'./includes/pipes.php',
 				async:false,
 				data:{
-					q: panelSettings[i-1].rss
+					q: panelSettings[i].rss
 				},
 				statusCode: {
 					200: function(xml, status){
@@ -52,6 +54,7 @@ $('document').ready(function(){
 		}
 	});
 	
+	//minimizes window
 	function togglewindow(id){
 		if($('#panel'+id).css('min-height') != "0px"){
 			$('#panel'+id).css('min-height', '0px');
@@ -85,18 +88,16 @@ $('document').ready(function(){
 		}
 	}
 	
+	//remove panel
 	function closewindow(id){
 		$('#panel'+id).remove();
+		
+		/*
+			need to handle removing rss feed from database
+		*/
 	}
-	
-	function addISUFeed(){
-	
-	}
-	
-	function addOtherFeed(){
-	
-	}
-	
+		
+	//bounds check after moving a panel
 	function checkPosition(id){
 		if(parseInt($('#panel'+id).css('top')) < 40){
 			$('#panel'+id).css('top',40);
@@ -105,31 +106,34 @@ $('document').ready(function(){
 	
 	//THIS IS WHAT FIRST CREATES INDIVIDUAL PANELS
 	function populatePanels(id, article, myPanelSettings){
-		if(myPanelSettings[id-1].sizey == null || myPanelSettings[id-1].sizey == '' || 
-		   parseInt(myPanelSettings[id-1].sizey) == 'NaN' || myPanelSettings[id-1].sizey == '0'
-		   || parseInt(myPanelSettings[id-1].sizey) > 600){
-			myPanelSettings[id-1].sizey = 400;
+		if(myPanelSettings[id].sizey == null || myPanelSettings[id].sizey == '' || 
+		   parseInt(myPanelSettings[id].sizey) == 'NaN' || myPanelSettings[id].sizey == '0'
+		   || parseInt(myPanelSettings[id].sizey) > 600){
+			myPanelSettings[id].sizey = 400;
 		}
-		if(myPanelSettings[id-1].sizex == null || myPanelSettings[id-1].sizex == '' || 
-		   parseInt(myPanelSettings[id-1].sizex) == 'NaN' || myPanelSettings[id-1].sizex == '0'
-		   || parseInt(myPanelSettings[id-1].sizex) > 1000){
-			myPanelSettings[id-1].sizex = 500;
+		if(myPanelSettings[id].sizex == null || myPanelSettings[id].sizex == '' || 
+		   parseInt(myPanelSettings[id].sizex) == 'NaN' || myPanelSettings[id].sizex == '0'
+		   || parseInt(myPanelSettings[id].sizex) > 1000){
+			myPanelSettings[id].sizex = 600;
 		}
-		if(myPanelSettings[id-1].posy == null || myPanelSettings[id-1].posy == '' || 
-		   parseInt(myPanelSettings[id-1].posy) == 'NaN' || myPanelSettings[id-1].posy == '0' ||
-		   parseInt(myPanelSettings[id-1].posy) < 40){
-			myPanelSettings[id-1].posy = 40;
+		if(myPanelSettings[id].posy == null || myPanelSettings[id].posy == '' || 
+		   parseInt(myPanelSettings[id].posy) == 'NaN' || myPanelSettings[id].posy == '0' ||
+		   parseInt(myPanelSettings[id].posy) < 40){
+			myPanelSettings[id].posy = 40;
 		}
-		if(myPanelSettings[id-1].posx == null || myPanelSettings[id-1].posx == '' || 
-		   parseInt(myPanelSettings[id-1].posx) == 'NaN' || myPanelSettings[id-1].posx == '0' ||
-		   parseInt(myPanelSettings[id-1].posx) < 0){
-			myPanelSettings[id-1].posx = 10;
+		if(myPanelSettings[id].posx == null || myPanelSettings[id].posx == '' || 
+		   parseInt(myPanelSettings[id].posx) == 'NaN' || myPanelSettings[id].posx == '0' ||
+		   parseInt(myPanelSettings[id].posx) < 0){
+			myPanelSettings[id].posx = 10;
 		}
 		
-		$('body').append('<div id=\'panel'+id+'\' onmouseup=\'checkPosition('+id+');\' onmouseout=\'checkPosition('+id+');\' onmousedown=\'setTopZIndex('+id+')\' class=\'panel\'><div id=\'panel_title'+id+'\' class=\'panel_title\'>'+article.rss.channel.title+'<table style="float:right; margin-top:2px;"><tr><td id="minimize'+id+'" class="minimize ui-icon-minusthick" onclick="togglewindow('+id+');"></td><td id="settings'+id+'" class="settings ui-icon-info"></td><td id="close'+id+'" class="close ui-icon-closethick" onclick="closewindow('+id+');"></td></tr></table></div><div id=\'panel_feed'+id+'\' class=\'panel_feed\'></div></div>');
+		//creates overall containing div for articles
+		$('body').append('<div id=\'panel'+id+'\' onmouseup=\'checkPosition('+id+');\' onmouseout=\'checkPosition('+id+');\' class=\'panel\'><div id=\'panel_title'+id+'\' class=\'panel_title\'>'+article.rss.channel.title+'<table style="float:right; margin-top:2px;"><tr><td id="minimize'+id+'" class="minimize ui-icon-minusthick" onclick="togglewindow('+id+');"></td><td id="settings'+id+'" class="settings ui-icon-info"></td><td id="close'+id+'" class="close ui-icon-closethick" onclick="closewindow('+id+');"></td></tr></table></div><div id=\'panel_feed'+id+'\' class=\'panel_feed\'></div></div>');
 		$("#panel"+id).draggable({handle:$('#panel_title'+id)}); 
 		$("#panel"+id).resizable();
 		$("#panel"+id).css('z-index', id);
+		
+		//interior articles
 		for(var i = 0; i < article.rss.channel.item.length; i++){
 			var description = article.rss.channel.item[i].description;
 			if(!description.length){
@@ -141,12 +145,12 @@ $('document').ready(function(){
 		}
 		
 		$("#panel"+id).draggable({handle:$('#panel_title'+id), containment:"window"}); 
-		$("#panel"+id).resizable();
 		$("#panel"+id).css({"position":"fixed"});
-		var lastId = (id-1);
-		$("#panel"+id).css({"height":myPanelSettings[id-1].sizey, "width":myPanelSettings[id-1].sizex,
-		                    "z-index": id, "top":myPanelSettings[id-1].posy, "left":myPanelSettings[id-1].posx});
-		                    
+		
+		//setting the width, height, position, etc of the panel
+		$("#panel"+id).css({"height":myPanelSettings[id].sizey, "width":myPanelSettings[id].sizex,
+		                    "z-index": id, "top":myPanelSettings[id].posy, "left":myPanelSettings[id].posx});
+		                                        
 		$("#panel"+id).mousedown(function(id){
 			$(".panel").css("z-index", id);
 			$("#panel"+id).css("z-index", "99");
@@ -154,7 +158,6 @@ $('document').ready(function(){
 	}
 	
 	function savePosition(id){
-		console.log("saving panel: "+$('#panel'+id).css('top'));
 		$.ajax({
 			type: 'POST',	
 			url: "./util/postdata.php",
@@ -191,9 +194,4 @@ $('document').ready(function(){
 			$('#caret'+id+''+i).removeClass('ui-icon-carat-1-e');
 			$('#caret'+id+''+i).addClass('ui-icon-carat-1-s');
 		}
-	}
-	
-	function setTopZIndex(id){
-			$(".panel").css("z-index", "1");
-			$("#panel"+id).css("z-index", "99");
 	}

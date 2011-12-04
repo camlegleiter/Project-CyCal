@@ -6,7 +6,7 @@
 </div>
 <div class="content">
 	<p>Have a blog who's articles you'd like to see on its own panel here? Just add the RSS feed link in the input box below!</p>
-	<form method="" onsubmit="return validate()">
+	<form method="POST" onsubmit="return validate()">
 		<input type="text" id="textbox" name="otherfeed" onFocus="if (this.value == 'RSS Feed') { this.value='';}" 
 			onblur="if (this.value == '') { this.value = 'RSS Feed';}" value="RSS Feed">
 		<input type="submit" value="Ok">
@@ -20,7 +20,9 @@
 </div>
 <script type="text/javascript">
 	$('#otherfeed').jqmAddClose($('#otherfeed .header #buttons #close'));
+	
 	var $validated = false;
+	
 	function validate()
 	{		
 		var $text = $('.content form #textbox').val();
@@ -57,7 +59,7 @@
 				}
 			}
 		});
-		alert($validated);
+
 		return $validated;
 	}
 </script>
