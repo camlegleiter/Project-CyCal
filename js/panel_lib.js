@@ -1,6 +1,5 @@
 window.onunload = function(){
 							var panels = $('body').find('.panel');
-							console.log(panels.length);
 							for(var i = 0; i < panels.length; i++){
 								savePosition(i);
 							}
@@ -36,7 +35,6 @@ $('document').ready(function(){
 		var jsonArticles;
 
 		for(i = 0; i < panelSettings.length; i++){
-			console.log("panel settings for " +i);
 			$.ajax({
 				method:'POST',
 				url:'./includes/pipes.php',
@@ -127,8 +125,8 @@ $('document').ready(function(){
 		}
 		if(myPanelSettings[id].sizex == null || myPanelSettings[id].sizex == '' || 
 		   parseInt(myPanelSettings[id].sizex) == 'NaN' || myPanelSettings[id].sizex == '0'
-		   || parseInt(myPanelSettings[id].sizex) > 1000 || parseInt(myPanelSettings[id].sizex) < 600){
-			myPanelSettings[id].sizex = 600;
+		   || parseInt(myPanelSettings[id].sizex) > 1000 || parseInt(myPanelSettings[id].sizex) < 500){
+			myPanelSettings[id].sizex = 500;
 		}
 		if(myPanelSettings[id].posy == null || myPanelSettings[id].posy == '' || 
 		   parseInt(myPanelSettings[id].posy) == 'NaN' || myPanelSettings[id].posy == '0' ||
@@ -141,6 +139,15 @@ $('document').ready(function(){
 			myPanelSettings[id].posx = 10;
 		}
 		
+		var overallTitle = "";
+		if(article.rss.channel.title.length > 40){
+			overallTitle = article.rss.channel.title.substring(0,40) + "...";
+		}else{
+			overallTitle = article.rss.channel.title;
+		}
+			
+		$("#panel"+id).attr('fullTitle',article.rss.channel.title);
+		
 		//creates overall containing div for articles
 		$('body').append('<div id="panel'+id+'" onmouseup="checkPosition('+id+');" onmousedown="changeZIndex('+id+');" onmouseout="checkPosition('+id+');" class="panel"><div id="panel_title'+id+'" class="panel_title">'+article.rss.channel.title+'<table style="float:right; margin-top:2px;"><tr><td id="minimize'+id+'" class="minimize ui-icon-minusthick" onclick="togglewindow('+id+');"></td><td id="settings'+id+'" class="settings ui-icon-info" onclick="showSettings('+id+');"></td><td id="close'+id+'" class="close ui-icon-closethick" onclick="closewindow('+id+');"></td></tr></table></div><div id="panel_feed'+id+'" class="panel_feed"></div></div>');
 		$("#panel"+id).draggable({handle:$('#panel_title'+id)}); 
@@ -148,16 +155,19 @@ $('document').ready(function(){
 		$("#panel"+id).css('z-index', id);
 		
 		//interior articles
-		for(var i = 0; i < article.rss.channel.item.length; i++){
-			var description = article.rss.channel.item[i].description;
-			if(!description.length){
-				description = "No description available.";
+		if(article.rss.channel.item.length > 0){
+			for(var i = 0; i < article.rss.channel.item.length; i++){
+				var title = article.rss.channel.item[i].title;
+				var description = article.rss.channel.item[i].description;
+				if(!description.length){
+					description = "No description available.";
+				}
+				var link = '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="panel_feed_article_link" href='+article.rss.channel.item[i].link+'>link to full article</a>'
+				$('#panel_feed'+id).append('<div id=\'panel_feed_article'+id+'\' class=\'panel_feed_article\'> <div id=\'panel_feed_article_title'+id+'\' class=\'panel_feed_article_title\' onclick=\'toggleArticle('+id+','+i+')\'>'+title+'<div id=\'panel_feed_article_title_buttons'+id+'\' class=\'panel_feed_article_title_buttons\'><div id=\'caret'+id+''+i+'\' class=\'caretDiv ui-icon-carat-1-e\'></div></div></div><div style="display:none;" id=\'panel_feed_article_content'+id+''+i+'\' class=\'panel_feed_article_content\'>'+description+link+'</div></div>');
 			}
-			var link = '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="panel_feed_article_link" href='+article.rss.channel.item[i].link+'>link to full article</a>'
-			var title = article.rss.channel.item[i].title;
-			$('#panel_feed'+id).append('<div id=\'panel_feed_article'+id+'\' class=\'panel_feed_article\'> <div id=\'panel_feed_article_title'+id+'\' class=\'panel_feed_article_title\' onclick=\'toggleArticle('+id+','+i+')\'>'+title+'<div id=\'panel_feed_article_title_buttons'+id+'\' class=\'panel_feed_article_title_buttons\'><div id=\'caret'+id+''+i+'\' class=\'caretDiv ui-icon-carat-1-e\'></div></div></div><div style="display:none;" id=\'panel_feed_article_content'+id+''+i+'\' class=\'panel_feed_article_content\'>'+description+link+'</div></div>');
+		}else{
+			$('#panel_feed'+id).append('<div id=\'noArticle\' class=\'panel_feed_no_article\'> No articles </div>');
 		}
-		
 		$("#panel"+id).draggable({handle:$('#panel_title'+id), containment:"window"}); 
 		$("#panel"+id).css({"position":"fixed"});
 		
@@ -165,9 +175,7 @@ $('document').ready(function(){
 		$("#panel"+id).css({"height":myPanelSettings[id].sizey, "width":myPanelSettings[id].sizex,
 		                    "z-index": id, "top":myPanelSettings[id].posy, "left":myPanelSettings[id].posx});
 		
-		console.log(myPanelSettings[id].rss);
 		$("#panel"+id).attr('rss',myPanelSettings[id].rss);
-		console.log($("#panel"+id).attr('rss'));
 	}
 	
 	function savePosition(id){

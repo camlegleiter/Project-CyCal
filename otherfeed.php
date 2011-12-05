@@ -11,11 +11,12 @@
 			onblur="if (this.value == '') { this.value = 'RSS Feed';}" value="RSS Feed">
 		<input type="submit" value="Ok">
 	</form>
-	<p>Or connect with Facebook, Twitter or Google+:</p>
+	<br>
+	<p style="text-align:center">Or connect with Facebook, Twitter or Google+:</p>
 	<div id="connect">
-		<center><a href="#">Facebook (Coming Soon)</a></center><br>
-		<center><a href="#">Twitter (Coming Soon)</a></center><br>
-		<center><a href="#">Google+ (Coming Soon)</a></center>
+		<p style="text-align:center"><a href="#">Facebook (Coming Soon)</a></p>
+		<p style="text-align:center"><a href="#">Twitter (Coming Soon)</a></p>
+		<p style="text-align:center"><a href="#">Google+ (Coming Soon)</a></p>
 	</div>
 </div>
 <script type="text/javascript">

@@ -1,17 +1,14 @@
 <?php
-//checks to see if session is started
-if (!isset ($_COOKIE[ini_get('CyCalLogin')])) {
-	session_name('CyCalLogin');
-	session_start();
-}
+
+	$TO_ROOT = "";
+	require 'includes/membersOnly.php';
+
 ?>
+
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
 <title>Canvas - CyCal</title>
-<?php
-	include 'includes/topbar_header.php';
-?>
 <link href="css/reset.css" rel="stylesheet" type="text/css">
 <link href="css/canvas.css" rel="stylesheet" type="text/css">
 <link href="css/mainstyle.css" rel="stylesheet" type="text/css">
@@ -24,6 +21,9 @@ if (!isset ($_COOKIE[ini_get('CyCalLogin')])) {
 <script type="text/javascript" src="js/getjson.js"></script>
 <script type="text/javascript" src="js/panel_lib.js"></script>
 <script type="text/javascript" src="js/dialog/jqModal.js"></script>
+<?php
+	include 'includes/topbar_header.php';
+?>
 
 </head>
 

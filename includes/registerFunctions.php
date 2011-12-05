@@ -204,7 +204,17 @@ else if($_POST['submit']=='Register')
 							NOW(),
 							'".$_SERVER['REMOTE_ADDR']."'							
 						)");
-		
+		if ($result)
+		{
+			$useridq = mysql_query("SELECT userid FROM users WHERE username='".$_POST['username']."'");
+			$userid = mysql_fetch_assoc($useridq);
+			mysql_query("	INSERT INTO settings(userid,background)
+							VALUES(
+								'".$userid['userid']."',
+								'#a3a3a3'						
+							)");
+		}
+
 		//TODO : REMOVE AT PRODUCTION (SECURITY RISK)
 //		if (!$result) {
 //		    die('Invalid query (158): ' . mysql_error() . '<br>' . $stringQ);
@@ -220,7 +230,7 @@ else if($_POST['submit']=='Register')
 			//$_SESSION['msg']['reg-success']='We sent you an email with your new password!';
 			$_SESSION['msg']['reg-success']='Congratulations! You\'re in!';
 		}
-		else $err[]='This username is already taken! Affected rows: '.mysql_affected_rows($link);
+		else $err[]='This username is already taken!';
 	}
 
 	if(count($err))
