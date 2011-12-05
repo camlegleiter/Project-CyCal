@@ -1,11 +1,12 @@
 ﻿.panel {
 	width: 500px;
 	height: 400px;
-	background-color: #FF0000;
+	background-color: #2F4F4F;
 	border-width: 5px;
 	border-color: #000000;
 	min-height:62px;
 	min-width:400px;
+	border-bottom:1px black solid;
 }
 
 body {
@@ -73,13 +74,15 @@ body {
 }
 
 .panel_feed{
-	background-color:green;
+	background-color:#2F4F4F;
 	overflow:scroll;
 	height:inherit;
 	overflow-x:hidden;
 	-ms-overflow-x:hidden;
 	margin:auto 0 auto 0;
 	min-height:60px;
+	border-left:1px black solid;
+	border-bottom:1px black solid;
 }
 
 .panel_feed_article{
