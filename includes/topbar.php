@@ -17,7 +17,7 @@
 <!--1st drop down menu -->                                                   
 <span id="dropmenu1" class="dropmenudiv">
 <?php
-if (defined("SETTINGSPAGE"))
+if (defined("SETTINGSPAGE") || defined("NOCANVAS"))
 {
 	echo '
 	<a href="canvas.php">Back to Canvas</a>
@@ -28,10 +28,18 @@ else if (!defined("ONLYLOGOUT"))
 	echo '
 	<a href="#addISU" onclick="addISUFeed()">Add ISU Feed</a>
 	<a href="#addOther" onclick="addOtherFeed()">Add Other Feed</a>
-	<a href="settings.php">Account Settings</a>
+	
 	';
 }
+
+if (!defined("SETTINGSPAGE"))
+{
+	echo '
+		<a href="settings.php">Account Settings</a>
+		';
+}
 ?>
+	
 	<a href="logout.php">Log Out</a>
 </span>
 

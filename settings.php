@@ -109,7 +109,7 @@ else
 				<p>Confirm Password:</p><input type='password' name='confirmpass'>
 				<p>Current Password:</p><input type='password' name='oldpass'>
 			<center><input class="save" type='submit' name='savepass' value='Save'><br></center>
-			<a style="font-size:xx-small;color:red;" href='#' onclick="alert('Coming soon! ;D')"><strong>Delete Account</strong></a>
+			<a style="font-size:xx-small;color:red;" href='deleteAcct.php'><strong>Delete Account</strong></a>
 		</form>
 		<form style="float:right" method='POST' onsubmit="adjustColor()">
 			<h2 style="text-align:left">Panel Background</h2>

@@ -26,7 +26,7 @@ if (!isset ($_COOKIE[ini_get('CyCalLogin')])) {
 <body>
 <?php
 	//Must be included at the top of the <body> tag
-	define("SETTINGSPAGE", true);
+	define("NOCANVAS", true);
 	include 'includes/topbar.php';
 ?>
 <script type="text/javascript">

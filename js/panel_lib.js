@@ -86,8 +86,10 @@ $('document').ready(function(){
 	}
 	
 	//remove panel
-	function closewindow(id){
-		$('#panel'+id).remove();
+	function closewindow(id) {
+		if (confirm("Are you sure you want to remove this feed?")) {
+			var feed = $('#panel'+id).attr('rss');
+			$('#panel'+id).remove();
 			$.ajax({
 				type: 'POST',
 				url: './Util/postdata.php',
@@ -98,10 +100,10 @@ $('document').ready(function(){
 				},
 				statusCode: {
 					200: function(xml, status) {
-						alert("You can add this feed back to your canvas at any time by clicking \"Add ISU Feed\" from the menu bar.");
 					},
 				}
 			});
+		}
 	}
 		
 	//bounds check after moving a panel
@@ -147,7 +149,7 @@ $('document').ready(function(){
 		
 		//creates overall containing div for articles
 		$('body').append('<div id="panel'+id+'" onmouseup="checkPosition('+id+');" onmousedown="changeZIndex('+id+');" onmouseout="checkPosition('+id+');" class="panel"><div id="panel_title'+id+'" class="panel_title">'+overallTitle+'<table style="float:right; margin-top:2px;"><tr><td id="minimize'+id+'" class="minimize ui-icon-minusthick" onclick="togglewindow('+id+');"></td><td id="settings'+id+'" class="settings ui-icon-info" onclick="showSettings('+id+');"></td><td id="close'+id+'" class="close ui-icon-closethick" onclick="closewindow('+id+');"></td></tr></table></div><div id="panel_feed'+id+'" class="panel_feed"></div></div>');
-		$("#panel"+id).draggable({handle:$('#panel_title'+id)}); 
+		$("#panel"+id).draggable({handle:$('#panel_title'+id), containment:"window"}); 		
 		$("#panel"+id).resizable();
 		$("#panel"+id).css('z-index', id);
 		
@@ -165,7 +167,6 @@ $('document').ready(function(){
 		}else{
 			$('#panel_feed'+id).append('<div id=\'noArticle\' class=\'panel_feed_no_article\'> No articles </div>');
 		}
-		$("#panel"+id).draggable({handle:$('#panel_title'+id), containment:"window"}); 
 		$("#panel"+id).css({"position":"fixed"});
 		
 		//setting the width, height, position, etc of the panel
@@ -221,6 +222,7 @@ $('document').ready(function(){
 
 	function showSettings(id) {
 		// Check if the settings isn't already been added to the panel
+
 		if (!$('#panel_feed'+id+' > #settings_panel'+id).length) {
 			$('#panel_feed'+id).append('<div id="settings_panel'+id+'" style="display: none; "></div>');
 			$('#settings_panel'+id).load('./feedsettings.php #settings');	
