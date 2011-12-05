@@ -114,6 +114,7 @@
 .ui-icon-triangle-1-e { background-position: -32px -16px; }
 .ui-icon-triangle-1-se { background-position: -48px -16px; }
 .ui-icon-triangle-1-s { background-position: -64px -16px; }
+
 .ui-icon-triangle-1-sw { background-position: -80px -16px; }
 .ui-icon-triangle-1-w { background-position: -96px -16px; }
 .ui-icon-triangle-1-nw { background-position: -112px -16px; }
@@ -209,7 +210,7 @@
 .ui-icon-minus { background-position: -48px -128px; }
 .ui-icon-minusthick { background-position: -64px -128px; }
 .ui-icon-close { background-position: -80px -128px; }
-.ui-icon-closethick { background-position: -96px -128px; }
+.ui-icon-closethick { background-position: -95px -128px; }
 .ui-icon-key { background-position: -112px -128px; }
 .ui-icon-lightbulb { background-position: -128px -128px; }
 .ui-icon-scissors { background-position: -144px -128px; }

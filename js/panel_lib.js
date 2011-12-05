@@ -87,8 +87,10 @@ $('document').ready(function(){
 	}
 	
 	//remove panel
-	function closewindow(id){
-		$('#panel'+id).remove();
+	function closewindow(id) {
+		if (confirm("Are you sure you want to remove this feed?")) {
+			var feed = $('#panel'+id).attr('rss');
+			$('#panel'+id).remove();
 			$.ajax({
 				type: 'POST',
 				url: './Util/postdata.php',
@@ -99,10 +101,10 @@ $('document').ready(function(){
 				},
 				statusCode: {
 					200: function(xml, status) {
-						alert("You can add this feed back to your canvas at any time by clicking \"Add ISU Feed\" from the menu bar.");
 					},
 				}
 			});
+		}
 	}
 		
 	//bounds check after moving a panel
@@ -173,6 +175,11 @@ $('document').ready(function(){
 		                    "z-index": id, "top":myPanelSettings[id].posy, "left":myPanelSettings[id].posx});
 		
 		$("#panel"+id).attr('rss',myPanelSettings[id].rss);
+
+		//add settings panel
+		$('#panel_feed'+id).append('<div id="settings_panel'+id+'" style="display: none; "></div>');
+		$('#settings_panel'+id).load('./feedsettings.php #settings');
+		//add delete feed button in settings
 	}
 	
 	function savePosition(id){
@@ -220,11 +227,6 @@ $('document').ready(function(){
 	}
 
 	function showSettings(id) {
-		// Check if the settings isn't already been added to the panel
-		if (!$('#panel_feed'+id+' > #settings_panel'+id).length) {
-			$('#panel_feed'+id).append('<div id="settings_panel'+id+'" style="display: none; "></div>');
-			$('#settings_panel'+id).load('./feedsettings.php #settings');	
-		}
 		// Show/hide the articles
 		$('#panel_feed'+id).children('#panel_feed_article'+id).toggle();
 		// Show/hide the settings
