@@ -13,7 +13,7 @@
 	<?php
 		//Must be included inside the Header (at bottom)
 		include 'includes/topbar_header.php';
-		require "includes/htmlToArray.php";
+		require "includes/simple_html_dom.php";
 
 	?>
 
@@ -24,30 +24,31 @@
 		//Must be included at the top of the <body> tag
 		include 'includes/topbar.php';
 		
-		$html = @file_get_contents("http://ax.itunes.apple.com/WebObjects/MZStoreServices.woa/ws/RSS/topsongs/limit=10/xml");
-//		if($html === false)
+//		$html = @file_get_contents("http://www.event.iastate.edu/rssgen.php?featured=1");
+		
+		//		if($html === false)
 //			errorMessage('Invalid RSS Feed: '.$value);
-		$parsed = new htmlParser($html);
-		$arr = $parsed->toArray();
-		$title = true;
-		$des = false;
-		$link = false;
-		$ref = $arr[0]['childNodes'];
-		for ($i=0; $i < count($ref); $i++)
-		{
-			if($ref[$i]['tag'] == 'title')
-			$title = true;
-			echo $title;
-			if($ref[$i]['tag'] == 'description')
-			$des = true;
-			if($ref[$i]['tag'] == 'link')
-			$link = true;
+		
+//		foreach($html->find('content') as $element) 
+ //      		echo $element->href . '<br>';
+//		if($title != true || $des != true || $link != true){
+//			echo"Not valid RSS";
+//		}
+		$html = file_get_html('http://xkcd.com/rss.xml');
+		$good = null;
+		$rss = $html->find('rss',0);
+		if($rss != null){
+			$chan = $html->find('rss',0)->find('channel',0);
+			if($chan != null){
+			$good = true;
+			}
 		}
-		var_dump($ref);
-		if($title != true || $des != true || $link != true){
-//			errorMessage('Invalid RSS Feed: '.$title);
+		if($good == null){
+			echo"Not valid RSS";
 		}
-
+		//->find('channel',0)->find('title', 0)->plaintext;
+		
+		
 	?>
 	<p>Content here!</p>
 

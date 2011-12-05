@@ -7,7 +7,7 @@
 if (!isset($TO_ROOT))
 	$TO_ROOT = "../";	
 require $TO_ROOT."includes/membersOnly.php";
-require $TO_ROOT."includes/htmlToArray.php";
+require $TO_ROOT."includes/simple_html_dom.php";
 /*
 =====================================
 	SENDING FUNCTIONS
@@ -121,26 +121,47 @@ if ($action == "add")
 	$count = 0;
 	foreach ($rss as $value)
 	{
-		$html = @file_get_contents($value);
-		if($html === false)
-			errorMessage('Invalid RSS Feed: '.$value);
-		$parsed = new htmlParser($html);
-		$arr = $parsed->toArray();
-		$title = false;
-		$des = false;
-		$link = false;
-		$ref = $arr[0]['childNodes'][0]['childNodes'];
-		for ($i=0; $i < count($ref); $i++)
-		{
-			if($ref[$i]['tag'] == 'title')
-			$title = true;
-			if($ref[$i]['tag'] == 'description')
-			$des = true;
-			if($ref[$i]['tag'] == 'link')
-			$link = true;
+//		$html = @file_get_contents($value);
+//		if($html === false)
+//			errorMessage('Invalid RSS Feed: '.$value);
+//		$parsed = new htmlParser($html);
+//		$arr = $parsed->toArray();
+//		$title = false;
+//		$des = false;
+//		$link = false;
+//		$rssNum = 10;
+//		for($i=0; $i < count($arr); $i++){
+//			if($arr[$i]['tag'] == 'rss'){
+//			$rssNum = $i;
+	//		break;
+//			}
+//		}
+//		$ref = $arr[$rssNum]['childNodes'][0]['childNodes'];
+//		$count = count($ref);
+//		for ($i=0; $i < count($ref); $i++)
+//		{
+//			if($ref[$i]['tag'] == 'title')
+//			$title = true;
+//			if($ref[$i]['tag'] == 'description')
+//			$des = true;
+//			if($ref[$i]['tag'] == 'link')
+//			$link = true;
+//		}
+//		if($title != true || $des != true || $link != true){
+//			errorMessage('Invalid RSS Feed:'.$count);
+//		}
+		$html = file_get_html($value);
+		$good = null;
+		$rss = $html->find('rss',0);
+		if($rss != null){
+			$chan = $html->find('rss',0)->find('channel',0);
+			if($chan != null){
+			$good = true;
+			}
 		}
-		if($title != true || $des != true || $link != true){
-			errorMessage('Invalid RSS Feed: ');
+		errorMessage('Invalid RSS Feed:'.$good);
+		if($good == null){
+			errorMessage('Invalid RSS Feed:');
 		}
 		$errorvalue = urlencode($value);
 		$value = mysql_real_escape_string($errorvalue);
