@@ -24,7 +24,7 @@
 		//Must be included at the top of the <body> tag
 		include 'includes/topbar.php';
 		
-		$html = @file_get_contents("http://xkcd.com/rss.xml");
+		$html = @file_get_contents("http://ax.itunes.apple.com/WebObjects/MZStoreServices.woa/ws/RSS/topsongs/limit=10/xml");
 //		if($html === false)
 //			errorMessage('Invalid RSS Feed: '.$value);
 		$parsed = new htmlParser($html);
