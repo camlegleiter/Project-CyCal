@@ -126,10 +126,10 @@ if ($action == "add")
 			errorMessage('Invalid RSS Feed: '.$value);
 		$parsed = new htmlParser($html);
 		$arr = $parsed->toArray();
-		$title = true;
+		$title = false;
 		$des = false;
 		$link = false;
-		$ref = $arr[0]['childNodes'];
+		$ref = $arr[0]['childNodes'][0]['childNodes'];
 		for ($i=0; $i < count($ref); $i++)
 		{
 			if($ref[$i]['tag'] == 'title')
@@ -140,7 +140,7 @@ if ($action == "add")
 			$link = true;
 		}
 		if($title != true || $des != true || $link != true){
-			errorMessage('Invalid RSS Feed: '.$title);
+			errorMessage('Invalid RSS Feed: ');
 		}
 		$errorvalue = urlencode($value);
 		$value = mysql_real_escape_string($errorvalue);
@@ -152,7 +152,7 @@ if ($action == "add")
 
 	}
 	if($count == 0){
-		errorMessage("Those Feeds are already on your page or you have not selected a feed.");
+		errorMessage("Those feeds are already on your page or you have not selected a feed.");
 	}
 	else{
 		successMessage('');
@@ -161,17 +161,17 @@ if ($action == "add")
 else if ($action == "delete")
 {
 	$count = 0;
-	foreach ($rss as $value)
+	foreach ($rss as $feed)
 	{
-		$value = mysql_real_escape_string(urlencode($value));
-		$rssCheck = mysql_query("DELETE FROM panel WHERE userid='$userid' AND rss='$value'");
+		$feed = mysql_real_escape_string(urlencode($feed));
+		$rssCheck = mysql_query("DELETE FROM panel WHERE userid='$userid' AND rss='$feed'");
 		$rows = mysql_affected_rows();
 		if($rows != 0){
 			$count++;
 		}
 	}
 	if($count == 0){
-		errorMessage("Those Feeds are not in our database.");
+		errorMessage("Those feeds are not in our database.");
 	}
 	else{
 		successMessage('');
