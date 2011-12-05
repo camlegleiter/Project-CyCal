@@ -229,6 +229,7 @@ else if($_POST['submit']=='Register')
 
 			//$_SESSION['msg']['reg-success']='We sent you an email with your new password!';
 			$_SESSION['msg']['reg-success']='Congratulations! You\'re in!';
+			$_SESSION['msg']['formtype'] = 'login';
 		}
 		else $err[]='This username is already taken!';
 	}
