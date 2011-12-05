@@ -126,10 +126,10 @@ if ($action == "add")
 			errorMessage('Invalid RSS Feed: '.$value);
 		$parsed = new htmlParser($html);
 		$arr = $parsed->toArray();
-		$title = true;
+		$title = false;
 		$des = false;
 		$link = false;
-		$ref = $arr[0]['childNodes'];
+		$ref = $arr[0]['childNodes'][0]['childNodes'];
 		for ($i=0; $i < count($ref); $i++)
 		{
 			if($ref[$i]['tag'] == 'title')
@@ -140,7 +140,7 @@ if ($action == "add")
 			$link = true;
 		}
 		if($title != true || $des != true || $link != true){
-			errorMessage('Invalid RSS Feed: '.$title);
+			errorMessage('Invalid RSS Feed: ');
 		}
 		$errorvalue = urlencode($value);
 		$value = mysql_real_escape_string($errorvalue);
