@@ -174,6 +174,11 @@ $('document').ready(function(){
 		                    "z-index": id, "top":myPanelSettings[id].posy, "left":myPanelSettings[id].posx});
 		
 		$("#panel"+id).attr('rss',myPanelSettings[id].rss);
+
+		//add settings panel
+		$('#panel_feed'+id).append('<div id="settings_panel'+id+'" style="display: none; "></div>');
+		$('#settings_panel'+id).load('./feedsettings.php #settings');
+		//add delete feed button in settings
 	}
 	
 	function savePosition(id){
@@ -221,12 +226,6 @@ $('document').ready(function(){
 	}
 
 	function showSettings(id) {
-		// Check if the settings isn't already been added to the panel
-
-		if (!$('#panel_feed'+id+' > #settings_panel'+id).length) {
-			$('#panel_feed'+id).append('<div id="settings_panel'+id+'" style="display: none; "></div>');
-			$('#settings_panel'+id).load('./feedsettings.php #settings');	
-		}
 		// Show/hide the articles
 		$('#panel_feed'+id).children('#panel_feed_article'+id).toggle();
 		// Show/hide the settings

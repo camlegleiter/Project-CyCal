@@ -57,7 +57,8 @@ a:active, a:hover {
 }
 
 ul li {
-	padding-left: 20px;
+	margin-left: 20px;
+	list-style-type:circle;
 }
 
 div.helpcontent {

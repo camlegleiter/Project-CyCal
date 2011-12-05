@@ -16,12 +16,14 @@ campus events in an interactive and customizable setting. </p>
 
 <h1>Developers</h1>
 
-<li type = "circle"><pre>Justin Derby		 - Networking, RSS Research, Facebook</pre></li>
-<li type = "circle"><pre>Michael Kinsella		 - SQL Structure/Layout</pre></li>
-<li type = "circle"><pre>Kurt Kohl			 - Web Development</pre></li>
-<li type = "circle"><pre>Blair Billings		 - Javascript/JQuery</pre></li>
-<li type = "circle"><pre>Jamison Voss		 - Web Development</pre></li>
-<li type = "circle"><pre>Cameron Legleiter	 - Web Designer</pre></li> 
+<ul>
+	<li>Justin Derby		 - Networking, RSS Research, Facebook</li>
+	<li>Michael Kinsella		 - SQL Structure/Layout</li>
+	<li>Kurt Kohl			 - Web Development</li>
+	<li>Blair Billings		 - Javascript/JQuery</li>
+	<li>Jamison Voss		 - Web Development</li>
+	<li>Cameron Legleiter	 - Web Designer</li> 
+</ul>
 
 <h1>Description</h1>
 <p>Project CyCal is a project about the beautification of RSS feeds in general.  
@@ -33,7 +35,7 @@ on a ‘desktop’ inside the web browser.  Added integration of Facebook, Twitt
 Google+, and other social media sites will be implemented when the main
 functionality are done.  
 </p>
-</br>
+<br>
 <p>
 The targeted user base is anyone who goes to Iowa State University, and we 
 will expand to a more general audience when there is more exposure.  This 
