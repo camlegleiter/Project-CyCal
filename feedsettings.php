@@ -1,29 +1,9 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<link href="css/reset.css" rel="stylesheet" type="text/css">
-		<link href="css/mainstyle.css" rel="stylesheet" type="text/css">
-		<link href="js/css/jquery-ui.css" rel="stylesheet" type="text/css">
 		<script type="text/javascript" src="js/jquery-1.6.2.min.js"></script>
 		<script type="text/javascript" src="js/jquery-ui.min.js"></script>
 		<script type="text/javascript" src="js/minicolors/jquery.miniColors.js"></script>
-		<link href="js/minicolors/jquery.miniColors.css" rel="stylesheet" type="text/css">
-		<style type="text/css">
-			form{
-				-moz-border-radius: 15px;
-				border-radius: 15px;
-				height: 300px;
-			}
-			#Header_Title{
-				width: 100%;
-			}
-			input {
-				margin: 0px;
-			}
-			div > div {
-				padding: 5px auto;
-			}
-		</style>
 	</head>
 	<body>
 		<script type="text/javascript">
@@ -36,15 +16,19 @@
 		//Must be included at the top of the <body> tag
 		include 'includes/topbar.php';
 	?>
-		<div>
-			<div id="MainContainer">
-				<div id="Header_Title">
-					<h2>Settings</h2>
-				</div>
-				<form method='POST'>
-					<div width="100%">
-						<div style="float: left; width: 150px">Font Style:</div>
-						<div style="float: left;">
+		<div id="settings">
+			<link href="css/reset.css" rel="stylesheet" type="text/css">
+			<link href="css/mainstyle.css" rel="stylesheet" type="text/css">
+			<link href="js/css/jquery-ui.css" rel="stylesheet" type="text/css">	
+			<style type="text/css">
+				input {
+					margin: 0px;
+				}
+			</style>
+			<link href="js/minicolors/jquery.miniColors.css" rel="stylesheet" type="text/css">				
+				<form method='POST' style="width:350px; text-align:left">
+					<div>
+						<div>Font Style:
 							<select>
 								<option>Monaco</option>
 								<option>Helvetica</option>
@@ -53,75 +37,66 @@
 						</div>
 					</div>
 					<br>
-					<div width="100%">
-						<div style="float: left; width: 150px;">Font Size:</div>
-						<div style="float: left; width: 100px;">
-							<select>
-								<?php for ($i = 8; $i <= 20; $i += 2) { echo '<option>' . $i . '</option>'; } ?>
-							</select>
+					<div>Font Size:
+						<select>
+							<?php for ($i = 8; $i <= 20; $i += 2) { echo '<option>' . $i . '</option>'; } ?>
+						</select>
+					</div>
+					<br>
+					<div>Font Color:
+						<input class="colors miniColors" type="hidden" size="7" name="fontColor" maxlength="7" autocomplete="off">
+						<script type="text/javascript">
+							$(".colors").miniColors({
+								change: function(hex, rgb) {
+									// Do stuff with chosen rgb.r, rgb.g, rgb.b values
+									// Test example
+									// $('#test').html("RGB = " + rgb.r + ", " + rgb.g + ", " + rgb.b);
+								}
+							}); 
+						</script>
+					</div>
+					<div>Background Color:
+						<input class="colors miniColors" type="hidden" size="7" name="backgroundColor" maxlength="7" autocomplete="off">
+						<script type="text/javascript">
+							$(".colors").miniColors({
+								change: function(hex, rgb) {
+									// Do stuff with chosen rgb.r, rgb.g, rgb.b values
+									// Test example
+									// $('#test').html("RGB = " + rgb.r + ", " + rgb.g + ", " + rgb.b);
+								}
+							}); 
+						</script>
+					</div>
+					<div>
+						<input type="checkbox" class="checkbox">
+						Start Minimized
+					</div>
+					<br>
+					<div style="border:1px #000000 dotted; padding:5px">
+						<input type="checkbox" class="checkbox">
+						Notifications
+						<div style="margin-left:20px">
+							<div style="margin:5px">
+								<input type="checkbox" class="checkbox">
+								Email
+								<div style="padding-left:20px">
+									<input type="text">
+								</div>
+							</div>
+							<div style="margin:5px">
+								<input type="checkbox" class="checkbox">
+								Text
+								<div style="padding-left:20px">
+									<input type="text">
+								</div>
+							</div>
 						</div>
 					</div>
 					<br>
-					<div width="100%">
-						<div style="float: left; width: 150px;">Font Color:</div>
-						<div style="float: left; width: 100px;">
-							<input class="colors miniColors" type="hidden" size="7" name="fontColor" maxlength="7" autocomplete="off">
-							<script type="text/javascript">
-								$(".colors").miniColors({
-									change: function(hex, rgb) {
-										// Do stuff with chosen rgb.r, rgb.g, rgb.b values
-										// Test example
-										// $('#test').html("RGB = " + rgb.r + ", " + rgb.g + ", " + rgb.b);
-									}
-								}); 
-							</script>
-						</div>
-					</div>
-					<div width="100%">
-						<div style="float: left; width: 150px;">Background Color:</div>
-						<div style="float: left; width: 100px;">
-							<input class="colors miniColors" type="hidden" size="7" name="backgroundColor" maxlength="7" autocomplete="off">
-							<script type="text/javascript">
-								$(".colors").miniColors({
-									change: function(hex, rgb) {
-										// Do stuff with chosen rgb.r, rgb.g, rgb.b values
-										// Test example
-										// $('#test').html("RGB = " + rgb.r + ", " + rgb.g + ", " + rgb.b);
-									}
-								}); 
-							</script>
-						</div>
-					</div>
-					<div width="100%">
-						<input type="checkbox" style="float: left; top: 50%;">
-						<div style="float: left; top: 50%; width: 200px">Start Minimized</div>
-					</div>
-					<br>
-					<div width="100%">
-						<input type="checkbox" style="float: left; top: 50%;">
-						<div style="float: left; top: 50%; width: 200px">Notifications</div>
-					</div>
-					<div style="padding: 10px"></div>
-					<div width="100%">
-						<div width="50%" style="float: left;">
-							<div style="horizontal-align: middle;">
-								<input type="checkbox" style="float: left; top: 50%;">
-								<div style="float: left; top: 50%; width: 100px">Email</div>
-							</div>
-							<input type="text">
-						</div>
-						<div width="50%" style="float: left;">
-							<div style="horizontal-align: middle;">
-								<input type="checkbox" style="float: left; top: 50%;">
-								<div style="float: left; top: 50%; width: 100px">Text</div>
-							</div>
-							<input type="text">
-						</div>
-					</div>
-					<a href="#">DELETE FEED</a>
-					<input type="submit" onClick="alertX()">
+					<a href="#" style="font-size:xx-small;color:red;float:left">DELETE FEED</a>
+					<input type="submit" onClick="alertX()" style="float:right">
+					<div style="clear:both"></div>
 				</form>
 			</div>
-		</div>
 	</body>
 </html>

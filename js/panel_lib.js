@@ -56,7 +56,6 @@ $('document').ready(function(){
 	function togglewindow(id){
 		if($('#panel'+id).css('min-height') != "0px"){
 			$('#panel'+id).css('min-height', '0px');
-			$('#panel'+id).css('min-width', '0px');
 			$('#minimize'+id).removeClass('ui-icon-minusthick');
 			$('#minimize'+id).addClass('ui-icon-arrowthick-2-ne-sw');
 			$("#panel"+id).resizable({ disabled: true });
@@ -87,14 +86,10 @@ $('document').ready(function(){
 	}
 	
 	//remove panel
-	function closewindow(id){
-		if (confirm("Closing this will remove this feed from your canvas. Are you sure you want to remove this feed?")) {
+	function closewindow(id) {
+		if (confirm("Are you sure you want to remove this feed?")) {
 			var feed = $('#panel'+id).attr('rss');
 			$('#panel'+id).remove();
-		
-			/*
-				need to handle removing rss feed from database
-			*/
 			$.ajax({
 				type: 'POST',
 				url: './Util/postdata.php',
@@ -105,7 +100,6 @@ $('document').ready(function(){
 				},
 				statusCode: {
 					200: function(xml, status) {
-						alert("You can add this feed back to your canvas at any time by clicking \"Add ISU Feed\" from the menu bar.");
 					},
 				}
 			});
@@ -128,8 +122,8 @@ $('document').ready(function(){
 		}
 		if(myPanelSettings[id].sizex == null || myPanelSettings[id].sizex == '' || 
 		   parseInt(myPanelSettings[id].sizex) == 'NaN' || myPanelSettings[id].sizex == '0'
-		   || parseInt(myPanelSettings[id].sizex) > 1000 || parseInt(myPanelSettings[id].sizex) < 500){
-			myPanelSettings[id].sizex = 500;
+		   || parseInt(myPanelSettings[id].sizex) > 1000 || parseInt(myPanelSettings[id].sizex) < 400){
+			myPanelSettings[id].sizex = 400;
 		}
 		if(myPanelSettings[id].posy == null || myPanelSettings[id].posy == '' || 
 		   parseInt(myPanelSettings[id].posy) == 'NaN' || myPanelSettings[id].posy == '0' ||
@@ -142,18 +136,20 @@ $('document').ready(function(){
 			myPanelSettings[id].posx = 10;
 		}
 		
-		var overallTitle = "";
-		if(article.rss.channel.title.length > 40){
-			overallTitle = article.rss.channel.title.substring(0,40) + "...";
-		}else{
-			overallTitle = article.rss.channel.title;
+		var overallTitle = article.rss.channel.title;
+		if(overallTitle.indexOf("Iowa State University Events -") != -1){
+			overallTitle = overallTitle.substring(("Iowa State University Events - ").length,overallTitle.length);		
 		}
-			
+		
+		if(overallTitle.length > 45){
+			overallTitle = overallTitle.substring(0,45) + "...";
+		}
+					
 		$("#panel"+id).attr('fullTitle',article.rss.channel.title);
 		
 		//creates overall containing div for articles
-		$('body').append('<div id=\'panel'+id+'\' onmouseup=\'checkPosition('+id+');\' onmouseout=\'checkPosition('+id+');\' class=\'panel\'><div id=\'panel_title'+id+'\' class=\'panel_title\'>'+overallTitle+'<table style="float:right; margin-top:2px;"><tr><td id="minimize'+id+'" class="minimize ui-icon-minusthick" onclick="togglewindow('+id+');"></td><td id="settings'+id+'" class="settings ui-icon-info"></td><td id="close'+id+'" class="close ui-icon-closethick" onclick="closewindow('+id+');"></td></tr></table></div><div id=\'panel_feed'+id+'\' class=\'panel_feed\'></div></div>');
-		$("#panel"+id).draggable({handle:$('#panel_title'+id)}); 
+		$('body').append('<div id="panel'+id+'" onmouseup="checkPosition('+id+');" onmousedown="changeZIndex('+id+');" onmouseout="checkPosition('+id+');" class="panel"><div id="panel_title'+id+'" class="panel_title">'+overallTitle+'<table style="float:right; margin-top:2px;"><tr><td id="minimize'+id+'" class="minimize ui-icon-minusthick" onclick="togglewindow('+id+');"></td><td id="settings'+id+'" class="settings ui-icon-info" onclick="showSettings('+id+');"></td><td id="close'+id+'" class="close ui-icon-closethick" onclick="closewindow('+id+');"></td></tr></table></div><div id="panel_feed'+id+'" class="panel_feed"></div></div>');
+		$("#panel"+id).draggable({handle:$('#panel_title'+id), containment:"window"}); 		
 		$("#panel"+id).resizable();
 		$("#panel"+id).css('z-index', id);
 		
@@ -171,17 +167,11 @@ $('document').ready(function(){
 		}else{
 			$('#panel_feed'+id).append('<div id=\'noArticle\' class=\'panel_feed_no_article\'> No articles </div>');
 		}
-		$("#panel"+id).draggable({handle:$('#panel_title'+id), containment:"window"}); 
 		$("#panel"+id).css({"position":"fixed"});
 		
 		//setting the width, height, position, etc of the panel
 		$("#panel"+id).css({"height":myPanelSettings[id].sizey, "width":myPanelSettings[id].sizex,
 		                    "z-index": id, "top":myPanelSettings[id].posy, "left":myPanelSettings[id].posx});
-		                                        
-		$("#panel"+id).mousedown(function(id){
-			$(".panel").css("z-index", id);
-			$("#panel"+id).css("z-index", "99");
-		});
 		
 		$("#panel"+id).attr('rss',myPanelSettings[id].rss);
 	}
@@ -214,7 +204,7 @@ $('document').ready(function(){
 		});
 	}
 	
-	function toggleArticle(id, i){
+	function toggleArticle(id, i) {
 		$('#panel_feed_article_content'+id+i).slideToggle("slow");
 		if($('#caret'+id+''+i).attr('class').indexOf('ui-icon-carat-1-s') != -1){
 			$('#caret'+id+''+i).removeClass('ui-icon-carat-1-s');
@@ -223,4 +213,22 @@ $('document').ready(function(){
 			$('#caret'+id+''+i).removeClass('ui-icon-carat-1-e');
 			$('#caret'+id+''+i).addClass('ui-icon-carat-1-s');
 		}
+	}
+
+	function changeZIndex(id) {
+		$(".panel").css("z-index", id);
+		$("#panel"+id).css("z-index", "99");
+	}
+
+	function showSettings(id) {
+		// Check if the settings isn't already been added to the panel
+
+		if (!$('#panel_feed'+id+' > #settings_panel'+id).length) {
+			$('#panel_feed'+id).append('<div id="settings_panel'+id+'" style="display: none; "></div>');
+			$('#settings_panel'+id).load('./feedsettings.php #settings');	
+		}
+		// Show/hide the articles
+		$('#panel_feed'+id).children('#panel_feed_article'+id).toggle();
+		// Show/hide the settings
+		$('#settings_panel'+id).toggle();
 	}

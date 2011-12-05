@@ -1,7 +1,7 @@
 ﻿.panel {
 	width: 500px;
 	height: 400px;
-	background-color: #2F4F4F;
+	background-color:#CCCCCC;
 	border-width: 5px;
 	border-color: #000000;
 	min-height:62px;
@@ -15,7 +15,7 @@ body {
 	margin: 0px;
 	padding: 15px;
 	background-repeat: no-repeat;
-	background-color: #CCCCCC;
+	background-color: #a3a3a3;
 	background-position: right bottom;
 	background-attachment: fixed;
 	height:100%;
@@ -74,7 +74,7 @@ body {
 }
 
 .panel_feed{
-	background-color:#2F4F4F;
+	background-color:#CCCCCC;
 	overflow:scroll;
 	height:inherit;
 	overflow-x:hidden;
