@@ -176,8 +176,10 @@ $('document').ready(function(){
 		
 		$("#panel"+id).attr('rss',myPanelSettings[id].rss);
 
+		//add settings panel
 		$('#panel_feed'+id).append('<div id="settings_panel'+id+'" style="display: none; "></div>');
 		$('#settings_panel'+id).load('./feedsettings.php #settings');
+		//add delete feed button in settings
 	}
 	
 	function savePosition(id){
