@@ -2,6 +2,7 @@ DROP TABLE IF EXISTS admins;
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS coming_soon_emails;
 DROP TABLE IF EXISTS panel;
+DROP TABLE IF EXISTS settings;
 
 CREATE TABLE users (           
 	userid INT NOT NULL AUTO_INCREMENT,           
@@ -40,3 +41,11 @@ CREATE TABLE panel (
 	themeid INT(32) NOT NULL,       
 	PRIMARY KEY(userid, rss)
 ); 
+
+CREATE TABLE settings (
+	userid INT(32) NOT NULL,
+	background varchar(255),
+	PRIMARY KEY(userid),
+	FOREIGN KEY(userid) 
+	references users(userid)
+);
