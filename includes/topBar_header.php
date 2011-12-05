@@ -1,5 +1,5 @@
 <?php
-	if ($_SESSION['id'])
+	if ($_SESSION['id'] && !defined("noCustomBG"))
 	{
 		$result2 = mysql_query("SELECT background from settings where userid='".$_SESSION['id']."'");
 		$cssColor = mysql_fetch_array($result2);

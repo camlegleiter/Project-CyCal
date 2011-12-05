@@ -9,9 +9,6 @@ if (!isset ($_COOKIE[ini_get('CyCalLogin')])) {
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
 	<title><?php echo $title; ?></title>
-	<?php
-		include 'includes/topbar_header.php';
-	?>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
 	<title><?php echo $title; ?></title>
 	<link href="css/reset.css" rel="stylesheet" type="text/css">
@@ -19,6 +16,10 @@ if (!isset ($_COOKIE[ini_get('CyCalLogin')])) {
 	<link href="js/css/jquery-ui.css" rel="stylesheet" type="text/css">
 	<script type="text/javascript" src="js/jquery-1.6.2.min.js"></script>
 	<script type="text/javascript" src="js/jquery-ui.min.js"></script>
+	<?php
+		define("noCustomBG", true);
+		include 'includes/topbar_header.php';
+	?>
 
 </head>
 
