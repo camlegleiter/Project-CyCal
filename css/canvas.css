@@ -74,7 +74,7 @@ body {
 }
 
 .panel_feed{
-	background-color:#2F4F4F;
+	background-color:#CCCCCC;
 	overflow:scroll;
 	height:inherit;
 	overflow-x:hidden;
