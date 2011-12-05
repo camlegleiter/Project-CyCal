@@ -1,10 +1,9 @@
 <?php
 define('INCLUDE_CHECK',true);
 
-require "includes/connect.php";
+$TO_ROOT = "";
+require 'includes/membersOnly.php';
 require 'includes/functions.php';
-session_name('CyCalLogin');
-session_start();
 
 if($_POST['savepass'])
 {
@@ -43,12 +42,33 @@ if($_POST['savepass'])
 
 $result = mysql_query("SELECT * from users where username = '".$_SESSION['usr']."'");
 $row = mysql_fetch_array($result);
+mysql_free_result($result);
+
+if ($_POST['savecolor'])
+{
+	$color = mysql_real_escape_string($_POST['colorSelect']);
+	//if (strcmp(strtolower($_POST['BackgroundColor']), "color") == 0)
+	//{
+	mysql_query("UPDATE settings SET background='".$color."' WHERE userid='".$_SESSION['id']."'");
+	//}
+	//else
+	//{
+	//
+	//}
+}
+
+$result2 = mysql_query("SELECT background from settings where userid='".$_SESSION['id']."'");
+$backgroundColor = mysql_fetch_array($result2);
+$backgroundColor = $backgroundColor['background'];
+mysql_free_result($result2);
+
+if (strcmp(strtolower($backgroundColor),"#a3a3a3") == 0)
+	$defaultColor = true;
+else
+	$defaultColor = false;
 ?>
 <html>
 <head>
-<?php
-	include 'includes/topbar_header.php';
-?>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<title>CyCal</title>
 	<link href="css/reset.css" rel="stylesheet" type="text/css">
@@ -58,6 +78,10 @@ $row = mysql_fetch_array($result);
 	<script type="text/javascript" src="js/jquery-ui.min.js"></script>
 	<link rel="stylesheet" media="screen" type="text/css" href="css/colorpicker.css" >
 	<script type="text/javascript" src="js/colorpicker.js"></script>
+<?php
+	include 'includes/topbar_header.php';
+?>
+
 </head>
 <body>
 <?php
@@ -87,37 +111,44 @@ $row = mysql_fetch_array($result);
 			<center><input class="save" type='submit' name='savepass' value='Save'><br></center>
 			<a style="font-size:xx-small;color:red;" href='#' onclick="alert('Coming soon! ;D')"><strong>Delete Account</strong></a>
 		</form>
-		<form style="float:right" method='POST'>
+		<form style="float:right" method='POST' onsubmit="adjustColor()">
 			<h2 style="text-align:left">Panel Background</h2>
 			<div style="text-align:left">
-				<input class="radio" type="radio" name="group1" value="Default" id="cbDef" <?php echo 'checked="checked"' ?>>
+				<input class="radio" type="radio" name="BackggroundColor" value="Default" id="cbDef" <?php if ($defaultColor) echo 'checked="checked"' ?>>
 					<label onclick="$('#cbDef').prop('checked', true)"> Default</label>
 					<div id="colorSelectorDef" style="margin-left:2em">
 						<div style="background-color: #a3a3a3"></div>
 					</div>
 					<br>
-				<input class="radio" type="radio" name="group1" value="Color" id="cbColor">
+				<input class="radio" type="radio" name="BackggroundColor" value="Color" id="cbColor" <?php if (!$defaultColor) echo 'checked="checked"' ?>>
 					<label onclick="$('#cbColor').prop('checked', true)"> Color:</label>
 					<div id="colorSelector" style="margin-left:2em">
-						<div style="background-color: #a3a3a3"></div>
-					</div>			
+						<?php
+							echo '<div style="background-color: '.$backgroundColor.'"></div>';
+						?>
+					</div>		
+					<input id="colorSelect" type="hidden" name="colorSelect" value="#a3a3a3">	
 					<br>
 				<!--
 				<input style="margin-bottom:5px" type="radio" name="group1" value="Image"> Image<br>
 				<input style="margin-left:20px" type='text' name='img'><input type="button" value='...'>
 				-->
 			</div>
-			<input class="save" type='submit' name='savepass1' value='Set Background'>
+			<input class="save" type='submit' name='savecolor' value='Set Background'>
 		</form>
 		<br style="clear:both">
 	</div>
 </div>
 
 <script type="text/javascript">
+	var color = <?php echo "'".$backgroundColor."'" ?>;
 	$('#colorSelector').ColorPicker({
-		color: '#a3a3a3',
+	<?php
+		echo "color: '".$backgroundColor."',";
+	?>
 		onShow: function (colpkr) {
 			$(colpkr).fadeIn(500);
+			$('#cbColor').prop('checked', true);
 			return false;
 		},
 		onHide: function (colpkr) {
@@ -126,8 +157,17 @@ $row = mysql_fetch_array($result);
 		},
 		onChange: function (hsb, hex, rgb) {
 			$('#colorSelector div').css('backgroundColor', '#' + hex);
+			color = "#" + hex;
 		}
 	});
+	
+	function adjustColor()
+	{
+		if ($('#cbColor').attr('checked') == 'checked')
+			$('#colorSelect').val(color);
+		else
+			$('#colorSelect').val("#a3a3a3");
+	}
 </script>
 </body>
 </html>
