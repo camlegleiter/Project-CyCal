@@ -150,18 +150,21 @@ if ($action == "add")
 //		if($title != true || $des != true || $link != true){
 //			errorMessage('Invalid RSS Feed:'.$count);
 //		}
-		$html = file_get_html($value);
+		$html = @file_get_html($value);
+		if (!$html)
+			errorMessage('Invalid RSS Feed:'.$value);
 		$good = null;
 		$rss = $html->find('rss',0);
-		if($rss != null){
-			$chan = $html->find('rss',0)->find('channel',0);
-			if($chan != null){
-			$good = true;
+		if($rss != null)
+		{
+			$chan = $rss->find('channel',0);
+			if($chan != null)
+			{
+				$good = true;
 			}
 		}
-		errorMessage('Invalid RSS Feed:'.$good);
 		if($good == null){
-			errorMessage('Invalid RSS Feed:');
+			errorMessage('Invalid RSS Feed:'.$value);
 		}
 		$errorvalue = urlencode($value);
 		$value = mysql_real_escape_string($errorvalue);
