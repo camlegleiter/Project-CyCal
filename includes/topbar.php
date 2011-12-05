@@ -1,7 +1,8 @@
 <?php 
-//session_name('CyCalLogin');
-
-//session_start(); 
+if ($_SESSION['id'])
+	$loggedin = true;
+else
+	$loggedin = false;
 ?>
 
 <div class="tb" id="topContainer">
@@ -9,7 +10,21 @@
 		<div class="tb" id="topLogo"></div>
 		<ul>
 			<li><a href="help.php">Help</a></li>
-			<li><a href="#" rel="dropmenu1">Hello, <?php echo $_SESSION['usr']; ?></a></li>
+			<?php
+				if ($loggedin)
+				{
+					echo '
+						<li><a href="#" rel="dropmenu1">Hello, '.$_SESSION['usr'].'</a></li>
+						';
+				}
+				else
+				{
+					echo '
+						<li><a href="index.php">Login</a></li>
+						';
+				}
+			?>
+			
 		</ul>
 	</div>
 </div>
