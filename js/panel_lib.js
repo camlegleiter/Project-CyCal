@@ -56,7 +56,6 @@ $('document').ready(function(){
 	function togglewindow(id){
 		if($('#panel'+id).css('min-height') != "0px"){
 			$('#panel'+id).css('min-height', '0px');
-			$('#panel'+id).css('min-width', '0px');
 			$('#minimize'+id).removeClass('ui-icon-minusthick');
 			$('#minimize'+id).addClass('ui-icon-arrowthick-2-ne-sw');
 			$("#panel"+id).resizable({ disabled: true });
