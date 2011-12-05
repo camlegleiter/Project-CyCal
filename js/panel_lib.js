@@ -135,7 +135,7 @@ $('document').ready(function(){
 		   parseInt(myPanelSettings[id].posx) < 0){
 			myPanelSettings[id].posx = 10;
 		}
-		if(id > 0 && myPanelSettings[id-1].posy == myPanelSettings[id].posy && myPanelSettings[id-1].posx == myPanelSettings[id-1].posx){
+		if(id > 0 && myPanelSettings[0].posy == myPanelSettings[id].posy && myPanelSettings[0].posx == myPanelSettings[id-1].posx){
 			myPanelSettings[id].posy += 10;
 			myPanelSettings[id].posx += 10;
 		}
