@@ -104,7 +104,9 @@ include 'includes/header.php';
 			$('#registercancelButton').click(function(){
 				if (regShow)
 				{
-					$('#RegisterDivBeta').hide('fade',{},500,function(){$('#RegisterDivPass').hide('fade',{},500);});
+					//$('#RegisterDivBeta').hide('fade',{},500,function(){$('#RegisterDivPass').hide('fade',{},500);});
+					$('#RegisterDivBeta').hide();//'fade',{},500);
+					$('#RegisterDivPass').hide();//'fade',{},500);
 					regShow = false;
 					//$('#submitOnlyButton').attr('name','submit');
 					$('#submitButton').attr('value','Login');
@@ -113,7 +115,9 @@ include 'includes/header.php';
 				}
 				else
 				{
-					$('#RegisterDivPass').show('fade',{},500,function(){$('#RegisterDivBeta').show('fade',{},500);});
+					//$('#RegisterDivPass').show('fade',{},500,function(){$('#RegisterDivBeta').show('fade',{},500);});
+					$('#RegisterDivPass').show('fade',{},500);
+					$('#RegisterDivBeta').show('fade',{},500);
 					regShow = true;
 					//$('#submitOnlyButton').attr('name','submit');
 					$('#submitButton').attr('value','Register');
