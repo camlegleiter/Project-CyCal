@@ -149,7 +149,7 @@ $('document').ready(function(){
 		$("#panel"+id).attr('fullTitle',article.rss.channel.title);
 		
 		//creates overall containing div for articles
-		$('body').append('<div id="panel'+id+'" onmouseup="checkPosition('+id+');" onmousedown="changeZIndex('+id+');" onmouseout="checkPosition('+id+');" class="panel"><div id="panel_title'+id+'" class="panel_title">'+article.rss.channel.title+'<table style="float:right; margin-top:2px;"><tr><td id="minimize'+id+'" class="minimize ui-icon-minusthick" onclick="togglewindow('+id+');"></td><td id="settings'+id+'" class="settings ui-icon-info" onclick="showSettings('+id+');"></td><td id="close'+id+'" class="close ui-icon-closethick" onclick="closewindow('+id+');"></td></tr></table></div><div id="panel_feed'+id+'" class="panel_feed"></div></div>');
+		$('body').append('<div id="panel'+id+'" onmouseup="checkPosition('+id+');" onmousedown="changeZIndex('+id+');" onmouseout="checkPosition('+id+');" class="panel"><div id="panel_title'+id+'" class="panel_title">'+overallTitle+'<table style="float:right; margin-top:2px;"><tr><td id="minimize'+id+'" class="minimize ui-icon-minusthick" onclick="togglewindow('+id+');"></td><td id="settings'+id+'" class="settings ui-icon-info" onclick="showSettings('+id+');"></td><td id="close'+id+'" class="close ui-icon-closethick" onclick="closewindow('+id+');"></td></tr></table></div><div id="panel_feed'+id+'" class="panel_feed"></div></div>');
 		$("#panel"+id).draggable({handle:$('#panel_title'+id)}); 
 		$("#panel"+id).resizable();
 		$("#panel"+id).css('z-index', id);
