@@ -1,29 +1,9 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<link href="css/reset.css" rel="stylesheet" type="text/css">
-		<link href="css/mainstyle.css" rel="stylesheet" type="text/css">
-		<link href="js/css/jquery-ui.css" rel="stylesheet" type="text/css">
 		<script type="text/javascript" src="js/jquery-1.6.2.min.js"></script>
 		<script type="text/javascript" src="js/jquery-ui.min.js"></script>
 		<script type="text/javascript" src="js/minicolors/jquery.miniColors.js"></script>
-		<link href="js/minicolors/jquery.miniColors.css" rel="stylesheet" type="text/css">
-		<style type="text/css">
-			form{
-				-moz-border-radius: 15px;
-				border-radius: 15px;
-				height: 300px;
-			}
-			#Header_Title{
-				width: 100%;
-			}
-			input {
-				margin: 0px;
-			}
-			div > div {
-				padding: 5px auto;
-			}
-		</style>
 	</head>
 	<body>
 		<script type="text/javascript">
@@ -36,7 +16,27 @@
 		//Must be included at the top of the <body> tag
 		include 'includes/topbar.php';
 	?>
-		<div>
+		<div id="settings">
+			<link href="css/reset.css" rel="stylesheet" type="text/css">
+			<link href="css/mainstyle.css" rel="stylesheet" type="text/css">
+			<link href="js/css/jquery-ui.css" rel="stylesheet" type="text/css">	
+			<style type="text/css">
+				form{
+					-moz-border-radius: 15px;
+					border-radius: 15px;
+					height: 300px;
+				}
+				#Header_Title{
+					width: 100%;
+				}
+				input {
+					margin: 0px;
+				}
+				div > div {
+					padding: 5px auto;
+				}
+			</style>
+			<link href="js/minicolors/jquery.miniColors.css" rel="stylesheet" type="text/css">				
 			<div id="MainContainer">
 				<div id="Header_Title">
 					<h2>Settings</h2>
