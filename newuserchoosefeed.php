@@ -98,6 +98,8 @@ if (isset($_POST['chooseFeeds'])) {
 var feeds = new Array();
 
 function submitAjax() {
+	$('#submitButton').val('Please wait...');
+	$('#submitButton').attr('disabled','disabled');
 	feeds.length = 0;
 	for (var i = 0; i < document.forms[0].elements.length; i++ ) {
 		if (document.forms[0].elements[i].type == 'checkbox') {
@@ -113,9 +115,13 @@ function submitAjax() {
 		statusCode: {
 			404: function() {
 				alert('Page not found');
+				$('#submitButton').val('Submit');
+				$('#submitButton').removeAttr('disabled');
 			},
 			409: function(jqXHR, textStatus, errorThrown) {
 				alert('Error: ' + errorThrown);
+				$('#submitButton').val('Submit');
+				$('#submitButton').removeAttr('disabled');
 			},
 			200: function(data, textStatus, jqXHR) {
 				window.location = './canvas.php';
@@ -194,11 +200,11 @@ function submitAjax() {
 						}
 						//If we have a match - disable
 						if($match == true) {
-							echo '<input type="checkbox" disabled="disabled" class="checkbox" name="' . $arrA[$i] . '" value="' . $arrUrl[$i] . '" />';
+							echo '<input type="checkbox" disabled="disabled" class="checkbox" name="' . $arrA[$i] . '" value="' . $arrUrl[$i] . '">';
 						} 
 						//Otherwise - print normal for people to select
 						else {
-							echo '<input type="checkbox"  class="checkbox" name="' . $arrA[$i] . '" value="' . $arrUrl[$i] . '" />';
+							echo '<input type="checkbox"  class="checkbox" name="' . $arrA[$i] . '" value="' . $arrUrl[$i] . '">';
 						}
 
  					   	echo $arrB[$i];
@@ -213,11 +219,11 @@ function submitAjax() {
 						}
 						//If we have a match - disable
 						if($match == true) {
-							echo '<input type="checkbox" disabled="disabled" class="checkbox" name="' . $arrA[$i+6] . '" value="' . $arrUrl[$i + 6] . '" />';
+							echo '<input type="checkbox" disabled="disabled" class="checkbox" name="' . $arrA[$i+6] . '" value="' . $arrUrl[$i + 6] . '">';
 						} 
 						//Otherwise - print normal for people to select
 						else {
- 					   		echo '<input type="checkbox" class="checkbox" name="' . $arrA[$i+6] . '" value="' . $arrUrl[$i + 6] . '" />';
+ 					   		echo '<input type="checkbox" class="checkbox" name="' . $arrA[$i+6] . '" value="' . $arrUrl[$i + 6] . '">';
 						}
  					   	echo $arrB[$i+6];
  					   	echo '</td>'; 					   	
@@ -226,7 +232,7 @@ function submitAjax() {
 				?>
 				</table>
  			<br style="clear:left;">
- 		<input type="button" name="chooseFeeds" onclick="submitAjax()" value = "Submit">
+ 		<input type="button" name="chooseFeeds" onclick="submitAjax()" value = "Submit" id="submitButton">
 	</form>
 <!--	
  	<form method="post" action="">
