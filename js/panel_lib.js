@@ -88,10 +88,7 @@ $('document').ready(function(){
 	
 	//remove panel
 	function closewindow(id){
-		if (confirm("Closing this will remove this feed from your canvas. Are you sure you want to remove this feed?")) {
-			var feed = $('#panel'+id).attr('rss');
-			$('#panel'+id).remove();
-		
+		$('#panel'+id).remove();
 			$.ajax({
 				type: 'POST',
 				url: './Util/postdata.php',
@@ -106,7 +103,6 @@ $('document').ready(function(){
 					},
 				}
 			});
-		}
 	}
 		
 	//bounds check after moving a panel
@@ -139,13 +135,15 @@ $('document').ready(function(){
 			myPanelSettings[id].posx = 10;
 		}
 		
-		var overallTitle = "";
-		if(article.rss.channel.title.length > 40){
-			overallTitle = article.rss.channel.title.substring(0,40) + "...";
-		}else{
-			overallTitle = article.rss.channel.title;
+		var overallTitle = article.rss.channel.title;
+		if(overallTitle.indexOf("Iowa State University Events -") != -1){
+			overallTitle = overallTitle.substring(("Iowa State University Events - ").length,overallTitle.length);		
 		}
-			
+		
+		if(overallTitle.length > 45){
+			overallTitle = overallTitle.substring(0,45) + "...";
+		}
+					
 		$("#panel"+id).attr('fullTitle',article.rss.channel.title);
 		
 		//creates overall containing div for articles
