@@ -253,7 +253,7 @@ $('document').ready(function(){
 	}
 	
 	function applyTheme(i, id, themeObject){
-		//background colors
+		console.log(i + " " + id);
 		var titleHex = getCSSValues("rgb(255,0,0)");
 		$("#panel"+id).css('background-color','#FF0000');
 		$("#panel_feed"+id).css('background-color','#FF0000');
@@ -265,7 +265,7 @@ $('document').ready(function(){
 		});
 
 		$('.panel_feed_article_title:hover').css('background-color','#'+titleHex);
-		$("#panel_feed_article_content"+id+i).css('background-color','#FF0000');
+		$("#panel_feed_article_content"+id+"_"+i).css('background-color','#FF0000');
 	}
 	
 	function getCSSValues(rgbString){
