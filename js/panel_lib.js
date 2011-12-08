@@ -239,7 +239,7 @@ $('document').ready(function(){
 				type: 'POST',
 				data: {
 					rss: $('#panel'+id).attr('rss')
-				}
+				},
 				success: function(data) {
 					$('#settings_panel'+id).html(data);
 					$('a#deletefeed').attr('onclick', 'javascript:closewindow('+id+');');
