@@ -41,7 +41,7 @@ if($_POST['success']){
 	GRAB POST DATA
 =====================================
 */
-$action = mysql_real_escape_string(strtolower($_POST['action']));
+$action = strtolower($_POST['action']);
 $userid = mysql_real_escape_string($_SESSION['id']);
 $_POST['rss'] = json_decode(stripslashes($_POST['rss']),true);
 $rss = $_POST['rss'];
@@ -50,6 +50,7 @@ $posy = mysql_real_escape_string($_POST['posy']);
 $sizex = mysql_real_escape_string($_POST['sizex']);
 $sizey = mysql_real_escape_string($_POST['sizey']);
 $themeid = mysql_real_escape_string($_POST['themeid']);
+$minimized = mysql_real_escape_string($_POST['minimized']);
 
 /*
 =====================================
@@ -85,6 +86,10 @@ if(!isset($sizey) || empty($sizey)){
 if(!isset($themeid) || empty($themeid)){
 	$themeid = -1;
 }
+if(!isset($minimized) || empty($minimized)){
+	$minimized = 0;
+}
+
 /*
 =====================================
 	ERROR CHECKING
@@ -110,6 +115,11 @@ if (!is_numeric($themeid))
 {
 	errorMessage("themeid is not an int");
 }
+if (!is_numeric($minimized))
+{
+	errorMessage("minimized is not an int");
+}
+
 
 /*
 =====================================
@@ -121,35 +131,6 @@ if ($action == "add")
 	$count = 0;
 	foreach ($rss as $value)
 	{
-//		$html = @file_get_contents($value);
-//		if($html === false)
-//			errorMessage('Invalid RSS Feed: '.$value);
-//		$parsed = new htmlParser($html);
-//		$arr = $parsed->toArray();
-//		$title = false;
-//		$des = false;
-//		$link = false;
-//		$rssNum = 10;
-//		for($i=0; $i < count($arr); $i++){
-//			if($arr[$i]['tag'] == 'rss'){
-//			$rssNum = $i;
-	//		break;
-//			}
-//		}
-//		$ref = $arr[$rssNum]['childNodes'][0]['childNodes'];
-//		$count = count($ref);
-//		for ($i=0; $i < count($ref); $i++)
-//		{
-//			if($ref[$i]['tag'] == 'title')
-//			$title = true;
-//			if($ref[$i]['tag'] == 'description')
-//			$des = true;
-//			if($ref[$i]['tag'] == 'link')
-//			$link = true;
-//		}
-//		if($title != true || $des != true || $link != true){
-//			errorMessage('Invalid RSS Feed:'.$count);
-//		}
 		$html = @file_get_html($value);
 		if (!$html)
 			errorMessage('Invalid RSS Feed:'.$value);
@@ -168,7 +149,7 @@ if ($action == "add")
 		}
 		$errorvalue = urlencode($value);
 		$value = mysql_real_escape_string($errorvalue);
-		mysql_query("INSERT INTO panel(userid,rss,posx,posy,sizex,sizey,themeid) VALUES ('$userid','$value','$posx','$posy','$sizex','$sizey','$themeid')");
+		mysql_query("INSERT INTO panel(userid,rss,posx,posy,sizex,sizey,themeid,minimized) VALUES ('$userid','$value','$posx','$posy','$sizex','$sizey','$themeid','$minimized')");
 		$rows = mysql_affected_rows();
 		if($rows != -1){
 			$count++;
@@ -238,6 +219,14 @@ else if ($action == "get")
 		else
 		{
 			$rss['themeid']['type'] = "User";
+			$getTheme = mysql_query("SELECT * FROM theme WHERE userid='$userid' AND rss='".$row['rss']."'");
+			$themeRow = mysql_fetch_assoc($getTheme);
+			mysql_free_result($getTheme);
+			$rss['themeid']['fontname'] = $themeRow['fontname'];
+			$rss['themeid']['fontsize'] = $themeRow['fontsize'];
+			$rss['themeid']['fontcolor'] = $themeRow['fontcolor'];
+			$rss['themeid']['backcolor'] = $themeRow['backcolor'];
+			$rss['themeid']['name'] = $themeRow['name'];
 		}
 		array_push($rssarr, $rss);
 	}
@@ -246,6 +235,10 @@ else if ($action == "get")
 	$rows = mysql_fetch_assoc($getRSS);
 	mysql_free_result($rssCheck);
 	successMessage(print_r($rows,true));
+}
+else if (action == "settheme")
+{
+	//Nope. Chuck Testa (For now)
 }
 else
 {
