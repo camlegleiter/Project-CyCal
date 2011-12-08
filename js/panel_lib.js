@@ -167,7 +167,7 @@ $('document').ready(function(){
 				if(!description.length){
 					description = "No description available.";
 				}
-				var link = '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="panel_feed_article_link" target="_blank" href="'+article.rss.channel.item[i].link+'">link to full article</a>'
+				var link = '<br><br><a class="panel_feed_article_link" target="_blank" href="'+article.rss.channel.item[i].link+'">&raquo;&nbsp;Link to full article</a>'
 				$('#panel_feed'+id).append('<div id="panel_feed_article'+id+'" class="panel_feed_article"> <div id="panel_feed_article_title'+id+'" class="panel_feed_article_title" onclick="toggleArticle('+id+','+i+')">'+title+'<div id="panel_feed_article_title_buttons'+id+'" class="panel_feed_article_title_buttons"><div id="caret'+id+''+i+'" class="caretDiv ui-icon-carat-1-e"></div></div></div><div style="display:none;" id="panel_feed_article_content'+id+'_'+i+'" class="panel_feed_article_content">'+description+link+'</div></div>');
 				//$('panel_feed_article_content'+id+'_'+i).html($(description+link).html());
 			}
@@ -212,7 +212,7 @@ $('document').ready(function(){
 	}
 	
 	function toggleArticle(id, i) {
-		$('#panel_feed_article_content'+id+i).slideToggle("slow");
+		$('#panel_feed_article_content'+id+'_'+i).slideToggle("slow");
 		if($('#caret'+id+''+i).attr('class').indexOf('ui-icon-carat-1-s') != -1){
 			$('#caret'+id+''+i).removeClass('ui-icon-carat-1-s');
 			$('#caret'+id+''+i).addClass('ui-icon-carat-1-e');
