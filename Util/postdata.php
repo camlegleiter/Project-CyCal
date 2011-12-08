@@ -238,7 +238,51 @@ else if ($action == "get")
 }
 else if (action == "settheme")
 {
-	//Nope. Chuck Testa (For now)
+	if(count($rss) != 1){
+		errorMessage("1 RSS feed must be given.");
+	}
+
+	$feed = mysql_real_escape_string(urlencode($rss[0]));
+
+	if ($themeid == -1)
+	{
+		mysql_query("UPDATE panel SET themeid='-1' WHERE userid='$userid' AND rss='$feed'");
+		successMessage("");
+	}
+	else
+	{
+		//Nope. Chuck Testa (For now)
+		$fontname = mysql_real_escape_string($_POST['fontname']);
+		$fontsize = mysql_real_escape_string($_POST['fontsize']);
+		$fontcolor = mysql_real_escape_string($_POST['fontcolor']);
+		$backcolor = mysql_real_escape_string($_POST['backcolor']);
+		$name = mysql_real_escape_string($_POST['name']);
+		
+		if(!isset($fontname) || empty($fontname)){
+			$fontname = "Verdana";
+		}
+		if(!isset($fontsize) || empty($fontsize)){
+			$fontsize = 12;
+		}
+		if(!isset($fontcolor) || empty($fontcolor)){
+			$fontcolor = "#000000";
+		}
+		if(!isset($backcolor) || empty($backcolor)){
+			$backcolor = "#CCCCCC";
+		}
+		if(!isset($name) || empty($name)){
+			$name = "";
+		}
+		
+		if (!mysql_query("UPDATE theme SET fontname='$fontname',fontsize='$fontsize',fontcolor='$fontcolor',backcolor='$backcolor',name='$name' WHERE userid='$userid' AND rss='$feed'"))
+		{
+			if (!mysql_query("INSERT INTO theme (userid,rss,fontname,fontsize,fontcolor,backcolor,name) VALUES ('$userid','$feed','$fontname','$fontsize','$fontcolor','$backcolor','$name')"))
+			{
+				errorMessage("Failed to update theme for: ".$rss[0]);
+			}
+		}
+		successMessage("");
+	}
 }
 else
 {
