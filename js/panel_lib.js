@@ -162,11 +162,14 @@ $('document').ready(function(){
 			for(var i = 0; i < article.rss.channel.item.length; i++){
 				var title = article.rss.channel.item[i].title;
 				var description = article.rss.channel.item[i].description;
+				description = description.replace(/\&lt;/g, '<');
+				description = description.replace(/\&gt;/g, '>');
 				if(!description.length){
 					description = "No description available.";
 				}
-				var link = '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="panel_feed_article_link" target="_blank" href='+article.rss.channel.item[i].link+'>link to full article</a>'
-				$('#panel_feed'+id).append('<div id=\'panel_feed_article'+id+'\' class=\'panel_feed_article\'> <div id=\'panel_feed_article_title'+id+'\' class=\'panel_feed_article_title\' onclick=\'toggleArticle('+id+','+i+')\'>'+title+'<div id=\'panel_feed_article_title_buttons'+id+'\' class=\'panel_feed_article_title_buttons\'><div id=\'caret'+id+''+i+'\' class=\'caretDiv ui-icon-carat-1-e\'></div></div></div><div style="display:none;" id=\'panel_feed_article_content'+id+''+i+'\' class=\'panel_feed_article_content\'>'+description+link+'</div></div>');
+				var link = '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="panel_feed_article_link" target="_blank" href="'+article.rss.channel.item[i].link+'">link to full article</a>'
+				$('#panel_feed'+id).append('<div id="panel_feed_article'+id+'" class="panel_feed_article"> <div id="panel_feed_article_title'+id+'" class="panel_feed_article_title" onclick="toggleArticle('+id+','+i+')">'+title+'<div id="panel_feed_article_title_buttons'+id+'" class="panel_feed_article_title_buttons"><div id="caret'+id+''+i+'" class="caretDiv ui-icon-carat-1-e"></div></div></div><div style="display:none;" id="panel_feed_article_content'+id+'_'+i+'" class="panel_feed_article_content">'+description+link+'</div></div>');
+				//$('panel_feed_article_content'+id+'_'+i).html($(description+link).html());
 			}
 		}else{
 			$('#panel_feed'+id).append('<div id=\'noArticle\' class=\'panel_feed_no_article\'> No articles </div>');
@@ -228,8 +231,13 @@ $('document').ready(function(){
 		// Check if the settings isn't already been added to the panel
 
 		if (!$('#panel_feed'+id+' > #settings_panel'+id).length) {
-			$('#panel_feed'+id).append('<div id="settings_panel'+id+'" style="display: none; "></div>');
-			$('#settings_panel'+id).load('./feedsettings.php #settings');	
+			$('#panel_feed'+id).append('<div id="settings_panel'+id+'" style="display: none; "></div>');	
+			$.ajax({
+				url: 'feedsettings.php',
+				success: function(data) {
+					$('#settings_panel'+id).html(data);
+				}
+			});
 		}
 		// Show/hide the articles
 		$('#panel_feed'+id).children('#panel_feed_article'+id).toggle();
