@@ -236,6 +236,10 @@ $('document').ready(function(){
 			$('#panel_feed'+id).append('<div id="settings_panel'+id+'" style="display: none; "></div>');	
 			$.ajax({
 				url: 'feedsettings.php',
+				type: 'POST',
+				data: {
+					rss: $('#panel'+id).attr('rss');
+				}
 				success: function(data) {
 					$('#settings_panel'+id).html(data);
 					$('a#deletefeed').attr('onclick', 'javascript:closewindow('+id+');');
