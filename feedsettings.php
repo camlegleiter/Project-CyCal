@@ -6,7 +6,6 @@ alert("query submitted");
 </script>
 <link rel="stylesheet" media="screen" type="text/css" href="css/colorpicker.css" >
 
-
 <div id="settings">
 <style type="text/css">
 	input {
