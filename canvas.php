@@ -14,6 +14,7 @@
 <link href="css/mainstyle.css" rel="stylesheet" type="text/css">
 <link href="js/css/jquery-ui.css" rel="stylesheet" type="text/css">
 <link href="css/dialog/jqModal.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" media="screen" type="text/css" href="css/colorpicker.css" >
 
 <script type="text/javascript" src="js/jquery-1.6.2.min.js"></script>
 <script type="text/javascript" src="js/jquery-ui.min.js"></script>
@@ -21,6 +22,7 @@
 <script type="text/javascript" src="js/getjson.js"></script>
 <script type="text/javascript" src="js/panel_lib.js"></script>
 <script type="text/javascript" src="js/dialog/jqModal.js"></script>
+<script type="text/javascript" src="js/colorpicker.js"></script>
 <?php
 	include 'includes/topbar_header.php';
 ?>

@@ -1,8 +1,9 @@
 DROP TABLE IF EXISTS admins;
-DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS theme;
 DROP TABLE IF EXISTS coming_soon_emails;
 DROP TABLE IF EXISTS panel;
 DROP TABLE IF EXISTS settings;
+DROP TABLE IF EXISTS users;
 
 CREATE TABLE users (           
 	userid INT NOT NULL AUTO_INCREMENT,           
@@ -38,7 +39,8 @@ CREATE TABLE panel (
 	posy INT(32) NOT NULL,       
 	sizex INT(32) NOT NULL,       
 	sizey INT(32) NOT NULL,       
-	themeid INT(32) NOT NULL,       
+	themeid INT(32) NOT NULL, 
+	minimized INT(32) NOT NULL,      
 	PRIMARY KEY(userid, rss)
 ); 
 
@@ -46,6 +48,19 @@ CREATE TABLE settings (
 	userid INT(32) NOT NULL,
 	background varchar(255),
 	PRIMARY KEY(userid),
+	FOREIGN KEY(userid) 
+	references users(userid)
+);
+
+CREATE TABLE theme (
+	userid INT(32) NOT NULL,
+	rss varchar(255) NOT NULL,
+	fontname varchar(128) NOT NULL,
+	fontsize int(32) NOT NULL,
+	fontcolor varchar(10) NOT NULL,
+	backcolor varchar(10) NOT NULL,
+	name varchar(100) NOT NULL,
+	PRIMARY KEY(userid,rss),
 	FOREIGN KEY(userid) 
 	references users(userid)
 );
