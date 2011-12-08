@@ -4,20 +4,15 @@ function alertX()
 alert("query submitted");
 }
 </script>
-<?php
-//Must be included at the top of the <body> tag
-include 'includes/topbar.php';
-?>
+<link rel="stylesheet" media="screen" type="text/css" href="css/colorpicker.css" >
+
+
 <div id="settings">
-<link href="css/reset.css" rel="stylesheet" type="text/css">
-<link href="css/mainstyle.css" rel="stylesheet" type="text/css">
-<link href="js/css/jquery-ui.css" rel="stylesheet" type="text/css">	
 <style type="text/css">
 	input {
 		margin: 0px;
 	}
-</style>
-<link href="js/minicolors/jquery.miniColors.css" rel="stylesheet" type="text/css">				
+</style>			
 	<form method='GET' style="width:350px; text-align:left">
 		<div>
 			<div>Font Style:
@@ -36,28 +31,14 @@ include 'includes/topbar.php';
 		</div>
 		<br>
 		<div>Font Color:
-			<input class="colors miniColors" type="hidden" size="7" name="fontColor" maxlength="7" autocomplete="off">
-			<script type="text/javascript">
-				$(".colors").miniColors({
-					change: function(hex, rgb) {
-						// Do stuff with chosen rgb.r, rgb.g, rgb.b values
-						// Test example
-						// $('#test').html("RGB = " + rgb.r + ", " + rgb.g + ", " + rgb.b);
-					}
-				}); 
-			</script>
+			<div class="colorSelector" id="colorSelectorFont" style="margin-left:1em;">
+				<div style="background-color: #a3a3a3"></div>
+			</div>
 		</div>
 		<div>Background Color:
-			<input class="colors miniColors" type="hidden" size="7" name="backgroundColor" maxlength="7" autocomplete="off">
-			<script type="text/javascript">
-				$(".colors").miniColors({
-					change: function(hex, rgb) {
-						// Do stuff with chosen rgb.r, rgb.g, rgb.b values
-						// Test example
-						// $('#test').html("RGB = " + rgb.r + ", " + rgb.g + ", " + rgb.b);
-					}
-				}); 
-			</script>
+			<div class="colorSelector" id="colorSelectorBack" style="margin-left:1em;">
+				<div style="background-color: #a3a3a3"></div>
+			</div>
 		</div>
 		<div>
 			<input type="checkbox" class="checkbox" name="minimized">
@@ -85,10 +66,50 @@ include 'includes/topbar.php';
 			</div>
 		</div>
 		<br>
-		<a href="#" style="font-size:xx-small;color:red;float:left">DELETE FEED</a>
+		<a href="#" id="deletefeed" style="font-size:xx-small;color:red;float:left">DELETE FEED</a>
 		<input type="button" onClick="alertX()" style="float:right;width:100px;margin:10px" value="Set" name="SET">
 		<input type="button" onClick="alertX()" style="float:right;width:100px;margin:10px" value="Reset" name="RESET">
 		<div style="clear:both"></div>
 	</form>
 </div>
 
+<script type="text/javascript">
+	//var color = <?php echo "'".$backgroundColor."'" ?>;
+	
+	$('#colorSelectorFont').ColorPicker({
+	<?php
+		//echo "color: '".$backgroundColor."',";
+	?>
+		onShow: function (colpkr) {
+			$(colpkr).fadeIn(500);
+			return false;
+		},
+		onHide: function (colpkr) {
+			$(colpkr).fadeOut(500);
+			return false;
+		},
+		onChange: function (hsb, hex, rgb) {
+			$('#colorSelectorFont div').css('backgroundColor', '#' + hex);
+			color = "#" + hex;
+		}
+	});
+	
+	$('#colorSelectorBack').ColorPicker({
+	<?php
+		//echo "color: '".$backgroundColor."',";
+	?>
+		onShow: function (colpkr) {
+			$(colpkr).fadeIn(500);
+			$('#cbColor').prop('checked', true);
+			return false;
+		},
+		onHide: function (colpkr) {
+			$(colpkr).fadeOut(500);
+			return false;
+		},
+		onChange: function (hsb, hex, rgb) {
+			$('#colorSelectorBack div').css('backgroundColor', '#' + hex);
+			color = "#" + hex;
+		}
+	});
+</script>
