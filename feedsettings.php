@@ -1,12 +1,11 @@
-<script type="text/javascript">
-function alertX()
-{			
-alert("query submitted");
-}
-</script>
-<link rel="stylesheet" media="screen" type="text/css" href="css/colorpicker.css" >
-
-
+<?php
+	$rss = $_POST['rss'];
+	
+	$backgroundColor = "#CCCCCC";
+	$fontColor = "#000000";
+	
+	echo $rss;
+?>
 <div id="settings">
 <style type="text/css">
 	input {
@@ -17,6 +16,7 @@ alert("query submitted");
 		<div>
 			<div>Font Style:
 				<select name="fontstyle">
+					<option>Verdana</option>
 					<option>Monaco</option>
 					<option>Helvetica</option>
 					<option>Comic Sans</option>
@@ -32,17 +32,13 @@ alert("query submitted");
 		<br>
 		<div>Font Color:
 			<div class="colorSelector" id="colorSelectorFont" style="margin-left:1em;">
-				<div style="background-color: #a3a3a3"></div>
+				<div style="background-color: <?php echo $fontColor ?>"></div>
 			</div>
 		</div>
 		<div>Background Color:
 			<div class="colorSelector" id="colorSelectorBack" style="margin-left:1em;">
-				<div style="background-color: #a3a3a3"></div>
+				<div style="background-color: <?php echo $backgroundColor ?>"></div>
 			</div>
-		</div>
-		<div>
-			<input type="checkbox" class="checkbox" name="minimized">
-			Start Minimized
 		</div>
 		<br>
 		<div style="border:1px #000000 dotted; padding:5px">
@@ -66,20 +62,19 @@ alert("query submitted");
 			</div>
 		</div>
 		<br>
+		<input type="hidden" name="rss" value="<?php echo $rss ?>">
 		<a href="#" id="deletefeed" style="font-size:xx-small;color:red;float:left">DELETE FEED</a>
-		<input type="button" onClick="alertX()" style="float:right;width:100px;margin:10px" value="Set" name="SET">
-		<input type="button" onClick="alertX()" style="float:right;width:100px;margin:10px" value="Reset" name="RESET">
+		<input type="button" onClick="submit()" style="float:right;width:100px;margin:10px" value="Set" name="SET">
+		<input type="button" onClick="reset()" style="float:right;width:100px;margin:10px" value="Reset" name="RESET">
 		<div style="clear:both"></div>
 	</form>
 </div>
 
 <script type="text/javascript">
-	//var color = <?php echo "'".$backgroundColor."'" ?>;
+	var backcolor = <?php echo "'".$backgroundColor."'" ?>;
+	var fontcolor = <?php echo "'".$fontColor."'" ?>;
 	
 	$('#colorSelectorFont').ColorPicker({
-	<?php
-		//echo "color: '".$backgroundColor."',";
-	?>
 		onShow: function (colpkr) {
 			$(colpkr).fadeIn(500);
 			return false;
@@ -90,14 +85,11 @@ alert("query submitted");
 		},
 		onChange: function (hsb, hex, rgb) {
 			$('#colorSelectorFont div').css('backgroundColor', '#' + hex);
-			color = "#" + hex;
+			fontcolor = "#" + hex;
 		}
 	});
 	
 	$('#colorSelectorBack').ColorPicker({
-	<?php
-		//echo "color: '".$backgroundColor."',";
-	?>
 		onShow: function (colpkr) {
 			$(colpkr).fadeIn(500);
 			$('#cbColor').prop('checked', true);
@@ -109,7 +101,15 @@ alert("query submitted");
 		},
 		onChange: function (hsb, hex, rgb) {
 			$('#colorSelectorBack div').css('backgroundColor', '#' + hex);
-			color = "#" + hex;
+			backcolor = "#" + hex;
 		}
 	});
+
+	function submit() {
+		alert('reseting');
+	}
+	
+	function reset() {
+		alert('submitting');
+	}
 </script>
