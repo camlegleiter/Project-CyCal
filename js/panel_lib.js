@@ -115,6 +115,7 @@ $('document').ready(function(){
 	
 	//THIS IS WHAT FIRST CREATES INDIVIDUAL PANELS
 	function populatePanels(id, article, myPanelSettings){
+		console.log(myPanelSettings);
 		if(myPanelSettings[id].sizey == null || myPanelSettings[id].sizey == '' || 
 		   parseInt(myPanelSettings[id].sizey) == 'NaN' || myPanelSettings[id].sizey == '0'
 		   || parseInt(myPanelSettings[id].sizey) > 600){
@@ -261,10 +262,6 @@ $('document').ready(function(){
 
 		$('.panel_feed_article_title:hover').css('background-color','#'+titleHex);
 		$("#panel_feed_article_content"+id+i).css('background-color','#FF0000');
-		
-		console.log($("#panel"+id).css('font-family'));
-		console.log($("#panel"+id).css('font-size'));
-		console.log($("#panel"+id).css('color'));
 	}
 	
 	function getCSSValues(rgbString){
