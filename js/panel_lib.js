@@ -236,6 +236,7 @@ $('document').ready(function(){
 				url: 'feedsettings.php',
 				success: function(data) {
 					$('#settings_panel'+id).html(data);
+					$('a#deletefeed').attr('onclick', 'javascript:closewindow('+id+');');
 				}
 			});
 		}
