@@ -50,7 +50,6 @@ $('document').ready(function ()
             statusCode: {
                 200: function (xml, status)
                 {
-                    console.log(status);
                     if (status == "parsererror")
                     {
                         jsonArticles = $.xmlToJSON(xml.responseText);
@@ -252,7 +251,7 @@ function savePosition(id)
             },
             409: function (jqXHR, textStatus, errorThrown)
             {
-                alert('Error: ' + errorThrown);
+                //alert('Error: ' + errorThrown);
             },
             200: function (data, textStatus, jqXHR)
             {}
@@ -337,8 +336,7 @@ function showSettings(articlesLength, id)
 }
 
 function applyTheme(i, id, themeObject)
-{
-    console.log(i + " " + id);
+{    
     var titleHex = getCSSValues("rgb(255,0,0)");
     $("#panel" + id).css('background-color', '#FF0000');
     $("#panel_feed" + id).css('background-color', '#FF0000');
