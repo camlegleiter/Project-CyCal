@@ -74,7 +74,11 @@ function themify(id, themedata)
 		"slow");
 	//Change each article slice
 	var articles = $('#panel'+id).attr('articlesLength');
+	for (var i = 0; i < articles; i++)
+	{
 	
+	
+	}
 }
 
 
