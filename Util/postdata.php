@@ -253,7 +253,7 @@ else if ($action == "settheme")
 	if ($themeid == -1)
 	{
 		mysql_query("UPDATE panel SET themeid='-1' WHERE userid='$userid' AND rss='$feed'");
-		mysql_query("DELETE FROM theme WHERE userid='$userid' AND rss='$feed'");
+		@mysql_query("DELETE FROM theme WHERE userid='$userid' AND rss='$feed'");
 		successMessage("reset theme");
 	}
 	else
