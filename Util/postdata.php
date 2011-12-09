@@ -170,6 +170,7 @@ else if ($action == "delete")
 	{
 		$feed = mysql_real_escape_string(urlencode($feed));
 		$rssCheck = mysql_query("DELETE FROM panel WHERE userid='$userid' AND rss='$feed'");
+		$rssCheckTheme = mysql_query("DELETE FROM theme WHERE userid='$userid' AND rss='$feed'");
 		$rows = mysql_affected_rows();
 		if($rows != 0){
 			$count++;
