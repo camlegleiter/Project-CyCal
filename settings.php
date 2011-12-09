@@ -90,7 +90,7 @@ else
 	include 'includes/topbar.php';
 ?>
 <div id="Container_Normal">
-	<div id="MainContainer">
+	<div id="MainContainer" style="color:#FFFFFF">
 		<div id="Header_Title">
 		<h1>Settings</h1>
 		<?php 
@@ -114,15 +114,15 @@ else
 		<form style="float:right" method='POST' onsubmit="adjustColor()">
 			<h2 style="text-align:left">Panel Background</h2>
 			<div style="text-align:left">
-				<input class="radio colorSelector" type="radio" name="BackggroundColor" value="Default" id="cbDef" <?php if ($defaultColor) echo 'checked="checked"' ?>>
+				<input class="radio" type="radio" name="BackggroundColor" value="Default" id="cbDef" <?php if ($defaultColor) echo 'checked="checked"' ?>>
 					<label onclick="$('#cbDef').prop('checked', true)"> Default</label>
-					<div id="colorSelectorDef" style="margin-left:2em">
+					<div id="colorSelectorDef" class="colorSelector" style="margin-left:2em">
 						<div style="background-color: #a3a3a3"></div>
 					</div>
 					<br>
-				<input class="radio colorSelector" type="radio" name="BackggroundColor" value="Color" id="cbColor" <?php if (!$defaultColor) echo 'checked="checked"' ?>>
+				<input class="radio" type="radio" name="BackggroundColor" value="Color" id="cbColor" <?php if (!$defaultColor) echo 'checked="checked"' ?>>
 					<label onclick="$('#cbColor').prop('checked', true)"> Color:</label>
-					<div id="colorSelector" style="margin-left:2em">
+					<div id="colorSelector" class="colorSelector" style="margin-left:2em">
 						<?php
 							echo '<div style="background-color: '.$backgroundColor.'"></div>';
 						?>
