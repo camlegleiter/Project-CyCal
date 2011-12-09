@@ -10,5 +10,6 @@ TODO in order of importance:
 [DONE] 4. Get topbar dropdown working
    - help.php
 6. Social integration
-5. Themes
+[DONE] 5. Themes
 7. Beautification
+8. Check title size on re-size of panel
