@@ -35,9 +35,16 @@ function shadeColor(color, shade) {
     var G = (colorInt & 0x00FF00) >> 8;
     var B = (colorInt & 0x0000FF) >> 0;
 
-    R = R + Math.floor((shade/255)*R);
-    G = G + Math.floor((shade/255)*G);
-    B = B + Math.floor((shade/255)*B);
+    var newR = R + Math.floor((shade/255)*R);
+    var newG = G + Math.floor((shade/255)*G);
+    var newB = B + Math.floor((shade/255)*B);
+    
+    if (newR <= 255 && newR >= 0)
+    	R = newR;
+    if (newG <= 255 && newG >= 0)
+    	G = newG;
+	if (newB <= 255 && newB >= 0)
+    	B = newB;
 
     var newColorInt = (R<<16) + (G<<8) + (B);
     var newColorStr = "#"+newColorInt.toString(16);
@@ -77,13 +84,13 @@ function themify(id, themedata)
 	$('#panel'+id).animate(
 		{ 
 			//Background color
-			'backgroundColor': backcolor,
+			'background-color': backcolor,
 		}, 
 		"slow");
 	$('#panel_feed'+id).animate(
 		{
 			//Background color
-			'backgroundColor': backcolor,
+			'background-color': backcolor,
 			//Text color
 			'color': fontcolor,
 			//Font stuff
@@ -94,6 +101,7 @@ function themify(id, themedata)
 	//Calculate darker backcolor
 	var backcolorDark = shadeColor(backcolor, -25);
 	
+	
 	//Change each article slice
 	var articles = $('#panel'+id).attr('articlesLength');
 	for (var i = 0; i < articles; i++)
@@ -101,23 +109,25 @@ function themify(id, themedata)
 		$('#panel_feed_article'+id+'_'+i).animate(
 		{
 			//Background color
-			'backgroundColor': backcolor
+			'background-color': backcolor
 		}, 
 		"slow");
 		$('#panel_feed_article_title'+id+'_'+i).animate(
 		{
 			//Background color
-			'backgroundColor': backcolor
+			'background-color': backcolor
 		}, 
 		"slow");
+		$('#panel_feed_article_title'+id+'_'+i).attr('nohovercolor',backcolor);
+		$('#panel_feed_article_title'+id+'_'+i).attr('hovercolor',backcolorDark);
 		$('#panel_feed_article_title'+id+'_'+i).hover(
 			//Select
 			function() {
-				$(this).css('backgroundColor',backcolorDark);
+				$(this).css('background-color',$(this).attr('hovercolor'));
 			},
 			//Unselect
 			function() {
-				$(this).css('backgroundColor',backcolor);
+				$(this).css('background-color',$(this).attr('nohovercolor'));
 			}
 		);
 	}
