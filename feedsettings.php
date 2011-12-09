@@ -155,6 +155,7 @@
 			</div>
 		</div>
 		<br>
+		<!--
 		<div style="border:1px #000000 dotted; padding:5px">
 			<input type="checkbox" class="checkbox" name="notfications">
 			Notifications
@@ -176,6 +177,7 @@
 			</div>
 		</div>
 		<br>
+		-->
 		<input type="hidden" name="rss" value="<?php echo $rss ?>">
 		<a href="#" id="deletefeed" style="font-size:xx-small;color:red;float:left">DELETE FEED</a>
 		<input type="button" onClick="setTheme()" class="set" style="float:right;width:100px;margin:10px" value="Set" name="SET">
