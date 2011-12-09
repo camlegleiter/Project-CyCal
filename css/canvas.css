@@ -31,7 +31,6 @@ body {
 	height:20px;
 	/*width:100%;*/
 	margin:0 0 0 0;
-	font-size:small;
 	font-weight:bold;
 	color:#404040;
 	z-index:0;
@@ -104,7 +103,6 @@ body {
 	min-height:15px;
 	/*width:100%;*/
 	margin:auto 0 auto 0;
-	font-size:small;
 	font-weight:bold;
 	background:#DDDDDD;
 }
@@ -124,7 +122,6 @@ body {
 }
 
 .panel_feed_article_link{
-	font-size:x-small;
 	color:black;
 	font-weight:bold;
 }

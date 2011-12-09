@@ -18,7 +18,7 @@
 	if (!isset($rss['fontname']) || empty($rss['fontname']))
 		$rss['fontname'] = "Verdana";
 	if (!isset($rss['fontsize']) || empty($rss['fontsize']))
-		$rss['fontsize'] = 12;
+		$rss['fontsize'] = 16;
 	if (!isset($rss['backcolor']) || empty($rss['backcolor']))
 		$rss['backcolor'] = "#CCCCCC";
 	if (!isset($rss['fontcolor']) || empty($rss['fontcolor']))
@@ -27,7 +27,8 @@
 ?>
 <script type="text/javascript">
 	var feeds = new Array();
-	feeds.push(<?php echo "'".$rss['rss']."'" ?>);
+	var rss = <?php echo "'".$rss['rss']."'" ?>;
+	feeds.push(rss);
 	
 	var backcolor = <?php echo "'".$rss['backcolor']."'" ?>;
 	var fontcolor = <?php echo "'".$rss['fontcolor']."'" ?>;
@@ -133,7 +134,7 @@
 		<div>Font Size:
 			<select name="fontsize" id="Ffontsize">
 				<?php 
-					for ($i = 8; $i <= 20; $i += 2) 
+					for ($i = 12; $i <= 24; $i += 2) 
 					{ 
 						echo '<option';
 						if ($rss['fontsize'] == $i)

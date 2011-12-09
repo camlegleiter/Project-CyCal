@@ -1,9 +1,9 @@
 window.onunload = function(){
-							var panels = $('body').find('.panel');
-							for(var i = 0; i < panels.length; i++){
-								savePosition(i);
-							}
-				};
+	var panels = $('body').find('.panel');
+	for(var i = 0; i < panels.length; i++){
+		savePosition(i);
+	}
+};
 
 $('document').ready(function(){		
 		var panelSettings;
