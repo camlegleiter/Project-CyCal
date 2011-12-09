@@ -163,12 +163,12 @@ $('document').ready(function(){
 		if(article.channel[0].item.length > 0){
 			for(var i = 0; i < article.channel[0].item.length; i++){
 				var title = article.channel[0].item[i].title[0].Text;
-				var description = article.channel[0].item[i].description[0].Text;
-				description = description.replace(/\&lt;/g, '<');
-				description = description.replace(/\&gt;/g, '>');
-				if(!description.length){
+				var description = getArticleDescription(article, i);
+				if (!description.length){
 					description = "No description available.";
 				}
+				description = description.replace(/\&lt;/g, '<');
+				description = description.replace(/\&gt;/g, '>');
 				var link = '<br><br><a class="panel_feed_article_link" target="_blank" href="'+article.channel[0].item[i].link[0].Text+'">&raquo;&nbsp;Link to full article</a>'
 				$('#panel_feed'+id).append('<div id="panel_feed_article'+id+'" class="panel_feed_article"> <div id="panel_feed_article_title'+id+'" class="panel_feed_article_title" onclick="toggleArticle('+id+','+i+')">'+title+'<div id="panel_feed_article_title_buttons'+id+'" class="panel_feed_article_title_buttons"><div id="caret'+id+''+i+'" class="caretDiv ui-icon-carat-1-e"></div></div></div><div style="display:none;" id="panel_feed_article_content'+id+'_'+i+'" class="panel_feed_article_content">'+description+link+'</div></div>');
 			}
@@ -211,6 +211,20 @@ $('document').ready(function(){
 			complete: function(jqXHR, textStatus) {
 			}
 		});
+	}
+
+	function getArticleDescription(article, i) {
+		var articleInfo = article.channel[0].item[i];
+
+		// Check for encoded content first
+		if (articleInfo.encoded) {
+			return articleInfo.encoded[0].Text;
+		}
+
+		// Description is default in the RSS object
+		if (articleInfo.description) {
+			return articleInfo.description[0].Text;
+		}
 	}
 	
 	function toggleArticle(id, i) {
