@@ -52,19 +52,19 @@ $('document').ready(function ()
                 {
                     if (status == "parsererror")
                     {
-                    	//create dummy JSON objectd
-                    	//article.channel[0].item[i].title[0].Text
-                    	jsonArtricles = {  
+                    	//look into xml.responseText to get title.
+                    	//will have to minipulate string
+                    	jsonArticles = {  
 							"channel" : [{  
 								"title" : [{
 									"Text" : "error panel"
 								}],				
 								"item" : [{  
 									"title" : [{  
-										"Text" : "need to get title" 
+										"Text" : "RSS parse error" 
 									}],  
 									"description" : [{  
-										"Text" : "This rss feed is invalid" 
+										"Text" : "This RSS feed is invalid" 
 									}],  
 									"link" : [{  
 										"Text" : "#" 
@@ -72,7 +72,7 @@ $('document').ready(function ()
 								}]				
 							}] 
 						};		
-						console.log(jsonArtricles);	
+						populatePanels(i, jsonArticles, panelSettings);
                     }
                     else
                     {
@@ -175,6 +175,7 @@ function checkPosition(id)
 
 function populatePanels(id, article, myPanelSettings)
 {
+	console.log(article);
     if (myPanelSettings[id].sizey == null || myPanelSettings[id].sizey == '' || parseInt(myPanelSettings[id].sizey) == 'NaN' || myPanelSettings[id].sizey == '0' || parseInt(myPanelSettings[id].sizey) > 600)
     {
         myPanelSettings[id].sizey = 400;
