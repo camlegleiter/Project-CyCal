@@ -45,9 +45,13 @@ $('document').ready(function(){
 				dataType: "XML",
 				statusCode: {
 					200: function(xml, status){
-						//jsonArticles = xml2json.parser(xml);
-						jsonArticles = $.xmlToJSON(xml);
-						populatePanels(i, jsonArticles, panelSettings);
+						console.log(status);
+						if(status == "parsererror"){
+							jsonArticles = $.xmlToJSON(xml.responseText);
+						}else{
+							jsonArticles = $.xmlToJSON(xml);
+							populatePanels(i, jsonArticles, panelSettings);
+						}
 					}
 				}
 			});
@@ -158,7 +162,6 @@ $('document').ready(function(){
 		$("#panel"+id).draggable({handle:$('#panel_title'+id), containment:"window"}); 		
 		$("#panel"+id).resizable();
 		$("#panel"+id).css('z-index', id);
-		
 		//interior articles
 		if(article.channel[0].item.length > 0){
 			for(var i = 0; i < article.channel[0].item.length; i++){
@@ -166,9 +169,10 @@ $('document').ready(function(){
 				var description = getArticleDescription(article, i);
 				if (!description.length){
 					description = "No description available.";
+				}else{
+					description = description.replace(/\&lt;/g, '<');
+					description = description.replace(/\&gt;/g, '>');
 				}
-				description = description.replace(/\&lt;/g, '<');
-				description = description.replace(/\&gt;/g, '>');
 				var link = '<br><br><a class="panel_feed_article_link" target="_blank" href="'+article.channel[0].item[i].link[0].Text+'">&raquo;&nbsp;Link to full article</a>'
 				$('#panel_feed'+id).append('<div id="panel_feed_article'+id+'" class="panel_feed_article"> <div id="panel_feed_article_title'+id+'" class="panel_feed_article_title" onclick="toggleArticle('+id+','+i+')">'+title+'<div id="panel_feed_article_title_buttons'+id+'" class="panel_feed_article_title_buttons"><div id="caret'+id+''+i+'" class="caretDiv ui-icon-carat-1-e"></div></div></div><div style="display:none;" id="panel_feed_article_content'+id+'_'+i+'" class="panel_feed_article_content">'+description+link+'</div></div>');
 			}
@@ -182,7 +186,8 @@ $('document').ready(function(){
 		                    "z-index": id, "top":myPanelSettings[id].posy, "left":myPanelSettings[id].posx});
 		
 		$("#panel"+id).attr('rss',myPanelSettings[id].rss);
-		applyTheme(0,id,myPanelSettings);
+		$("#panel"+id).attr('articlesLength', article.channel[0].item.length);
+		themify(id,myPanelSettings[id]);
 	}
 	
 	function savePosition(id){
