@@ -19,6 +19,7 @@
 <script type="text/javascript" src="js/jquery-1.6.2.min.js"></script>
 <script type="text/javascript" src="js/jquery-ui.min.js"></script>
 <script type="text/javascript" src="js/xml2json.js"></script>
+<script type="text/javascript" src="js/xmlObjectifier.js"></script>
 <script type="text/javascript" src="js/getjson.js"></script>
 <script type="text/javascript" src="js/panel_lib.js"></script>
 <script type="text/javascript" src="js/dialog/jqModal.js"></script>

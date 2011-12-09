@@ -42,9 +42,11 @@ $('document').ready(function(){
 				data:{
 					q: panelSettings[i].rss
 				},
+				dataType: "XML",
 				statusCode: {
 					200: function(xml, status){
-						jsonArticles = xml2json.parser(xml);
+						//jsonArticles = xml2json.parser(xml);
+						jsonArticles = $.xmlToJSON(xml);
 						populatePanels(i, jsonArticles, panelSettings);
 					}
 				}
@@ -115,7 +117,6 @@ $('document').ready(function(){
 	
 	//THIS IS WHAT FIRST CREATES INDIVIDUAL PANELS
 	function populatePanels(id, article, myPanelSettings){
-		console.log(myPanelSettings);
 		if(myPanelSettings[id].sizey == null || myPanelSettings[id].sizey == '' || 
 		   parseInt(myPanelSettings[id].sizey) == 'NaN' || myPanelSettings[id].sizey == '0'
 		   || parseInt(myPanelSettings[id].sizey) > 600){
@@ -141,7 +142,9 @@ $('document').ready(function(){
 			myPanelSettings[id].posx = parseInt(myPanelSettings[id-1].posx) + 10;
 		}
 		
-		var overallTitle = article.rss.channel.title;
+		var overallTitle = article.channel[0].title[0].Text;
+		$("#panel"+id).attr('fullTitle', overallTitle);
+		
 		if(overallTitle.indexOf("Iowa State University Events -") != -1){
 			overallTitle = overallTitle.substring(("Iowa State University Events - ").length,overallTitle.length);		
 		}
@@ -149,8 +152,6 @@ $('document').ready(function(){
 		if(overallTitle.length > 45){
 			overallTitle = overallTitle.substring(0,45) + "...";
 		}
-					
-		$("#panel"+id).attr('fullTitle',article.rss.channel.title);
 		
 		//creates overall containing div for articles
 		$('body').append('<div id="panel'+id+'" onmouseup="checkPosition('+id+');" onmousedown="changeZIndex('+id+');" onmouseout="checkPosition('+id+');" class="panel"><div id="panel_title'+id+'" class="panel_title">'+overallTitle+'<table style="float:right; margin-top:2px;"><tr><td id="minimize'+id+'" class="minimize ui-icon-minusthick" onclick="togglewindow('+id+');"></td><td id="settings'+id+'" class="settings ui-icon-info" onclick="showSettings('+id+');"></td><td id="close'+id+'" class="close ui-icon-closethick" onclick="closewindow('+id+');"></td></tr></table></div><div id="panel_feed'+id+'" class="panel_feed"></div></div>');
@@ -159,18 +160,17 @@ $('document').ready(function(){
 		$("#panel"+id).css('z-index', id);
 		
 		//interior articles
-		if(article.rss.channel.item.length > 0){
-			for(var i = 0; i < article.rss.channel.item.length; i++){
-				var title = article.rss.channel.item[i].title;
-				var description = article.rss.channel.item[i].description;
+		if(article.channel[0].item.length > 0){
+			for(var i = 0; i < article.channel[0].item.length; i++){
+				var title = article.channel[0].item[i].title[0].Text;
+				var description = article.channel[0].item[i].description[0].Text;
 				description = description.replace(/\&lt;/g, '<');
 				description = description.replace(/\&gt;/g, '>');
 				if(!description.length){
 					description = "No description available.";
 				}
-				var link = '<br><br><a class="panel_feed_article_link" target="_blank" href="'+article.rss.channel.item[i].link+'">&raquo;&nbsp;Link to full article</a>'
+				var link = '<br><br><a class="panel_feed_article_link" target="_blank" href="'+article.channel[0].item[i].link[0].Text+'">&raquo;&nbsp;Link to full article</a>'
 				$('#panel_feed'+id).append('<div id="panel_feed_article'+id+'" class="panel_feed_article"> <div id="panel_feed_article_title'+id+'" class="panel_feed_article_title" onclick="toggleArticle('+id+','+i+')">'+title+'<div id="panel_feed_article_title_buttons'+id+'" class="panel_feed_article_title_buttons"><div id="caret'+id+''+i+'" class="caretDiv ui-icon-carat-1-e"></div></div></div><div style="display:none;" id="panel_feed_article_content'+id+'_'+i+'" class="panel_feed_article_content">'+description+link+'</div></div>');
-				//$('panel_feed_article_content'+id+'_'+i).html($(description+link).html());
 			}
 		}else{
 			$('#panel_feed'+id).append('<div id=\'noArticle\' class=\'panel_feed_no_article\'> No articles </div>');
