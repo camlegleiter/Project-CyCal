@@ -1,7 +1,7 @@
-function updateTheme(id, rss) {
+function updateTheme(id) {
 	var themedata;
 	var feeds = new Array();
-	feeds.push(rss);
+	feeds.push($('#panel'+id).attr('rss'));
 	
 	$.ajax({
 		type: 'POST',	
@@ -24,8 +24,14 @@ function updateTheme(id, rss) {
 			rss: JSON.stringify(feeds)
 		}
 	});
+	
+	themify(id, themedata[0]);
+}
+
+function themify(id, themedata)
+{
 	//Narrow the window
-	themedata = themedata[0]['themeid'];
+	themedata = themedata['themeid'];
 	var backcolor;
 	var fontcolor;
 	var fonttype;
@@ -35,7 +41,7 @@ function updateTheme(id, rss) {
 		backcolor = '#CCCCCC';
 		fontcolor = '#000000';
 		fonttype = 'Verdana';
-		fontsize = '12';
+		fontsize = '16';
 	}
 	else
 	{
@@ -46,7 +52,38 @@ function updateTheme(id, rss) {
 	}
 	
 	//Apply our css
-	$('#panel'+id).animate({ backgroundColor: backcolor }, "slow");
-	$('#panel_feed'+id).animate({ backgroundColor: backcolor }, "slow");
-
+	//Animate font first
+	//$('#panel'+id).css('font-family', fonttype);
+	//$('#panel_feed'+id).css('font-family', fonttype);
+	//Then the rest
+	$('#panel'+id).animate(
+		{ 
+			//Background color
+			'backgroundColor': backcolor,
+		}, 
+		"slow");
+	$('#panel_feed'+id).animate(
+		{
+			//Background color
+			'backgroundColor': backcolor,
+			//Text color
+			'color': fontcolor,
+			//Font stuff
+			'font-size': fontsize
+		}, 
+		"slow");
+	//Change each article slice
+	var articles = $('#panel'+id).attr('articlesLength');
+	
 }
+
+
+
+
+
+
+
+
+
+
+

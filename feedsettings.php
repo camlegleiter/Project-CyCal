@@ -18,7 +18,7 @@
 	if (!isset($rss['fontname']) || empty($rss['fontname']))
 		$rss['fontname'] = "Verdana";
 	if (!isset($rss['fontsize']) || empty($rss['fontsize']))
-		$rss['fontsize'] = 12;
+		$rss['fontsize'] = 16;
 	if (!isset($rss['backcolor']) || empty($rss['backcolor']))
 		$rss['backcolor'] = "#CCCCCC";
 	if (!isset($rss['fontcolor']) || empty($rss['fontcolor']))
@@ -56,7 +56,7 @@
 					alert('Error: ' + error);
 				},
 				200: function(data) {
-					updateTheme(<?php echo $rss['panelid'] ?>, rss);
+					updateTheme(<?php echo $rss['panelid'] ?>);
 				}
 			}
 		});
@@ -91,7 +91,7 @@
 						alert('Error: ' + error);
 					},
 					200: function(data) {
-						updateTheme(<?php echo $rss['panelid'] ?>, rss);
+						updateTheme(<?php echo $rss['panelid'] ?>);
 					}
 				}
 			});
@@ -134,7 +134,7 @@
 		<div>Font Size:
 			<select name="fontsize" id="Ffontsize">
 				<?php 
-					for ($i = 8; $i <= 20; $i += 2) 
+					for ($i = 12; $i <= 24; $i += 2) 
 					{ 
 						echo '<option';
 						if ($rss['fontsize'] == $i)
