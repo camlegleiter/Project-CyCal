@@ -27,7 +27,8 @@
 ?>
 <script type="text/javascript">
 	var feeds = new Array();
-	feeds.push(<?php echo "'".$rss['rss']."'" ?>);
+	var rss = <?php echo "'".$rss['rss']."'" ?>;
+	feeds.push(rss);
 	
 	var backcolor = <?php echo "'".$rss['backcolor']."'" ?>;
 	var fontcolor = <?php echo "'".$rss['fontcolor']."'" ?>;
@@ -55,7 +56,7 @@
 					alert('Error: ' + error);
 				},
 				200: function(data) {
-					updateTheme(<?php echo $rss['panelid'] ?>);
+					updateTheme(<?php echo $rss['panelid'] ?>, rss);
 				}
 			}
 		});
@@ -90,7 +91,7 @@
 						alert('Error: ' + error);
 					},
 					200: function(data) {
-						updateTheme(<?php echo $rss['panelid'] ?>);
+						updateTheme(<?php echo $rss['panelid'] ?>, rss);
 					}
 				}
 			});
