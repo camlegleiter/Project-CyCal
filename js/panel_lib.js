@@ -158,7 +158,7 @@ $('document').ready(function(){
 		}
 		
 		//creates overall containing div for articles
-		$('body').append('<div id="panel'+id+'" onmouseup="checkPosition('+id+');" onmousedown="changeZIndex('+id+');" onmouseout="checkPosition('+id+');" class="panel"><div id="panel_title'+id+'" class="panel_title">'+overallTitle+'<table style="float:right; margin-top:2px;"><tr><td id="minimize'+id+'" class="minimize ui-icon-minusthick" onclick="togglewindow('+id+');"></td><td id="settings'+id+'" class="settings ui-icon-info" onclick="showSettings('+id+');"></td><td id="close'+id+'" class="close ui-icon-closethick" onclick="closewindow('+id+');"></td></tr></table></div><div id="panel_feed'+id+'" class="panel_feed"></div></div>');
+		$('body').append('<div id="panel'+id+'" onmouseup="checkPosition('+id+');" onmousedown="changeZIndex('+id+');" onmouseout="checkPosition('+id+');" class="panel"><div id="panel_title'+id+'" class="panel_title">'+overallTitle+'<table style="float:right; margin-top:2px;"><tr><td id="minimize'+id+'" class="minimize ui-icon-minusthick" onclick="togglewindow('+id+');"></td><td id="settings'+id+'" class="settings ui-icon-info" onclick="showSettings('+article.channel[0].item.length+','+id+');"></td><td id="close'+id+'" class="close ui-icon-closethick" onclick="closewindow('+id+');"></td></tr></table></div><div id="panel_feed'+id+'" class="panel_feed"></div></div>');
 		$("#panel"+id).draggable({handle:$('#panel_title'+id), containment:"window"}); 		
 		$("#panel"+id).resizable();
 		$("#panel"+id).css('z-index', id);
@@ -248,7 +248,7 @@ $('document').ready(function(){
 		$("#panel"+id).css("z-index", "99");
 	}
 
-	function showSettings(id) {
+	function showSettings(articlesLength,id) {
 		// Check if the settings isn't already been added to the panel
 
 		if (!$('#panel_feed'+id+' > #settings_panel'+id).length) {
@@ -267,7 +267,9 @@ $('document').ready(function(){
 			});
 		}
 		// Show/hide the articles
-		$('#panel_feed'+id).children('#panel_feed_article'+id).toggle();
+		for(var i = 0; i < articlesLength; i++){
+			$('#panel_feed'+id).children('#panel_feed_article'+id+'_'+i).toggle();
+		}
 		// Show/hide the settings
 		$('#settings_panel'+id).toggle();
 	}
@@ -278,10 +280,10 @@ $('document').ready(function(){
 		$("#panel"+id).css('background-color','#FF0000');
 		$("#panel_feed"+id).css('background-color','#FF0000');
 		$("#panel_feed_article_title"+id).css('background-color','#FF0000');
-		$("#panel_feed_article_title"+id).hover(function(){
-    		$("#panel_feed_article_title"+id).css('background-color','#'+titleHex);
+		$("#panel_feed_article_title"+id+'_'+i).hover(function(){
+    		$("#panel_feed_article_title"+id+'_'+i).css('background-color','#'+titleHex);
 		},function(){
-   	 		$("#panel_feed_article_title"+id).css('background-color','#FF0000');
+   	 		$("#panel_feed_article_title"+id+'_'+i).css('background-color','#FF0000');
 		});
 
 		$('.panel_feed_article_title:hover').css('background-color','#'+titleHex);
