@@ -2,9 +2,11 @@
 	$TO_ROOT = "";
 	require "includes/membersOnly.php";
 
-	$rss = $_POST['rss'];
+	$rss['rss'] = $_POST['rss'];
+	$rss['panelid'] = $_POST['panelid'];
+	$userid = $_SESSION['id'];
 	
-	$getTheme = mysql_query("SELECT * FROM theme WHERE userid='$userid' AND rss='".$row['rss']."'");
+	$getTheme = mysql_query("SELECT * FROM theme WHERE userid='$userid' AND rss='".urlencode($rss['rss'])."'");
 	$themeRow = mysql_fetch_assoc($getTheme);
 	mysql_free_result($getTheme);
 	$rss['fontname'] = $themeRow['fontname'];
@@ -23,6 +25,76 @@
 		$rss['fontcolor'] = "#000000";
 	
 ?>
+<script type="text/javascript">
+	var feeds = new Array();
+	feeds.push(<?php echo "'".$rss['rss']."'" ?>);
+	
+	var backcolor = <?php echo "'".$rss['backcolor']."'" ?>;
+	var fontcolor = <?php echo "'".$rss['fontcolor']."'" ?>;
+	
+	function setTheme() {
+		$.ajax({
+			type: 'POST',
+			url: './util/postdata.php',
+			data: {
+				action: 'settheme',
+				rss: JSON.stringify(feeds),
+				themeid: 1, 
+				fontname: $('#Ffontstyle').val(),
+				fontsize: $('#Ffontsize').val(),
+				fontcolor: fontcolor,
+				backcolor: backcolor, 
+				//print: true
+			},
+			async:false,
+			statusCode: {
+				404: function() {
+					alert('404: Page not found!');
+				},
+				409: function(jqXHR, status, error) {
+					alert('Error: ' + error);
+				},
+				200: function(data) {
+					updateTheme(<?php echo $rss['panelid'] ?>);
+				}
+			}
+		});
+	}
+	
+	function resetTheme() {
+		if (confirm('Are you sure you want to reset this panels theme?'))
+		{
+			$('#Ffontstyle').val("Verdana");
+			$('#Ffontsize').val("12");
+			fontcolor = "#000000";
+			backcolor = "#CCCCCC";
+			$('#colorSelectorFont').ColorPicker().ColorPickerSetColor(fontcolor);
+			$('#colorSelectorBack').ColorPicker().ColorPickerSetColor(backcolor);
+			$.ajax({
+				type: 'POST',
+				url: './util/postdata.php',
+				data: {
+					action: 'settheme',
+					rss: JSON.stringify(feeds),
+					themeid: -1 
+					//print: true
+				},
+				async:false,
+				statusCode: {
+					404: function() {
+						alert('404: Page not found!');
+					},
+					409: function(jqXHR, status, error) {
+						alert('Error: ' + error);
+					},
+					200: function(data) {
+						updateTheme(<?php echo $rss['panelid'] ?>);
+					}
+				}
+			});
+		}
+	}
+</script>
 <div id="settings">
 <style type="text/css">
 	input {
@@ -32,24 +104,24 @@
 	<form method='GET' style="width:350px; text-align:left">
 		<div>
 			<div>Font Style:
-				<select name="fontstyle">
+				<select name="fontstyle" id="Ffontstyle">
 				<?php
 					$fontname = strtolower($rss['fontname']);
 					echo "<option";
 					if (strcmp($fontname,"verdana") == 0)
-						echo "selected='selected'";
+						echo " selected='selected'";
 					echo ">Verdana</option>";
 					echo "<option";
 					if (strcmp($fontname,"monaco") == 0)
-						echo "selected='selected'";
+						echo " selected='selected'";
 					echo ">Monaco</option>";
 					echo "<option";
 					if (strcmp($fontname,"helvetica") == 0)
-						echo "selected='selected'";
+						echo " selected='selected'";
 					echo ">Helvetica</option>";
 					echo "<option";
 					if (strcmp($fontname,"comic sans") == 0)
-						echo "selected='selected'";
+						echo " selected='selected'";
 					echo ">Comic Sans</option>";
 				?>
 				</select>
@@ -57,13 +129,13 @@
 		</div>
 		<br>
 		<div>Font Size:
-			<select name="fontsize">
+			<select name="fontsize" id="Ffontsize">
 				<?php 
 					for ($i = 8; $i <= 20; $i += 2) 
 					{ 
 						echo '<option';
 						if ($rss['fontsize'] == $i)
-							echo "selected='selected'";
+							echo " selected='selected'";
 						echo '>' . $i . '</option>'; 
 					} 
 				?>
@@ -104,16 +176,13 @@
 		<br>
 		<input type="hidden" name="rss" value="<?php echo $rss ?>">
 		<a href="#" id="deletefeed" style="font-size:xx-small;color:red;float:left">DELETE FEED</a>
-		<input type="button" onClick="submit()" style="float:right;width:100px;margin:10px" value="Set" name="SET">
-		<input type="button" onClick="reset()" style="float:right;width:100px;margin:10px" value="Reset" name="RESET">
+		<input type="button" onClick="setTheme()" class="set" style="float:right;width:100px;margin:10px" value="Set" name="SET">
+		<input type="button" onClick="resetTheme()" class="reset" style="float:right;width:100px;margin:10px" value="Reset" name="RESET">
 		<div style="clear:both"></div>
 	</form>
 </div>
 
 <script type="text/javascript">
-	var backcolor = <?php echo "'".$rss['backcolor']."'" ?>;
-	var fontcolor = <?php echo "'".$rss['fontcolor']."'" ?>;
-	
 	$('#colorSelectorFont').ColorPicker({
 		onShow: function (colpkr) {
 			$(colpkr).fadeIn(500);
@@ -144,12 +213,4 @@
 			backcolor = "#" + hex;
 		}
 	});
-
-	function submit() {
-		alert('reseting');
-	}
-	
-	function reset() {
-		alert('submitting');
-	}
 </script>
