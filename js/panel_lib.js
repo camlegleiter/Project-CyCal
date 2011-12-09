@@ -1,9 +1,9 @@
 window.onunload = function(){
-	var panels = $('body').find('.panel');
-	for(var i = 0; i < panels.length; i++){
-		savePosition(i);
-	}
-};
+							var panels = $('body').find('.panel');
+							for(var i = 0; i < panels.length; i++){
+								savePosition(i);
+							}
+				};
 
 $('document').ready(function(){		
 		var panelSettings;
@@ -174,7 +174,7 @@ $('document').ready(function(){
 					description = description.replace(/\&gt;/g, '>');
 				}
 				var link = '<br><br><a class="panel_feed_article_link" target="_blank" href="'+article.channel[0].item[i].link[0].Text+'">&raquo;&nbsp;Link to full article</a>'
-				$('#panel_feed'+id).append('<div id="panel_feed_article'+id+'" class="panel_feed_article"> <div id="panel_feed_article_title'+id+'" class="panel_feed_article_title" onclick="toggleArticle('+id+','+i+')">'+title+'<div id="panel_feed_article_title_buttons'+id+'" class="panel_feed_article_title_buttons"><div id="caret'+id+''+i+'" class="caretDiv ui-icon-carat-1-e"></div></div></div><div style="display:none;" id="panel_feed_article_content'+id+'_'+i+'" class="panel_feed_article_content">'+description+link+'</div></div>');
+				$('#panel_feed'+id).append('<div id="panel_feed_article'+id+'_'+i+'" class="panel_feed_article"> <div id="panel_feed_article_title'+id+'_'+i+'" class="panel_feed_article_title" onclick="toggleArticle('+id+','+i+')">'+title+'<div id="panel_feed_article_title_buttons'+id+'" class="panel_feed_article_title_buttons"><div id="caret'+id+''+i+'" class="caretDiv ui-icon-carat-1-e"></div></div></div><div style="display:none;" id="panel_feed_article_content'+id+'_'+i+'" class="panel_feed_article_content">'+description+link+'</div></div>');
 			}
 		}else{
 			$('#panel_feed'+id).append('<div id=\'noArticle\' class=\'panel_feed_no_article\'> No articles </div>');
