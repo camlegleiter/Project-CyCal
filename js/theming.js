@@ -46,8 +46,26 @@ function shadeColor(color, shade) {
 	if (newB <= 255 && newB >= 0)
     	B = newB;
 
-    var newColorInt = (R<<16) + (G<<8) + (B);
-    var newColorStr = "#"+newColorInt.toString(16);
+	var Rs = R.toString(16);
+	if (Rs.length == 0)
+		Rs = "0";
+	if (Rs.length == 1)
+		Rs = "0" + Rs;
+		
+	var Gs = G.toString(16);
+	if (Gs.length == 0)
+		Gs = "0";
+	if (Gs.length == 1)
+		Gs = "0" + Gs;
+		
+	var Bs = B.toString(16);
+	if (Bs.length == 0)
+		Bs = "0";
+	if (Bs.length == 1)
+		Bs = "0" + Bs;
+	
+    //var newColorInt = (R<<16) + (G<<8) + (B);
+    var newColorStr = "#"+Rs+Gs+Bs;
 
     return newColorStr;
 }
