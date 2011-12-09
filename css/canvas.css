@@ -23,6 +23,7 @@ body {
 }
 
 
+
 .panel_title{
 	background-image:url('../img/canvas/Title_Bar_Center.png');
 	background-repeat:repeat-x;
@@ -176,4 +177,12 @@ body {
 }
 .popup a:hover {
 	color:#000000;
+}
+a {
+	color: #000000;
+	text-decoration: underline;
+}
+
+a:hover {
+	color: #333333;
 }
