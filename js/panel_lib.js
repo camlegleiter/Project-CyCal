@@ -238,7 +238,8 @@ $('document').ready(function(){
 				url: 'feedsettings.php',
 				type: 'POST',
 				data: {
-					rss: $('#panel'+id).attr('rss')
+					rss: $('#panel'+id).attr('rss'),
+					panelid: id
 				},
 				success: function(data) {
 					$('#settings_panel'+id).html(data);
