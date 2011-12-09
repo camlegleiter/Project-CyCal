@@ -26,25 +26,25 @@
 	
 ?>
 <script type="text/javascript">
-	var feeds = new Array();
-	var rss = <?php echo "'".$rss['rss']."'" ?>;
-	feeds.push(rss);
+	var feeds<?php echo $rss['panelid'] ?> = new Array();
+	var rss<?php echo $rss['panelid'] ?> = <?php echo "'".$rss['rss']."'" ?>;
+	feeds<?php echo $rss['panelid'] ?>.push(rss<?php echo $rss['panelid'] ?>);
 	
-	var backcolor = <?php echo "'".$rss['backcolor']."'" ?>;
-	var fontcolor = <?php echo "'".$rss['fontcolor']."'" ?>;
+	var backcolor<?php echo $rss['panelid'] ?> = <?php echo "'".$rss['backcolor']."'" ?>;
+	var fontcolor<?php echo $rss['panelid'] ?> = <?php echo "'".$rss['fontcolor']."'" ?>;
 	
-	function setTheme() {
+	function setTheme<?php echo $rss['panelid'] ?>() {
 		$.ajax({
 			type: 'POST',
 			url: './util/postdata.php',
 			data: {
 				action: 'settheme',
-				rss: JSON.stringify(feeds),
+				rss: JSON.stringify(feeds<?php echo $rss['panelid'] ?>),
 				themeid: 1, 
-				fontname: $('#Ffontstyle').val(),
-				fontsize: $('#Ffontsize').val(),
-				fontcolor: fontcolor,
-				backcolor: backcolor, 
+				fontname: $('#Ffontstyle_<?php echo $rss['panelid'] ?>').val(),
+				fontsize: $('#Ffontsize_<?php echo $rss['panelid'] ?>').val(),
+				fontcolor: fontcolor<?php echo $rss['panelid'] ?>,
+				backcolor: backcolor<?php echo $rss['panelid'] ?>, 
 				//print: true
 			},
 			async:false,
@@ -62,23 +62,23 @@
 		});
 	}
 	
-	function resetTheme() {
+	function resetTheme<?php echo $rss['panelid'] ?>() {
 		if (confirm('Are you sure you want to reset this panels theme?'))
 		{
-			$('#Ffontstyle').val("Verdana");
-			$('#Ffontsize').val("12");
+			$('#Ffontstyle_<?php echo $rss['panelid'] ?>').val("Verdana");
+			$('#Ffontsize_<?php echo $rss['panelid'] ?>').val("12");
 			fontcolor = "#000000";
 			backcolor = "#CCCCCC";
-			$('#colorSelectorFont').ColorPickerSetColor(fontcolor);
-			$('#colorSelectorFont div').css('backgroundColor', fontcolor);
-			$('#colorSelectorBack').ColorPickerSetColor(backcolor);
-			$('#colorSelectorBack div').css('backgroundColor', backcolor);
+			$('#colorSelectorFont_<?php echo $rss['panelid'] ?>').ColorPickerSetColor(fontcolor);
+			$('#colorSelectorFont_<?php echo $rss['panelid'] ?> div').css('background-color', fontcolor);
+			$('#colorSelectorBack_<?php echo $rss['panelid'] ?>').ColorPickerSetColor(backcolor);
+			$('#colorSelectorBack_<?php echo $rss['panelid'] ?> div').css('background-color', backcolor);
 			$.ajax({
 				type: 'POST',
 				url: './util/postdata.php',
 				data: {
 					action: 'settheme',
-					rss: JSON.stringify(feeds),
+					rss: JSON.stringify(feeds<?php echo $rss['panelid'] ?>),
 					themeid: -1 
 					//print: true
 				},
@@ -107,7 +107,7 @@
 	<form method='GET' style="width:350px; text-align:left">
 		<div>
 			<div>Font Style:
-				<select name="fontstyle" id="Ffontstyle">
+				<select name="fontstyle" id="Ffontstyle_<?php echo $rss['panelid'] ?>">
 				<?php
 					$fonts = array(
 						"Verdana" => "verdana",
@@ -140,7 +140,7 @@
 		</div>
 		<br>
 		<div>Font Size:
-			<select name="fontsize" id="Ffontsize">
+			<select name="fontsize" id="Ffontsize_<?php echo $rss['panelid'] ?>">
 				<?php 
 					for ($i = 12; $i <= 24; $i += 2) 
 					{ 
@@ -154,12 +154,12 @@
 		</div>
 		<br>
 		<div>Font Color:
-			<div class="colorSelector" id="colorSelectorFont" style="margin-left:1em;">
+			<div class="colorSelector" id="colorSelectorFont_<?php echo $rss['panelid'] ?>" style="margin-left:1em;">
 				<div style="background-color: <?php echo $rss['fontcolor'] ?>"></div>
 			</div>
 		</div>
 		<div>Background Color:
-			<div class="colorSelector" id="colorSelectorBack" style="margin-left:1em;">
+			<div class="colorSelector" id="colorSelectorBack_<?php echo $rss['panelid'] ?>" style="margin-left:1em;">
 				<div style="background-color: <?php echo $rss['backcolor'] ?>"></div>
 			</div>
 		</div>
@@ -189,15 +189,15 @@
 		-->
 		<input type="hidden" name="rss" value="<?php echo $rss ?>">
 		<a href="#" id="deletefeed" style="font-size:xx-small;color:red;float:left">DELETE FEED</a>
-		<input type="button" onClick="setTheme()" class="set" style="float:right;width:100px;margin:10px" value="Set" name="SET">
-		<input type="button" onClick="resetTheme()" class="reset" style="float:right;width:100px;margin:10px" value="Reset" name="RESET">
+		<input type="button" onClick="setTheme<?php echo $rss['panelid'] ?>()" class="set" style="float:right;width:100px;margin:10px" value="Set" name="SET">
+		<input type="button" onClick="resetTheme<?php echo $rss['panelid'] ?>()" class="reset" style="float:right;width:100px;margin:10px" value="Reset" name="RESET">
 		<div style="clear:both"></div>
 	</form>
 </div>
 
 <script type="text/javascript">
-	$('#colorSelectorFont').ColorPicker({
-		color: fontcolor,
+	$('#colorSelectorFont_<?php echo $rss['panelid'] ?>').ColorPicker({
+		color: fontcolor<?php echo $rss['panelid'] ?>,
 		onShow: function (colpkr) {
 			$(colpkr).fadeIn(500);
 			return false;
@@ -207,16 +207,15 @@
 			return false;
 		},
 		onChange: function (hsb, hex, rgb) {
-			$('#colorSelectorFont div').css('backgroundColor', '#' + hex);
-			fontcolor = "#" + hex;
+			$('#colorSelectorFont_<?php echo $rss['panelid'] ?> div').css('background-color', '#' + hex);
+			fontcolor<?php echo $rss['panelid'] ?> = "#" + hex;
 		}
 	});
 	
-	$('#colorSelectorBack').ColorPicker({
-		color: backcolor,
+	$('#colorSelectorBack_<?php echo $rss['panelid'] ?>').ColorPicker({
+		color: backcolor<?php echo $rss['panelid'] ?>,
 		onShow: function (colpkr) {
 			$(colpkr).fadeIn(500);
-			$('#cbColor').prop('checked', true);
 			return false;
 		},
 		onHide: function (colpkr) {
@@ -224,8 +223,9 @@
 			return false;
 		},
 		onChange: function (hsb, hex, rgb) {
-			$('#colorSelectorBack div').css('backgroundColor', '#' + hex);
-			backcolor = "#" + hex;
+			$('#colorSelectorBack_<?php echo $rss['panelid'] ?> div').css('background-color', '#' + hex);
+			backcolor<?php echo $rss['panelid'] ?> = "#" + hex;
 		}
 	});
+	
 </script>
