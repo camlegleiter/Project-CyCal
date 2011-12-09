@@ -72,7 +72,7 @@ function themify(id, themedata)
 	//Apply our css
 	//Animate font first
 	//$('#panel'+id).css('font-family', fonttype);
-	//$('#panel_feed'+id).css('font-family', fonttype);
+	$('#panel_feed'+id).css('font-family', fonttype);
 	//Then the rest
 	$('#panel'+id).animate(
 		{ 

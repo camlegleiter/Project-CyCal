@@ -109,23 +109,31 @@
 			<div>Font Style:
 				<select name="fontstyle" id="Ffontstyle">
 				<?php
+					$fonts = array(
+						"Verdana" => "verdana",
+						"Monaco" => "monaco",
+						"Helvetica" => "helvetica",
+						"Segoe UI" => "segoe ui",
+						"Courier New" => "courier new",
+						"Arial" => "arial",
+						"Cambria" => "cambria",
+						"Georgia" => "georgia",
+						"Times New Roman" => "times new roman",
+						"Lucida Sans" => "lucida sans",
+						"Impact" => "impact",
+						"Tahoma" => "tahoma",
+						"Trebuchet MS" => "trebuchet ms",
+						"Geneva" => "geneva",
+						"Franklin Gothic Medium" => "franklin gothic medium",
+					);
 					$fontname = strtolower($rss['fontname']);
-					echo "<option";
-					if (strcmp($fontname,"verdana") == 0)
-						echo " selected='selected'";
-					echo ">Verdana</option>";
-					echo "<option";
-					if (strcmp($fontname,"monaco") == 0)
-						echo " selected='selected'";
-					echo ">Monaco</option>";
-					echo "<option";
-					if (strcmp($fontname,"helvetica") == 0)
-						echo " selected='selected'";
-					echo ">Helvetica</option>";
-					echo "<option";
-					if (strcmp($fontname,"comic sans") == 0)
-						echo " selected='selected'";
-					echo ">Comic Sans</option>";
+					foreach ($fonts as $key => $value)
+					{
+						echo "<option value='".$value."' style='font-family:".$key."'";
+						if (strcmp($fontname,strtolower($value)) == 0)
+							echo " selected='selected'";
+						echo ">".$key."</option>";
+					}
 				?>
 				</select>
 			</div>
