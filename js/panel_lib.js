@@ -115,6 +115,7 @@ $('document').ready(function(){
 	
 	//THIS IS WHAT FIRST CREATES INDIVIDUAL PANELS
 	function populatePanels(id, article, myPanelSettings){
+		console.log(myPanelSettings);
 		if(myPanelSettings[id].sizey == null || myPanelSettings[id].sizey == '' || 
 		   parseInt(myPanelSettings[id].sizey) == 'NaN' || myPanelSettings[id].sizey == '0'
 		   || parseInt(myPanelSettings[id].sizey) > 600){
@@ -181,6 +182,7 @@ $('document').ready(function(){
 		                    "z-index": id, "top":myPanelSettings[id].posy, "left":myPanelSettings[id].posx});
 		
 		$("#panel"+id).attr('rss',myPanelSettings[id].rss);
+		applyTheme(0,id,myPanelSettings);
 	}
 	
 	function savePosition(id){
@@ -249,4 +251,28 @@ $('document').ready(function(){
 		$('#panel_feed'+id).children('#panel_feed_article'+id).toggle();
 		// Show/hide the settings
 		$('#settings_panel'+id).toggle();
+	}
+	
+	function applyTheme(i, id, themeObject){
+		//background colors
+		var titleHex = getCSSValues("rgb(255,0,0)");
+		$("#panel"+id).css('background-color','#FF0000');
+		$("#panel_feed"+id).css('background-color','#FF0000');
+		$("#panel_feed_article_title"+id).css('background-color','#FF0000');
+		$("#panel_feed_article_title"+id).hover(function(){
+    		$("#panel_feed_article_title"+id).css('background-color','#'+titleHex);
+		},function(){
+   	 		$("#panel_feed_article_title"+id).css('background-color','#FF0000');
+		});
+
+		$('.panel_feed_article_title:hover').css('background-color','#'+titleHex);
+		$("#panel_feed_article_content"+id+i).css('background-color','#FF0000');
+	}
+	
+	function getCSSValues(rgbString){
+		var rgb = rgbString.substring(4,rgbString.length-1).split(",");
+		rgb[0] = parseInt(rgb[0])-25 > 0 ? ""+(parseInt(rgb[0])-25).toString(16)+"" : "00";;
+		rgb[1] = parseInt(rgb[1])-25 > 0 ? ""+(parseInt(rgb[1])-25).toString(16)+"" : "00";
+		rgb[2] = parseInt(rgb[2])-25 > 0 ? ""+(parseInt(rgb[2])-25).toString(16)+"" : "00";;
+		return rgb[0]+rgb[1]+rgb[2];
 	}

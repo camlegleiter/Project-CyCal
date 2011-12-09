@@ -1,12 +1,28 @@
-<script type="text/javascript">
-function alertX()
-{			
-alert("query submitted");
-}
-</script>
-<link rel="stylesheet" media="screen" type="text/css" href="css/colorpicker.css" >
+<?php
+	$TO_ROOT = "";
+	require "includes/membersOnly.php";
 
-
+	$rss = $_POST['rss'];
+	
+	$getTheme = mysql_query("SELECT * FROM theme WHERE userid='$userid' AND rss='".$row['rss']."'");
+	$themeRow = mysql_fetch_assoc($getTheme);
+	mysql_free_result($getTheme);
+	$rss['fontname'] = $themeRow['fontname'];
+	$rss['fontsize'] = $themeRow['fontsize'];
+	$rss['fontcolor'] = $themeRow['fontcolor'];
+	$rss['backcolor'] = $themeRow['backcolor'];
+	$rss['name'] = $themeRow['name'];
+	
+	if (!isset($rss['fontname']) || empty($rss['fontname']))
+		$rss['fontname'] = "Verdana";
+	if (!isset($rss['fontsize']) || empty($rss['fontsize']))
+		$rss['fontsize'] = 12;
+	if (!isset($rss['backcolor']) || empty($rss['backcolor']))
+		$rss['backcolor'] = "#CCCCCC";
+	if (!isset($rss['fontcolor']) || empty($rss['fontcolor']))
+		$rss['fontcolor'] = "#000000";
+	
+?>
 <div id="settings">
 <style type="text/css">
 	input {
@@ -17,32 +33,52 @@ alert("query submitted");
 		<div>
 			<div>Font Style:
 				<select name="fontstyle">
-					<option>Monaco</option>
-					<option>Helvetica</option>
-					<option>Comic Sans</option>
+				<?php
+					$fontname = strtolower($rss['fontname']);
+					echo "<option";
+					if (strcmp($fontname,"verdana") == 0)
+						echo "selected='selected'";
+					echo ">Verdana</option>";
+					echo "<option";
+					if (strcmp($fontname,"monaco") == 0)
+						echo "selected='selected'";
+					echo ">Monaco</option>";
+					echo "<option";
+					if (strcmp($fontname,"helvetica") == 0)
+						echo "selected='selected'";
+					echo ">Helvetica</option>";
+					echo "<option";
+					if (strcmp($fontname,"comic sans") == 0)
+						echo "selected='selected'";
+					echo ">Comic Sans</option>";
+				?>
 				</select>
 			</div>
 		</div>
 		<br>
 		<div>Font Size:
 			<select name="fontsize">
-				<?php for ($i = 8; $i <= 20; $i += 2) { echo '<option>' . $i . '</option>'; } ?>
+				<?php 
+					for ($i = 8; $i <= 20; $i += 2) 
+					{ 
+						echo '<option';
+						if ($rss['fontsize'] == $i)
+							echo "selected='selected'";
+						echo '>' . $i . '</option>'; 
+					} 
+				?>
 			</select>
 		</div>
 		<br>
 		<div>Font Color:
 			<div class="colorSelector" id="colorSelectorFont" style="margin-left:1em;">
-				<div style="background-color: #a3a3a3"></div>
+				<div style="background-color: <?php echo $rss['fontcolor'] ?>"></div>
 			</div>
 		</div>
 		<div>Background Color:
 			<div class="colorSelector" id="colorSelectorBack" style="margin-left:1em;">
-				<div style="background-color: #a3a3a3"></div>
+				<div style="background-color: <?php echo $rss['backcolor'] ?>"></div>
 			</div>
-		</div>
-		<div>
-			<input type="checkbox" class="checkbox" name="minimized">
-			Start Minimized
 		</div>
 		<br>
 		<div style="border:1px #000000 dotted; padding:5px">
@@ -66,20 +102,19 @@ alert("query submitted");
 			</div>
 		</div>
 		<br>
+		<input type="hidden" name="rss" value="<?php echo $rss ?>">
 		<a href="#" id="deletefeed" style="font-size:xx-small;color:red;float:left">DELETE FEED</a>
-		<input type="button" onClick="alertX()" style="float:right;width:100px;margin:10px" value="Set" name="SET">
-		<input type="button" onClick="alertX()" style="float:right;width:100px;margin:10px" value="Reset" name="RESET">
+		<input type="button" onClick="submit()" style="float:right;width:100px;margin:10px" value="Set" name="SET">
+		<input type="button" onClick="reset()" style="float:right;width:100px;margin:10px" value="Reset" name="RESET">
 		<div style="clear:both"></div>
 	</form>
 </div>
 
 <script type="text/javascript">
-	//var color = <?php echo "'".$backgroundColor."'" ?>;
+	var backcolor = <?php echo "'".$rss['backcolor']."'" ?>;
+	var fontcolor = <?php echo "'".$rss['fontcolor']."'" ?>;
 	
 	$('#colorSelectorFont').ColorPicker({
-	<?php
-		//echo "color: '".$backgroundColor."',";
-	?>
 		onShow: function (colpkr) {
 			$(colpkr).fadeIn(500);
 			return false;
@@ -90,14 +125,11 @@ alert("query submitted");
 		},
 		onChange: function (hsb, hex, rgb) {
 			$('#colorSelectorFont div').css('backgroundColor', '#' + hex);
-			color = "#" + hex;
+			fontcolor = "#" + hex;
 		}
 	});
 	
 	$('#colorSelectorBack').ColorPicker({
-	<?php
-		//echo "color: '".$backgroundColor."',";
-	?>
 		onShow: function (colpkr) {
 			$(colpkr).fadeIn(500);
 			$('#cbColor').prop('checked', true);
@@ -109,7 +141,15 @@ alert("query submitted");
 		},
 		onChange: function (hsb, hex, rgb) {
 			$('#colorSelectorBack div').css('backgroundColor', '#' + hex);
-			color = "#" + hex;
+			backcolor = "#" + hex;
 		}
 	});
+
+	function submit() {
+		alert('reseting');
+	}
+	
+	function reset() {
+		alert('submitting');
+	}
 </script>
