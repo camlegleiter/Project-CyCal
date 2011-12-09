@@ -10,8 +10,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
 <title>Canvas - CyCal</title>
 <link href="css/reset.css" rel="stylesheet" type="text/css">
-<link href="css/canvas.css" rel="stylesheet" type="text/css">
 <link href="css/mainstyle.css" rel="stylesheet" type="text/css">
+<link href="css/canvas.css" rel="stylesheet" type="text/css">
 <link href="js/css/jquery-ui.css" rel="stylesheet" type="text/css">
 <link href="css/dialog/jqModal.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" media="screen" type="text/css" href="css/colorpicker.css" >
