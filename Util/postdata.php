@@ -201,7 +201,12 @@ else if ($action == "edit")
 }
 else if ($action == "get")
 {
-	$getRSS = mysql_query("SELECT * FROM panel WHERE userid='$userid'");
+	$panelTheme = "";
+	if (!empty($rss[0]))
+	{
+		$panelTheme = "AND rss='".urlencode($rss[0])."'";
+	}
+	$getRSS = mysql_query("SELECT * FROM panel WHERE userid='$userid' $panelTheme");
 	$rssarr = array();
 	while ($row = mysql_fetch_assoc($getRSS))
 	{
