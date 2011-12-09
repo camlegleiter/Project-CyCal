@@ -52,7 +52,26 @@ $('document').ready(function ()
                 {
                     if (status == "parsererror")
                     {
-                        jsonArticles = $.xmlToJSON(xml.responseText);
+                    	//create dummy JSON objectd
+                    	//article.channel[0].item[i].title[0].Text
+                    	jsonArtricles = " { " +
+                    				    "   'channel' : [{ " +
+                    				    "               'title' : [{'Text' : 'error panel'}],"+				
+                    				    "               'item' : [{ " +
+                    				    "                        'title' : [{ " +
+                    				    "                                  'Text' : 'need to get title'" +
+                    				    "                                }], " +
+                    				    "                        'description' : [{ " +
+                    				    "                                        'Text' : 'This rss feed is invalid'" +
+                    				    "                                      }], " +
+                    				    "                        'link' : [{ " +
+                    				    "                                 'Text' : '#'" +
+                    				    "                               }], " +
+                    				    "                      }], " +				
+                    				    "             }]" +
+                    				    " } ";
+						console.log(jsonArtricles);	
+                    	console.log(JSON.parse(jsonArticles));
                     }
                     else
                     {
