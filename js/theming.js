@@ -97,6 +97,8 @@ function themify(id, themedata)
 			'font-size': fontsize
 		}, 
 		"slow");
+	$('#panel_feed'+id+' a').css('color', fontcolor);
+
 		
 	//Calculate darker backcolor
 	var backcolorDark = shadeColor(backcolor, -25);
@@ -106,6 +108,7 @@ function themify(id, themedata)
 	var articles = $('#panel'+id).attr('articlesLength');
 	for (var i = 0; i < articles; i++)
 	{
+		//$('#panel_feed_article_content'+id+'_'+i+' a').css('color', fontcolor);
 		$('#panel_feed_article'+id+'_'+i).animate(
 		{
 			//Background color
