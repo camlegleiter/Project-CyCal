@@ -68,8 +68,10 @@
 			$('#Ffontsize').val("12");
 			fontcolor = "#000000";
 			backcolor = "#CCCCCC";
-			$('#colorSelectorFont').ColorPicker().ColorPickerSetColor(fontcolor);
-			$('#colorSelectorBack').ColorPicker().ColorPickerSetColor(backcolor);
+			$('#colorSelectorFont').ColorPickerSetColor(fontcolor);
+			$('#colorSelectorFont div').css('backgroundColor', fontcolor);
+			$('#colorSelectorBack').ColorPickerSetColor(backcolor);
+			$('#colorSelectorBack div').css('backgroundColor', backcolor);
 			$.ajax({
 				type: 'POST',
 				url: './util/postdata.php',
@@ -184,6 +186,7 @@
 
 <script type="text/javascript">
 	$('#colorSelectorFont').ColorPicker({
+		color: fontcolor,
 		onShow: function (colpkr) {
 			$(colpkr).fadeIn(500);
 			return false;
@@ -199,6 +202,7 @@
 	});
 	
 	$('#colorSelectorBack').ColorPicker({
+		color: backcolor,
 		onShow: function (colpkr) {
 			$(colpkr).fadeIn(500);
 			$('#cbColor').prop('checked', true);
