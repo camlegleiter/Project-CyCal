@@ -28,6 +28,24 @@ function updateTheme(id) {
 	themify(id, themedata[0]);
 }
 
+function shadeColor(color, shade) {
+    var colorInt = parseInt(color.substring(1),16);
+
+    var R = (colorInt & 0xFF0000) >> 16;
+    var G = (colorInt & 0x00FF00) >> 8;
+    var B = (colorInt & 0x0000FF) >> 0;
+
+    R = R + Math.floor((shade/255)*R);
+    G = G + Math.floor((shade/255)*G);
+    B = B + Math.floor((shade/255)*B);
+
+    var newColorInt = (R<<16) + (G<<8) + (B);
+    var newColorStr = "#"+newColorInt.toString(16);
+
+    return newColorStr;
+}
+
+
 function themify(id, themedata)
 {
 	//Narrow the window
@@ -72,15 +90,38 @@ function themify(id, themedata)
 			'font-size': fontsize
 		}, 
 		"slow");
+		
+	//Calculate darker backcolor
+	var backcolorDark = shadeColor(backcolor, -25);
+	
 	//Change each article slice
 	var articles = $('#panel'+id).attr('articlesLength');
 	for (var i = 0; i < articles; i++)
 	{
-	
-	
+		$('#panel_feed_article'+id+'_'+i).animate(
+		{
+			//Background color
+			'backgroundColor': backcolor
+		}, 
+		"slow");
+		$('#panel_feed_article_title'+id+'_'+i).animate(
+		{
+			//Background color
+			'backgroundColor': backcolor
+		}, 
+		"slow");
+		$('#panel_feed_article_title'+id+'_'+i).hover(
+			//Select
+			function() {
+				$(this).css('backgroundColor',backcolorDark);
+			},
+			//Unselect
+			function() {
+				$(this).css('backgroundColor',backcolor);
+			}
+		);
 	}
 }
-
 
 
 
