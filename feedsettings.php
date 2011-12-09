@@ -1,10 +1,27 @@
 <?php
+	$TO_ROOT = "";
+	require "includes/membersOnly.php";
+
 	$rss = $_POST['rss'];
 	
-	$backgroundColor = "#CCCCCC";
-	$fontColor = "#000000";
+	$getTheme = mysql_query("SELECT * FROM theme WHERE userid='$userid' AND rss='".$row['rss']."'");
+	$themeRow = mysql_fetch_assoc($getTheme);
+	mysql_free_result($getTheme);
+	$rss['fontname'] = $themeRow['fontname'];
+	$rss['fontsize'] = $themeRow['fontsize'];
+	$rss['fontcolor'] = $themeRow['fontcolor'];
+	$rss['backcolor'] = $themeRow['backcolor'];
+	$rss['name'] = $themeRow['name'];
 	
-	echo $rss;
+	if (!isset($rss['fontname']) || empty($rss['fontname']))
+		$rss['fontname'] = "Verdana";
+	if (!isset($rss['fontsize']) || empty($rss['fontsize']))
+		$rss['fontsize'] = 12;
+	if (!isset($rss['backcolor']) || empty($rss['backcolor']))
+		$rss['backcolor'] = "#CCCCCC";
+	if (!isset($rss['fontcolor']) || empty($rss['fontcolor']))
+		$rss['fontcolor'] = "#000000";
+	
 ?>
 <div id="settings">
 <style type="text/css">
@@ -16,28 +33,51 @@
 		<div>
 			<div>Font Style:
 				<select name="fontstyle">
-					<option>Verdana</option>
-					<option>Monaco</option>
-					<option>Helvetica</option>
-					<option>Comic Sans</option>
+				<?php
+					$fontname = strtolower($rss['fontname']);
+					echo "<option";
+					if (strcmp($fontname,"verdana") == 0)
+						echo "selected='selected'";
+					echo ">Verdana</option>";
+					echo "<option";
+					if (strcmp($fontname,"monaco") == 0)
+						echo "selected='selected'";
+					echo ">Monaco</option>";
+					echo "<option";
+					if (strcmp($fontname,"helvetica") == 0)
+						echo "selected='selected'";
+					echo ">Helvetica</option>";
+					echo "<option";
+					if (strcmp($fontname,"comic sans") == 0)
+						echo "selected='selected'";
+					echo ">Comic Sans</option>";
+				?>
 				</select>
 			</div>
 		</div>
 		<br>
 		<div>Font Size:
 			<select name="fontsize">
-				<?php for ($i = 8; $i <= 20; $i += 2) { echo '<option>' . $i . '</option>'; } ?>
+				<?php 
+					for ($i = 8; $i <= 20; $i += 2) 
+					{ 
+						echo '<option';
+						if ($rss['fontsize'] == $i)
+							echo "selected='selected'";
+						echo '>' . $i . '</option>'; 
+					} 
+				?>
 			</select>
 		</div>
 		<br>
 		<div>Font Color:
 			<div class="colorSelector" id="colorSelectorFont" style="margin-left:1em;">
-				<div style="background-color: <?php echo $fontColor ?>"></div>
+				<div style="background-color: <?php echo $rss['fontcolor'] ?>"></div>
 			</div>
 		</div>
 		<div>Background Color:
 			<div class="colorSelector" id="colorSelectorBack" style="margin-left:1em;">
-				<div style="background-color: <?php echo $backgroundColor ?>"></div>
+				<div style="background-color: <?php echo $rss['backcolor'] ?>"></div>
 			</div>
 		</div>
 		<br>
@@ -71,8 +111,8 @@
 </div>
 
 <script type="text/javascript">
-	var backcolor = <?php echo "'".$backgroundColor."'" ?>;
-	var fontcolor = <?php echo "'".$fontColor."'" ?>;
+	var backcolor = <?php echo "'".$rss['backcolor']."'" ?>;
+	var fontcolor = <?php echo "'".$rss['fontcolor']."'" ?>;
 	
 	$('#colorSelectorFont').ColorPicker({
 		onShow: function (colpkr) {
