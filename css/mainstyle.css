@@ -135,6 +135,63 @@ form .submit {
 	width:96px;
 }
 
+form .set:hover {
+	background-position:right bottom;
+}
+
+form .set {
+	background:url('../img/set_button.png') no-repeat right top;
+	border:none;
+	cursor:pointer;
+	height:31px;
+	left:236px;
+	line-height:31px;
+	
+	text-indent:-99999px;
+	text-transform:uppercase;
+	top:10px;
+	width:96px;
+}
+
+
+form .reset:hover {
+	background-position:right bottom;
+}
+
+form .reset {
+	background:url('../img/reset_button.png') no-repeat right top;
+	border:none;
+	cursor:pointer;
+	height:31px;
+	left:236px;
+	line-height:31px;
+	
+	text-indent:-99999px;
+	text-transform:uppercase;
+	top:10px;
+	width:96px;
+}
+
+
+form .OK:hover {
+	background-position:right bottom;
+}
+
+form .OK {
+	background:url('../img/OK_button.png') no-repeat right top;
+	border:none;
+	cursor:pointer;
+	height:31px;
+	left:236px;
+	line-height:31px;
+	
+	text-indent:-99999px;
+	text-transform:uppercase;
+	top:10px;
+	width:96px;
+}
+
+
 form .save:hover {
 	background-position:right bottom;
 }

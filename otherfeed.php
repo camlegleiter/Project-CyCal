@@ -8,8 +8,8 @@
 	<p>Have a blog who's articles you'd like to see on its own panel here? Just add the RSS feed link in the input box below!</p>
 	<form method="POST" onsubmit="return validate()">
 		<input type="text" id="textbox" name="otherfeed" onFocus="if (this.value == 'RSS Feed') { this.value='';}" 
-			onblur="if (this.value == '') { this.value = 'RSS Feed';}" value="RSS Feed">
-		<input type="submit" value="Ok">
+			onblur="if (this.value == '') { this.value = 'RSS Feed';}" value="RSS Feed" style="margin-bottom:1em">
+		<input type="submit" class="OK" value="Ok">
 	</form>
 	<br>
 	<p style="text-align:center">Or connect with Facebook, Twitter or Google+:</p>
