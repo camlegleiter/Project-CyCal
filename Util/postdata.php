@@ -236,7 +236,7 @@ else if ($action == "get")
 	mysql_free_result($rssCheck);
 	successMessage(print_r($rows,true));
 }
-else if (action == "settheme")
+else if ($action == "settheme")
 {
 	if(count($rss) != 1){
 		errorMessage("1 RSS feed must be given.");
@@ -247,11 +247,11 @@ else if (action == "settheme")
 	if ($themeid == -1)
 	{
 		mysql_query("UPDATE panel SET themeid='-1' WHERE userid='$userid' AND rss='$feed'");
-		successMessage("");
+		mysql_query("DELETE FROM theme WHERE userid='$userid' AND rss='$feed'");
+		successMessage("reset theme");
 	}
 	else
 	{
-		//Nope. Chuck Testa (For now)
 		$fontname = mysql_real_escape_string($_POST['fontname']);
 		$fontsize = mysql_real_escape_string($_POST['fontsize']);
 		$fontcolor = mysql_real_escape_string($_POST['fontcolor']);
@@ -274,14 +274,21 @@ else if (action == "settheme")
 			$name = "";
 		}
 		
-		if (!mysql_query("UPDATE theme SET fontname='$fontname',fontsize='$fontsize',fontcolor='$fontcolor',backcolor='$backcolor',name='$name' WHERE userid='$userid' AND rss='$feed'"))
+		mysql_query("UPDATE panel SET themeid='1' WHERE userid='$userid' AND rss='$feed'");
+		//if (mysql_affected_rows() == 0)
+		//	errorMessage("Failed to update theme for: ".$rss[0]." (Error: 0)");
+			
+		mysql_query("UPDATE theme SET fontname='$fontname',fontsize='$fontsize',fontcolor='$fontcolor',backcolor='$backcolor',name='$name' WHERE userid='$userid' AND rss='$feed'");
+		if (mysql_affected_rows() == 0)
 		{
-			if (!mysql_query("INSERT INTO theme (userid,rss,fontname,fontsize,fontcolor,backcolor,name) VALUES ('$userid','$feed','$fontname','$fontsize','$fontcolor','$backcolor','$name')"))
+			mysql_query("INSERT INTO theme (userid,rss,fontname,fontsize,fontcolor,backcolor,name) VALUES ('$userid','$feed','$fontname','$fontsize','$fontcolor','$backcolor','$name')");
+			if (mysql_affected_rows() == 0)
 			{
-				errorMessage("Failed to update theme for: ".$rss[0]);
+				errorMessage("Failed to update theme for: ".$rss[0]." (Error: 1)");
 			}
+			successMessage("inserted new theme");
 		}
-		successMessage("");
+		successMessage("updated new theme");
 	}
 }
 else
